@@ -10,7 +10,10 @@ function createChecksum(merchantId: FormDataEntryValue, transactionId: FormDataE
 }
 
 export async function POST(req: NextRequest) {
-  const origin = req.url?.split("?")[1]?.split("=")[1];
+  // const origin = req.url?.split("?")[1]?.split("=")[1];
+  const origin = process.env.NODE_ENV == "development" ? "http://localhost:3000" : 
+  "https://ignoux.in"
+  
   try {
     const data = await req.formData();
     const merchantId = data.get("merchantId") as string;
