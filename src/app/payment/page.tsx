@@ -3,7 +3,10 @@ import { redirect } from 'next/navigation'
 // eslint-disable-next-line 
 const page = (props:any) => {
 console.log(props.searchParams)
- return redirect(decodeURIComponent(props?.searchParams?.url))
+ 
+ return <div className='flex items-center justify-center h-screen'>
+    <button onClick={()=> redirect(decodeURIComponent(props?.searchParams?.url))}>Proceed for Payment</button>
+ </div>
 }
 
 export default page
