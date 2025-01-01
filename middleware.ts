@@ -26,7 +26,7 @@ export default auth(async (req) => {
   const user = await getToken({ req, secret: process.env.NEXTAUTH_SECRET, raw: false, cookieName: "authjs.session-token-86768" });
   const isLogged = !!user;
   const authRoute = '/auth';
-
+console.log(user)
   // Redirect to '/products' if accessing '/product'
   if (pathname === "/product") {
     return NextResponse.redirect(new URL('/products', req.url));
