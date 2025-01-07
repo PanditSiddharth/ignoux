@@ -5,18 +5,21 @@ import { IUser, UserModel } from "@/modals/user.model"
 import { randomUUID } from "crypto"
 import { AnalyticsModel, IAnalytics } from "@/modals/analytics.model";
 import { ProductModel } from "@/modals/product.model";
+import { err, userFilter } from "@/helpers";
 
-export const isExistingUser = async (email: string) => {
+const getQuery = (id: string) => id.startsWith("@") ? { username: id.slice(1) } :
+    (id.includes("@") ? { email: id } : { _id: id })
+
+export const checkExistingUser = async (id: string) => {
     try {
         await connectDB()
-        const user = await UserModel.findOne({ email })
-        if (user) {
-            return user
-        }
+        const user = await UserModel.findOne(getQuery(id))
+        if (user)
+            return userFilter(user)
+
         return false
     } catch (error) {
-        console.error("Error checking user", error);
-        return false
+        return err("Error checking user " + error, undefined, { ret: false });
     }
 }
 
@@ -24,24 +27,29 @@ export const createUser = async (user: Partial<IUser>) => {
     try {
         await connectDB()
         const randomId = randomUUID().split("-")[1]
-        const userId = user.userId ? user.userId : randomId
-        const username = user.username ? user.username : userId
-        const analyticss = JSON.parse(JSON.stringify(await AnalyticsModel.create({ userId })))
-
-        const newUser = await UserModel.create({ ...user, userId, username, analytics: analyticss._id })
-        return newUser
+        const username = user.username ? user.username : randomId
+        const newUser = await UserModel.create({ ...user, username })
+        return userFilter(newUser)
     } catch (error) {
-        console.error("Error creating user", error);
-        return false
+        return err("Error creating user " + error, undefined, { ret: false });
     }
 }
-export const deleteUser = async () => {
+
+export const deleteUser = async (id: string) => {
     try {
         await connectDB()
         const user = await getSessionUser()
+        const query = getQuery(id)
+        const key = Object.keys(query)[0]
+
+        if (!user)
+            return { error: "Not logged in" }
+
+        if (user.role != "admin" || user[key as "email" | "_id" | "username"] != query[key as "email" | "_id" | "username"])
+            return { error: "Unauthorized user" }
+
         if (user) {
-            await AnalyticsModel.deleteOne({ userId: user?.userId })
-            await UserModel.deleteOne({ _id: user._id })
+            await UserModel.deleteOne(query)
             return { success: true }
         } else {
             return { error: "Not logged in" }
@@ -49,21 +57,6 @@ export const deleteUser = async () => {
     } catch (error) {
         console.error("Error creating user", error);
         return { error: (error as { message: string }).message }
-    }
-}
-
-export const getUserByEmail = async (email: string) => {
-    try {
-        await connectDB()
-        const user = await UserModel.findOne({ email })
-
-        if (user) {
-            return JSON.parse(JSON.stringify(user))
-        }
-        return null
-    } catch (error) {
-        console.error("Error getting user", error);
-        return null
     }
 }
 
@@ -76,17 +69,25 @@ export const getSessionUser = async () => {
 }
 
 export const updateUser = async (user: Partial<IUser>) => {
-    const session = await auth()
-    if (!session) {
-        return { error: "Not logged in" }
-    }
-
     try {
+        const sUser = await getSessionUser()
+        let query = {} as any
+        if (!sUser)
+            return { error: "Not logged in" }
+        if(user.role == "admin"){
+            if(user?.email) query = { email: user.email };
+            else if(user._id) query = { _id: user._id };
+            else return {error: "Provide email or _id"}
+        } else {
+            query = { email: sUser.email }
+        }
+
         await connectDB()
-        const updatedUser = await UserModel.findOneAndUpdate({ email: user.email }, user, { new: true })
+
+        const updatedUser = await UserModel.findOneAndUpdate(query, user, { new: true })
         if (!updateUser)
             return { error: "User not found" }
-        return JSON.parse(JSON.stringify(updatedUser)) as IUser
+        return userFilter(updatedUser)
     } catch (error) {
         console.error("Error updating user", error);
         return { error: (error as { message: string }).message }
@@ -189,12 +190,12 @@ export async function getUsersFromServer(skipPageData: SkipPageDataProp): Promis
                 .skip(skipPageData.skip).limit(skipPageData.postsPerPage);
         }
 
-     
+
         users = await Promise.all(users.map(async user => {
             user._doc.products = await ProductModel.countDocuments({ seller: user._id })
             user._doc.analytics = user?.analytics?._doc
 
-            if(currentUser?.role != "admin"){
+            if (currentUser?.role != "admin") {
                 user._doc.phone = undefined
                 user._doc.email = undefined
                 user._doc.ifsc = undefined
@@ -219,17 +220,17 @@ export const updateUserAnalytics = async (userId: string, data: Partial<IAnalyti
     try {
         const user = await getSessionUser()
 
-        if(!user || user?.role != "admin")
+        if (!user || user?.role != "admin")
             return { error: "Unauthorized user or not logged in" }
 
         await connectDB()
-        const updated = await AnalyticsModel.updateOne({userId}, data)
-        if(updated.modifiedCount == 0)
-            return {error: "Something went wrong in updating users data"}
-        return {success: true}
+        const updated = await AnalyticsModel.updateOne({ userId }, data)
+        if (updated.modifiedCount == 0)
+            return { error: "Something went wrong in updating users data" }
+        return { success: true }
     } catch (error) {
         console.error(error)
-        return {error: (error as {message: string}).message}
+        return { error: (error as { message: string }).message }
     }
 }
 

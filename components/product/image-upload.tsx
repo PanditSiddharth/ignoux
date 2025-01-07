@@ -17,10 +17,22 @@ export const ImageUpload = ({ onChange, img_src }: ImageUploadProps) => {
   return (
     <CldUploadButton
       className="w-full h-full"
-      uploadPreset="myecom"
-      options={{ maxFiles: 1 , croppingAspectRatio: 1, cropping: true}}
+      uploadPreset="sidssite"
+    
+      options={{
+        maxFiles: 1,
+        cropping: true,
+        croppingAspectRatio: 16 / 9,
+        croppingCoordinatesMode: 'custom',
+        croppingDefaultSelectionRatio: 16 / 9,
+        croppingShowDimensions: true,
+        croppingValidateDimensions: true,
+        multiple: false,
+      }}
+      onDisplayChangedAction={console.log} onDisplayChanged={console.warn}
       onSuccess={(value: unknown) => {
         const response = value as CloudinaryUploadResponse
+        console.log(response)
         onChange(response.info.secure_url)
       }}
     >

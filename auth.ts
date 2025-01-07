@@ -1,22 +1,14 @@
 /* eslint-disable */
-import NextAuth, { Session, User } from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import auth_config from "./auth_config";
-import { createUser, getSessionUser, isExistingUser } from "@/server-functions/user";
+import { createUser, getSessionUser, checkExistingUser } from "@/server-functions/user";
 import { IUser } from "@/modals/user.model";
+import { userFilter } from "./helpers";
 
 declare module 'next-auth' {
   interface Session {
-    user: IUser & { emailVerified?: Date },
+    user: IUser,
     token: IUser
-  }
-
-  interface User extends IUser {
-    emailVerified?: Date;
-  }
-
-  interface JWT extends IUser {
-    emailVerified?: Date;
-
   }
 }
 
@@ -32,28 +24,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!user || !user.email) {
         return false;
       }
-      const existingUser = await isExistingUser(user.email);
-      if (!existingUser && user.email && user.name) {
-
+      const existingUser = await checkExistingUser(user.email);
+      if (!existingUser && user.name) {
         const newUser = await createUser({
           email: user.email,
           name: user.name,
           image: user.image || "",
         });
-        user.image = newUser.image;
-        user._id = newUser._id;
-        user.username = newUser.username;
-        user.role = newUser.role;
-        user.userId = newUser.userId;
-        
+        if (typeof newUser != "boolean")
+        user = {...user, ...userFilter(newUser)};
+
       } else if (existingUser) {
-        user._id = existingUser._id;
-        user.username = existingUser.username;
-        user.role = existingUser.role;
-        user.userId = existingUser.userId;
-        user.image = existingUser.image;
-        user.about = existingUser.about;
-        user.phone = existingUser.phone;
+        user = {...user, ...userFilter(existingUser)};
       }
       return true;
     },
@@ -61,58 +43,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, trigger, session }) {
       if (trigger === 'update' && session?.user) {
         const sessionUser = await getSessionUser()
-        if (!sessionUser) {
+        if (!sessionUser) 
           return token;
-        }
-        const existingUser = await isExistingUser(sessionUser.email);
-
-        if (existingUser) {
-          token._id = existingUser._id;
-          token.userId = existingUser.userId;
-          token.username = existingUser.username;
-          token.email = existingUser.email;
-          token.role = existingUser.role;
-          token.image = existingUser.image;
-          token.about = existingUser.about;
-          token.phone = existingUser.phone;
-        }
+        
+        const existingUser = await checkExistingUser(sessionUser.email);
+        if (existingUser) 
+          return userFilter(existingUser);
       }
 
-      if (user) {
-        token._id = user._id || "";
-        token.userId = user.userId || "";
-        token.username = user.username || "";
-        token.email = user.email || "";
-        token.role = user.role || "student";
-        token.image = user.image || "";
-        token.about = user.about || "";
-        token.phone = user.phone || "";
-      }
-
+      if (user) 
+        return userFilter(user);
       return token;
     },
     // Disable type checking issues here
     async session({ session, token }) {
       if (session?.user) {
-        (session.user as Partial<User>) = {
-          _id: token._id,
-          name: token.name,
-          userId: token.userId,
-          username: token.username,
-          email: token.email,
-          role: token.role as "student",
-          image: token.image,
-          about: token.about,
-          phone: token.phone,
-          emailVerified: new Date(), // Assuming emailVerified is always set
-        } as Partial<User>;
+        session.user = {...session.user, ...userFilter(token)}
       }
-
       return session as Session; // Ensure we always return session
     }
-
   },
-
   ...auth_config,
 });
 /* eslint-enable */

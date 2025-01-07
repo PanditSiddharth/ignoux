@@ -14,36 +14,28 @@ export function getId() {
     return result;
 }
 
-export interface IUser{
-    userId: string;
-    _id: string;
+export interface IUser {
+    _id?: string;
     about?: string;
-    username: string;
-    analytics?: IAnalytics | string,
+    username?: string;
     name: string;
     email: string;
+    password?: string;
     phone?: number;
     image?: string;
-    role?: "student" | "seller" | "admin";
-    account?: string;
-    ifsc?: string;
-    isVerified?: boolean;
+    role?: "student" | "admin";
     createdOn?: Date;
 }
 
 export const UserSchema = new Schema<IUser>({
-    userId: { type: String, required: true, unique: true, default: getId() },
-    username: { type: String, required: true, unique: true, default: getId() },
-    analytics: { type: Schema.Types.ObjectId, ref: AnalyticsModel, required: true },
+    username: { type: String, unique: true, default: getId() },
     name: { type: String, required: true },
+    password: { type: String },
     about: { type: String, required: false },
     phone: { type: Number, required: false },
     email: { type: String, required: true },
     role: { type: String, default: "student" },
     image: { type: String, default: "" },
-    account: { type: String, default: "" },
-    ifsc: { type: String, default: "" },
-    isVerified: { type: Boolean, default: false },
     createdOn: { type: Date, default: Date.now }
 })
 

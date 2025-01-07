@@ -7,10 +7,7 @@ import { Button } from '@/components/ui/button';
 import { sendMail } from '@/server-functions/mailer';
 import { toast } from 'react-toastify';
 
-// eslint-disable-next-line 
 const Email = () => {
-
-
   // eslint-disable-next-line
   const [content, setContent] = useState('<p>Write Email</p><br><br><br><p><sub style="font-family: Georgia, Palatino, serif; color: rgb(0, 0, 255);">By Educational E-content Marketplace</sub></p>');
   const [email, setEmail] = useState("");
@@ -53,9 +50,6 @@ const Email = () => {
         <h2 className="text-lg font-semibold mb-2">Editor</h2>
         <Card >
           <div className='text-black dark:bg-gray-900'
-
-         
-
           />
         </Card>
       </div>

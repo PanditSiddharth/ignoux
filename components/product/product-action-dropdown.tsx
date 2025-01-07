@@ -38,7 +38,7 @@ export default function ProductActionDropdown({ product, username, options }: { 
                         <span>View Product</span>
                     </DropdownMenuItem>
                 </Link>
-                {product?.fileLink && !options.boughtProducts && <Link href={`/${username}/products/edit/${product._id}`}>
+                {product?.fileLink && !options.boughtProducts && <Link href={`/${username}/products/edit/${product.slug}`}>
                     <DropdownMenuItem >
                         <Pencil className="mr-2 h-4 w-4" />
                         <span>Edit</span>
@@ -56,7 +56,7 @@ export default function ProductActionDropdown({ product, username, options }: { 
                     </DropdownMenuItem>
                 }
 
-                {(user && (user?.role === "admin" || product.seller == user._id)) && !options.boughtProducts && <DropdownMenuItem asChild>
+                {(user && (user?.role === "admin" )) && !options.boughtProducts && <DropdownMenuItem asChild>
                     <div onClick={() => {
                         confirmDelete(product)
                     }} className="flex items-center text-red-600 hover:text-red-800">

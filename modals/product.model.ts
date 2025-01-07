@@ -1,8 +1,7 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { UserModel } from "./user.model";
-import { categoriesObject } from "./data";
+import mongoose, { Schema } from "mongoose";
 
-export interface IProduct extends Document{
+export interface IProduct{
+    _id?: string;
     slug?: string;
     name: string;
     price: number;
@@ -10,16 +9,9 @@ export interface IProduct extends Document{
     thumbnail: string;
     tags: string[];
     fileLink?: string;
-    createdOn?: Date;
-    category?: keyof typeof categoriesObject;
-    seller?: Schema.Types.ObjectId | string;
+    publishedAt?: Date;
 }
 export const ProductSchema = new Schema<IProduct>({
-    seller: {
-        type: Schema.Types.ObjectId,
-        ref: UserModel,
-        required: true,
-    },
     slug: {
         type: String, 
         // default: getId()
@@ -46,10 +38,7 @@ export const ProductSchema = new Schema<IProduct>({
         type: String,
         required: true,
     },
-    category: {
-        type: String
-    },
-    createdOn: {
+    publishedAt: {
         type: Date,
         default: Date.now,
     }

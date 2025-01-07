@@ -1,9 +1,10 @@
 
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { IProduct, ProductModel } from "./product.model";
 import { IUser, UserModel } from "./user.model";
 
-export interface IReview extends Document{
+export interface IReview {
+    _id?: string;
     user: IUser | string,
     product: IProduct | string,
     rating: number;

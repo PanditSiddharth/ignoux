@@ -4,12 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { IProduct } from "@/modals/product.model";
 import Image from "next/image";
 import { deleteProduct } from "@/server-functions/product";
-import { categoriesObject } from "@/modals/data";
 
 
     const handleDelete = async (product: IProduct) => {
         try {
-            const res = await deleteProduct(product._id + "");
+            const res = await deleteProduct(product.slug + "");
             if(res.error){
                return toast.error("Failed to delete the product", {
                     className: "bg-red-500 text-white font-semibold p-4 rounded-lg shadow-md",
@@ -49,12 +48,11 @@ if(!product)
                             />
                             <div>
                                 <h4 className="font-medium">{product.name}</h4>
-                                <small className="text-gray-500">ID: {product._id + ""}</small>
+                                <small className="text-gray-500">ID: {product.slug + ""}</small>
                             </div>
                         </div>
                         <p className="text-sm"><strong>Price:</strong> ${product.price}</p>
                         <p className="text-sm"><strong>Description:</strong> {product?.description?.substring(0, 100)}</p>
-                        <p className="text-sm"><strong>Category:</strong> {product.category ? categoriesObject[product.category as "ssc"] : 'N/A'}</p>
                         <p className="text-sm mt-2"><strong>Tags:</strong> {product.tags.map(tag => (
                             <span key={tag} className="mr-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-lg">{tag}</span>
                         ))}</p>

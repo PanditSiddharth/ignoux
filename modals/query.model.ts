@@ -1,6 +1,7 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-export interface IQuery extends Document {
+export interface IQuery {
+    _id?: string;
     name: string;
     description: string;
     email: string;

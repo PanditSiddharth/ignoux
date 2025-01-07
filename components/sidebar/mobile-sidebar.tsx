@@ -6,9 +6,15 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { MenuIcon } from "lucide-react"
+import { MenuIcon, User } from "lucide-react"
 import Sidebar from "./sidebar"
-
+const routes = [
+    {
+        label: "Courses",
+        icon: User,
+        route: `/courses`
+    },
+]
 export function ProfileMobileSidebar() {
     return (
         <Sheet>
@@ -20,7 +26,7 @@ export function ProfileMobileSidebar() {
                     <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
                 <div className="h-full">
-                    <Sidebar  />
+                    <Sidebar routes={routes} />
                 </div>
             </SheetContent>
         </Sheet>

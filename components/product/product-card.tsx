@@ -1,5 +1,5 @@
 "use client"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card,  CardFooter, CardHeader } from "@/components/ui/card"
 import Image from "next/image"
 import { IndianRupee } from "lucide-react"
 import { IProduct } from "@/modals/product.model"
@@ -8,7 +8,6 @@ import ProductShareAction from "./product-share-action"
 import Link from "next/link"
 import { ProductOptions } from "@/types"
 import clsx from "clsx"
-import { categoriesObject } from "@/modals/data"
 
 
 const ProductCard = ({ product, username, options }: { product: IProduct, username?: string, options: ProductOptions }) => {
@@ -40,14 +39,6 @@ const ProductCard = ({ product, username, options }: { product: IProduct, userna
             </Link>
         </CardHeader>
         <div className="h-full w-full flex flex-col justify-between">
-            <Link href={`/product/${product.slug}`}>
-                <CardContent className="px-4 py-2">
-                    <CardTitle className="min-h-5 line-clamp-2">{product.name}</CardTitle>
-                    <CardDescription className="text-xs">
-                        {product?.category ? categoriesObject[product.category as "ssc"] as string : "No category"}
-                    </CardDescription>
-                </CardContent>
-            </Link>
 
             <CardFooter className="flex justify-between items-center py-1 px-2 min-h-4 bg-slate-50 dark:bg-primary/10">
                 <Link href={`/product/${product.slug}`}>

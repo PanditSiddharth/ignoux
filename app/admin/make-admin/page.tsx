@@ -8,14 +8,14 @@ import { Label } from '@/components/ui/label';
 import { admincongrates } from '@/modals/data';
 import { IUser } from '@/modals/user.model';
 import { sendMail } from '@/server-functions/mailer';
-import { getUserByEmail, updateUser } from '@/server-functions/user';
+import { checkExistingUser, updateUser } from '@/server-functions/user';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const AdminConversionPage = () => {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
-    const [verifyResponse, setVerifyResponse] = useState<IUser>()
+    const [verifyResponse, setVerifyResponse] = useState<Partial<IUser>>()
     const handleSubmit = async (e: React.FormEvent) => {
         if (!verifyResponse)
             return toast.info("Please verify first and write only registered users(as seller) email")
@@ -28,10 +28,10 @@ const AdminConversionPage = () => {
             if( (user as {error: string})?.error)
                 return toast.error((user as {error: string})?.error)
 
-            const admind = admincongrates(verifyResponse?.name)
+            const admind = admincongrates(verifyResponse?.name + "")
            
             const mail = await sendMail({
-                email: verifyResponse.email,
+                email: verifyResponse.email + "",
                 subject: "Congratulations to become site admin",
                 message: admind
             })
@@ -51,12 +51,12 @@ const AdminConversionPage = () => {
 
     const handleVerify = async (e: React.FormEvent) => {
         e.preventDefault();
-        const data = await getUserByEmail(email)
+        const data = await checkExistingUser(email)
         if (!data) {
             toast.error('User not found');
             return
-        }
-        setVerifyResponse(data)
+        } else if (typeof data !== "boolean") 
+           setVerifyResponse(data)
     }
 
     return (

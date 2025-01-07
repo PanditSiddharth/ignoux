@@ -11,7 +11,7 @@ export default {
                 sameSite: "lax",
                 path: "/",
                 secure: true,
-                domain: "." + process.env.DOMAIN?.replace(/(https|http)\:\/\//, "")
+                domain:  process.env.NODE_ENV === "production" ? ".ignoux.in" : undefined,
             }
         }
     },
