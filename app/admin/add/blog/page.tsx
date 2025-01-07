@@ -29,7 +29,7 @@ const AddBlog = () => {
   console.log(IBlog)
   const form = useForm<z.infer<typeof ZodBlogSchema>>({
     resolver: zodResolver(ZodBlogSchema),
-    defaultValues: getBlogDefaults({}) as any || {}) as any
+    defaultValues: getBlogDefaults({})
   });
 
   useEffect(() => {
