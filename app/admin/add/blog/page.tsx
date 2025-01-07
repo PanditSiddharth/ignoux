@@ -22,14 +22,14 @@ import { blogFilter } from '@/helpers';
 
 
 // when editing intial value requires
-const AddBlog = ({ initialValue }: {initialValue?: Partial<IBlog>}) => {
+const AddBlog = () => {
   const [tagInput, setTagInput] = useState('')
   // const { blogIds, setBlogIds } = useBlogIds()
   const { toast } = useToast()
-
+  console.log(IBlog)
   const form = useForm<z.infer<typeof ZodBlogSchema>>({
     resolver: zodResolver(ZodBlogSchema),
-    defaultValues: getBlogDefaults(blogFilter(initialValue as any || {}) as any || {}) as any
+    defaultValues: getBlogDefaults({}) as any || {}) as any
   });
 
   useEffect(() => {
