@@ -32,7 +32,7 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
       tags: initialValue?.tags || [],
       thumbnail: initialValue?.thumbnail || "",
       fileLink: initialValue?.fileLink || "",
-      createdOn: initialValue?.createdOn || new Date(),
+      createdOn: initialValue?.publishedAt || new Date(),
       slug: initialValue?.slug
     }
   });

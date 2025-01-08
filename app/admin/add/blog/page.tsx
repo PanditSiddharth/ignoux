@@ -13,11 +13,9 @@ import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { addOrUpdateBlog } from '@/server-functions/blog';
 import { MyField } from '../myField';
-import { IBlog } from '@/modals/blog.model';
 
 import MyEditor from '../editor';
 import { getBlogDefaults } from '../helpers';
-import { blogFilter } from '@/helpers';
 // import { useBlogIds } from '@/store';
 
 
@@ -26,7 +24,7 @@ const AddBlog = () => {
   const [tagInput, setTagInput] = useState('')
   // const { blogIds, setBlogIds } = useBlogIds()
   const { toast } = useToast()
-  console.log(IBlog)
+
   const form = useForm<z.infer<typeof ZodBlogSchema>>({
     resolver: zodResolver(ZodBlogSchema),
     defaultValues: getBlogDefaults({})
@@ -36,7 +34,7 @@ const AddBlog = () => {
     if (Object.keys(form.formState.errors).length != 0) {
       toast({
         title: "Error !",
-        description: Object.values(form.formState.errors).map(err => err.message).join(", "),
+        description: Object.values(form.formState.errors).map((err) => err.message).join(", "),
         variant: "destructive",
         duration: 2000
       })

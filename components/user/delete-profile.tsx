@@ -48,7 +48,7 @@ const HandleDeleteAccount = ({ user, openedDelete, setOpenedDelete }: {
                     className="bg-red-600 text-white px-4 py-1.5 rounded-lg font-semibold hover:bg-red-700"
                     disabled={input != "@" + user.username}
                     onClick={() => {
-                        deleteUser().then((res) => {
+                        deleteUser(user._id!).then((res) => {
                             if (res?.success) {
                                 toast.success("Account deleted successfully")
                             
