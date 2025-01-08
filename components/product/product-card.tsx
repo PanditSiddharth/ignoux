@@ -10,8 +10,7 @@ import { ProductOptions } from "@/types"
 import clsx from "clsx"
 
 
-const ProductCard = ({ product, username, options }: { product: IProduct, username?: string, options: ProductOptions }) => {
-
+const ProductCard = ({ product, username, options }: { product: Partial<IProduct>, username?: string, options: ProductOptions }) => {
     if (!product) {
         return <div>Faltu ka call kiu kar raha</div>;
     }
@@ -30,8 +29,8 @@ const ProductCard = ({ product, username, options }: { product: IProduct, userna
                 )}
             >
                 <Image
-                    src={product.thumbnail}
-                    alt={product.name}
+                    src={product.thumbnail!}
+                    alt={product.title! || "no title"}
                     layout="fill"
                     objectFit="cover"
                     className=""

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { deleteProduct } from "@/server-functions/product";
 
 
-    const handleDelete = async (product: IProduct) => {
+    const handleDelete = async (product: Partial<IProduct>) => {
         try {
             const res = await deleteProduct(product.slug + "");
             if(res.error){
@@ -27,7 +27,7 @@ import { deleteProduct } from "@/server-functions/product";
         }
     };
 
- export const confirmDelete = (product: IProduct) => {
+ export const confirmDelete = (product: Partial<IProduct>) => {
 if(!product)
     return null
         toast(
@@ -40,20 +40,20 @@ if(!product)
                     <div className="border-t border-gray-200 pt-4">
                         <div className="flex items-center gap-4 mb-4">
                             <Image
-                                src={product.thumbnail}
-                                alt={product.name}
+                                src={product.thumbnail!}
+                                alt={product.title!}
                                 width={80}
                                 height={80}
                                 className="rounded-md object-cover border"
                             />
                             <div>
-                                <h4 className="font-medium">{product.name}</h4>
+                                <h4 className="font-medium">{product.title}</h4>
                                 <small className="text-gray-500">ID: {product.slug + ""}</small>
                             </div>
                         </div>
                         <p className="text-sm"><strong>Price:</strong> ${product.price}</p>
                         <p className="text-sm"><strong>Description:</strong> {product?.description?.substring(0, 100)}</p>
-                        <p className="text-sm mt-2"><strong>Tags:</strong> {product.tags.map(tag => (
+                        <p className="text-sm mt-2"><strong>Tags:</strong> {product?.tags?.map(tag => (
                             <span key={tag} className="mr-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-lg">{tag}</span>
                         ))}</p>
                     </div>

@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/sidebar/sidebar";
 import { ReactNode } from "react";
-import { LineChart, Package, Plus, Settings, User, PanelTopIcon } from "lucide-react";
+import { LineChart, Package, Plus, Settings, PanelTopIcon } from "lucide-react";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function ProfileLayout({ children }: { children: ReactNode }) {
     const [isMounted, setIsMounted] = useState(false);
@@ -19,29 +20,14 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
             route: `/admin`,
         },
         {
-            label: "Users",
-            icon: User,
-            route: `/admin/users`,
-        },
-        {
-            label: "Products",
+            label: "View",
             icon: Package,
-            route: `/admin/products`,
-        },
-        {
-            label: "Blogs",
-            icon: Package,
-            route: `/admin/blogs`,
-        },
-        {
-            label: "Courses",
-            icon: Package,
-            route: `/admin/blogs`,
+            route: `/admin/courses`,
         },
         {
             label: "Add",
             icon: Plus,
-            route: `/admin/add`,
+            route: `/admin/add-blog`,
         },
         {
             label: "Analytics",
@@ -75,6 +61,10 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
                     <Sidebar routes={routes} />
                 </div>
             </div>
+                  <div className="fixed bottom-1 lg:left-74">
+                           <ModeToggle />
+                       </div>
+
             <div className="lg:pl-72 w-full">{children}</div>
        
        </div>

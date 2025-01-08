@@ -7,7 +7,7 @@
     "wdev": "next dev",
     "build": "next build",
     "start": "next start",
-    "type": "tsc --noEmit",
+    "type": "npx tsc --noEmit --exclude .next",
     "lint": "next lint"
   },
   "dependencies": {

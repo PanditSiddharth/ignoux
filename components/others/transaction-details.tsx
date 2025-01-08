@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { downloadLink } from "../product/download-product";
 
 // eslint-disable-next-line 
-export const showTransactionDetails = (transaction: IProduct & { transactionId?: string } | null,
+export const showTransactionDetails = (transaction: Partial<IProduct> & { transactionId?: string } | null,
   pathname: string
 ) => {
   if (!transaction) return;
@@ -19,7 +19,7 @@ export const showTransactionDetails = (transaction: IProduct & { transactionId?:
       </p>
       <div className="border-t border-gray-200 pt-4">
         <p className="text-sm">
-          <strong>Name :</strong> {transaction?.name}
+          <strong>Title :</strong> {transaction?.title}
         </p>
         <p className="text-sm">
           <strong>Transaction ID:</strong><br/> {transaction.transactionId}

@@ -26,7 +26,7 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
     resolver: zodResolver(ZodProductScema),
     defaultValues: {
       _id: initialValue?._id,
-      name: initialValue?.name || "",
+      title: initialValue?.title || "",
       description: initialValue?.description || "",
       price: initialValue?.price,
       tags: initialValue?.tags || [],
@@ -132,7 +132,7 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
             />
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Product Name</FormLabel>

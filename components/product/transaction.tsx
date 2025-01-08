@@ -23,13 +23,13 @@ import { downloadLink } from "./download-product";
                         <div className="flex items-center gap-4 mb-4">
                             <Image
                                 src={product.thumbnail}
-                                alt={product.name}
+                                alt={product.title}
                                 width={80}
                                 height={80}
                                 className="rounded-md object-cover border"
                             />
                             <div>
-                                <h4 className="font-medium">{product.name}</h4>
+                                <h4 className="font-medium">{product.title}</h4>
                                 <small className="text-gray-500">ID: {product._id + ""}</small>
                             </div>
                         </div>

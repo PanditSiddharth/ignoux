@@ -1,6 +1,6 @@
 "use client"
 import { useForm } from 'react-hook-form';
-import { ZodProductScema } from '@/modals/zod';
+import { ZodBlogSchema } from '@/modals/zod';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
@@ -8,33 +8,37 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { ImageUpload } from '@/components/product/image-upload';
-import { FileUpload } from '@/components/product/file-upload';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { IProduct } from '@/modals/product.model';
-import { addOrUpdateProduct } from '@/server-functions/product';
+// import { addOrUpdateBlog } from '@/server-functions/blog';
 import { MyField } from '../myField';
-import { getProductDefault } from '../helpers';
-// import { useProductIds } from '@/store';
-interface IProductForm {
-  initialValue?: IProduct
-}
-const AddProductForm = ({ initialValue }: IProductForm) => {
-  const [tagInput, setTagInput] = useState('')
-  // const { productIds, setProductIds } = useProductIds()
-  const { toast } = useToast()
 
-  const form = useForm<z.infer<typeof ZodProductScema>>({
-    resolver: zodResolver(ZodProductScema),
-    defaultValues: getProductDefault(initialValue)
+import MyEditor from '../editor';
+import { getBlogDefaults } from '../helpers';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { blogFilter } from '@/helpers';
+import { useAddProducts } from '@/store';
+import { useSession } from 'next-auth/react';
+// import { useBlogIds } from '@/store';
+
+// when editing intial value requires
+const AddBlog = () => {
+  const [tagInput, setTagInput] = useState('')
+  // const { blogIds, setBlogIds } = useBlogIds()
+  const { toast } = useToast()
+const { productAdds} = useAddProducts()
+const { data: session } = useSession()
+  const form = useForm<z.infer<typeof ZodBlogSchema>>({
+    resolver: zodResolver(ZodBlogSchema),
+    defaultValues: getBlogDefaults({})
   });
 
   useEffect(() => {
     if (Object.keys(form.formState.errors).length != 0) {
       toast({
         title: "Error !",
-        description: Object.values(form.formState.errors).map(err => err.message).join(", "),
+        description: Object.values(form.formState.errors).map((err) => err.message).join(", "),
         variant: "destructive",
         duration: 2000
       })
@@ -42,31 +46,27 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
     // eslint-disable-next-line
   }, [form.formState.errors])
 
-  const onSubmit = async (data: z.infer<typeof ZodProductScema>) => {
+  const onSubmit = async (data: z.infer<typeof ZodBlogSchema>) => {
 
     if (!data.slug || !/^(?!-)(?!.*--)[a-z0-9-]+(?<!-)$/.test(data.slug)) {
       return form.setError("slug", { message: "Only letters, - and numbers are allowed" });
     }
-
-    const isAdded = await addOrUpdateProduct(data)
-
-    if (isAdded?.success) {
+   console.log(blogFilter({...data, products: productAdds, auther: session?.user?._id}))
+    // const isAdded = await addOrUpdateBlog(data)
+    // if ("error" in isAdded)
+    //   return toast({
+    //     title: "Error !",
+    //     description: isAdded.error,
+    //     variant: "destructive",
+    //     duration: 5000
+    //   })
+   
       toast({
-        title: isAdded?.productAdded ? "Product Added" : "Product Updated",
-        description: `Product has been ${isAdded?.productAdded ? "added" : "updated"} successfully`,
+        title: "Blog Updated",
+        description: `Blog has been updated successfully`,
         duration: 5000
       })
 
-    }
-    else {
-      toast({
-        title: "Error !",
-        description: isAdded?.error,
-        variant: "destructive",
-        duration: 5000
-      })
-
-    }
   }
 
   const addTag = () => {
@@ -81,17 +81,13 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
     form.setValue('tags', newTags)
   }
 
-
-
-
-
   return (
 
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='w-full p-4 max-w-4xl mx-auto'>
         <Card>
           <CardHeader>
-            <CardTitle>Add Product</CardTitle>
+            <CardTitle>Add Blog</CardTitle>
           </CardHeader>
           <CardContent className='flex-1 grid md:grid-cols-2 grid-cols-1 w-full  justify-center gap-2'>
             <MyField
@@ -102,38 +98,44 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
 
             <MyField
               form={form}
-              name="fileLink"
-              input={(field) => <FileUpload onChange={field.onChange} value={initialValue?.fileLink + ""} />}
-            />
+              name="title"
+              label="Blog Title"
+              placeholder="Enter Blog Title"
+              description="Add a Title for your blog" />
 
             <MyField
               form={form}
-              name="name"
-              label="Product Name"
-              placeholder="Enter Product Name"
-              description="Add a name for your product" />
-
-            <MyField
-              form={form}
-              name="price"
-              label="Product Price"
-              placeholder="Enter Product Price"
-              description="Add a price for your product"
-              input={(field) => <Input type='number' onChange={(e) => field.onChange(Number(e.target.value))} placeholder='Enter Product Price' value={field.value || 0} />}
+              name="status"
+              label="Blog Status"
+              placeholder="Select Blog Status"
+              description="Select your blog status"
+              input={
+                (field) => <Select defaultValue={field.value} onValueChange={field.onChange}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Publish.." />
+                </SelectTrigger>
+                <SelectContent >
+                  <SelectItem value="private">Private</SelectItem>
+                  <SelectItem value="free">Free</SelectItem>
+                  <SelectItem value="paid">Paid</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              }
             />
 
             <MyField
               form={form}
               name="slug"
-              label="Product Slug"
-              placeholder="Enter Product Slug"
-              description="Slug will create product link" />
+              label="Blog Slug"
+              placeholder="Enter Blog Slug"
+              description="Slug will create blog link" />
 
             <MyField
               form={form}
               name="tags"
-              label="Product Tags"
-              placeholder="Enter Product Tags"
+              label="Blog Tags"
+              placeholder="Enter Blog Tags"
               description="Press Enter or click Add to add a tag"
               input={(field) => <div className="flex flex-wrap gap-2">
                 {field.value.map((tag: string, index: number) => (
@@ -159,16 +161,23 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
             <MyField
               form={form}
               name="description"
-              label="Product Description"
-              placeholder="Enter Product Description"
-              description="Describe your product"
-              input={(field) => <Textarea rows={4} className='resize-none' placeholder='Enter Product Description' {...field} />}
+              label="Blog Description"
+              placeholder="Enter Blog Description"
+              description="Describe your blog"
+              input={(field) => <Textarea rows={4} className='resize-none' placeholder='Enter Blog Description' {...field} />}
+            />
+
+            <MyField
+              form={form}
+              className='col-span-2 h-full flex'
+              name="content"
+              input={(field) => <MyEditor onChange={field.onChange} value={field?.value} />}
             />
           </CardContent>
           <CardFooter className='flex justify-center items-center'>
 
             <Button type="submit" disabled={form.formState.isSubmitting} className='w-full md:max-w-xs'>
-              {form.formState.isSubmitting ? "Adding..." : "Add Product"}</Button>
+              {form.formState.isSubmitting ? "Adding..." : "Add Blog"}</Button>
           </CardFooter>
         </Card>
       </form>
@@ -176,4 +185,5 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
   );
 }
 
-export default AddProductForm;
+export default AddBlog;
+

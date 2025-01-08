@@ -36,28 +36,28 @@ function ShareIcon() {
     )
 }
 
-export default function ProductShareAction({ product }: { product: IProduct }) {
+export default function ProductShareAction({ product }: { product: Partial<IProduct> }) {
     const url = "https://eecm.vercel.app/product/" + product.slug
     const options = [
         {
             name: "Facebook",
             icon: Facebook,
-            url: shareLinks(product.name, product.slug as string).facebook,
+            url: shareLinks(product.title!, product.slug as string).facebook,
         },
         {
             name: "Twitter",
             icon: Twitter,
-            url: shareLinks(product.name, product.slug as string).twitter,
+            url: shareLinks(product.title!, product.slug as string).twitter,
         }
         , {
             name: "Whatsapp",
             icon: FaWhatsapp,
-            url: shareLinks(product.name, product.slug as string).whatsapp,
+            url: shareLinks(product.title!, product.slug as string).whatsapp,
         },
         {
             name: "LinkedIn",
             icon: Linkedin,
-            url: shareLinks(product.name, product.slug as string).linkedin,
+            url: shareLinks(product.title!, product.slug as string).linkedin,
         },
         {
             name: "Copy Link",

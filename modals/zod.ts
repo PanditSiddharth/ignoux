@@ -46,7 +46,7 @@ export const ZodUserSchema = z.object({
 
  
 export const ZodProductScema = z.object({
-  name: z.string().min(1, "Name is required").max(100, "Max 100 letters allowed"),
+  title: z.string().min(1, "Name is required").max(100, "Max 100 letters allowed"),
   description: z.string().min(1, "Description is required").max(4000, "Max 4000 letters allowed"),
   price: z.number().min(1, "Price must be greater than 0"),
   tags: z.array(z.string()).min(1, "At least one tag is required"),

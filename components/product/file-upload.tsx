@@ -26,7 +26,7 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
   return (
     <CldUploadButton
       className="w-full"
-      uploadPreset="myecom"
+      uploadPreset="sidssite"
       options={{ maxFiles: 1,  resourceType: "raw" }}
       onSuccess={(value: unknown) => {
         const response = value as CloudinaryUploadResponse

@@ -7,7 +7,7 @@ export const getBlogDefaults = (initial: Partial<IBlog> = {}) => {
       title: initial?.title || "",
       status: initial?.status || "private",
       description: initial?.description || "",
-      thumbnail: initial?.thumbnail || "",
+      thumbnail: initial?.thumbnail || "https://res.cloudinary.com/panditsiddharth/image/upload/v1736330395/u780a5e8wjgb3sqep7do.png",
       content: initial?.content || "# IGNOUX.in",
       tags: initial?.tags || [],
       products: initial?.products || [],
@@ -20,12 +20,12 @@ export const getBlogDefaults = (initial: Partial<IBlog> = {}) => {
 
   export const getProductDefault = (initial: Partial<IProduct> = {}) => {
     return {
-          name: initial?.name || "",
+          title: initial?.title || "",
           description: initial?.description || "",
           price: initial?.price || 0,
           tags: initial?.tags || [],
-          thumbnail: initial?.thumbnail || "",
-          fileLink: initial?.fileLink || "",
+          thumbnail: initial?.thumbnail || "https://res.cloudinary.com/panditsiddharth/image/upload/v1736330395/u780a5e8wjgb3sqep7do.png",
+          fileLink: initial?.fileLink || "https://res.cloudinary.com/panditsiddharth/image/upload/v1736330395/u780a5e8wjgb3sqep7do.png",
           publishedAt: initial?.publishedAt || new Date(),
           slug: initial?.slug || ""
         }

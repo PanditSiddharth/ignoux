@@ -6,7 +6,7 @@ export default {
     cookies:
     {
         sessionToken: {
-            name: "authjs.session-token-86768",
+            name: "user",
             options: {
                 sameSite: "lax",
                 path: "/",
