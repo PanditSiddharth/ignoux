@@ -41,10 +41,9 @@ function AddRootPage({ children }: { children: JSX.Element }) {
             <div className="w-full flex md:flex-row flex-col gap-4">
                 {children}
                 <div className="">
-
                     {
                         productAdds.map((product: Partial<IProduct>) => (
-                            <ProductCard key={product._id!} product={product} options={
+                            <ProductCard key={product.slug!} product={product} options={
                                 options
                             } />
                         ))

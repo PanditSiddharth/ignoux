@@ -17,9 +17,9 @@ interface CloudinaryUploadResponse {
 }
 
 export const FileUpload = ({ onChange, value }: FileUploadProps) => {
-  const [fileName, setFileName] = useState<string | null>(null)
+  const [fileName, setFileName] = useState<string | null>("test.png")
   useEffect(() => {
-    onChange(value + "")
+    onChange(value || "test.png")
     // eslint-disable-next-line 
   }, [])
 
@@ -31,9 +31,9 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
       onSuccess={(value: unknown) => {
         const response = value as CloudinaryUploadResponse
         onChange(response.info.secure_url)
-        setFileName(response.info.original_filename)
+        setFileName(response.info.original_filename || "test.png")
       }}
-
+      
     >
       <div className="border-2 border-dashed border-primary/50 rounded-lg p-4 hover:bg-primary/5 transition-colors duration-200 ease-in-out">
         <div className="flex flex-col items-center justify-center gap-4">

@@ -55,19 +55,20 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
     return (
         <ThemeProvider {...themeOptions} attribute={"class"}>
             <div>
-            <div className="w-72 z-40 fixed hidden lg:bg-primary/5 lg:block top-0 left-0 pt-4 h-screen">
-                <div className="flex flex-col justify-between h-full">
-                    <div className="font-bold text-sky-700 pl-6 text-2xl pb-3">IGNOUX.in</div>
-                    <Sidebar routes={routes} />
+                <div className="w-72 z-40 fixed hidden lg:bg-primary/5 lg:block top-0 left-0 pt-4 h-screen">
+                    <div className="flex flex-col justify-between h-full">
+                        <div className="font-bold text-sky-700 pl-6 text-2xl pb-3">IGNOUX.in</div>
+                        <Sidebar routes={routes} />
+                    </div>
                 </div>
-            </div>
-                  <div className="fixed bottom-1 lg:left-74">
-                           <ModeToggle />
-                       </div>
 
-            <div className="lg:pl-72 w-full">{children}</div>
-       
-       </div>
+
+                <div className="lg:pl-72 w-full">{children}</div>
+                <div className="fixed bottom-1 lg:left-74">
+                    <ModeToggle />
+                </div>
+
+            </div>
         </ThemeProvider>
     );
 }

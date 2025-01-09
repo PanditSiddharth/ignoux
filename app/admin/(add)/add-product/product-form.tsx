@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { IProduct } from '@/modals/product.model';
 import { MyField } from '../myField';
-import { getProductDefault } from '../helpers';
+import { generateSlug, getProductDefault } from '../helpers';
 import { useAddProducts } from '@/store';
 import { productFilter } from '@/helpers';
 // import { useProductIds } from '@/store';
@@ -33,6 +33,7 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
 
   useEffect(() => {
     if (Object.keys(form.formState.errors).length != 0) {
+      console.log(form.formState.errors)
       toast({
         title: "Error !",
         description: Object.values(form.formState.errors).map(err => err.message).join(", "),
@@ -50,24 +51,6 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
     }
 
     setProductAdds([...productAdds, productFilter(data)])
-
-    // if (isAdded?.success) {
-    //   toast({
-    //     title: isAdded?.productAdded ? "Product Added" : "Product Updated",
-    //     description: `Product has been ${isAdded?.productAdded ? "added" : "updated"} successfully`,
-    //     duration: 5000
-    //   })
-
-    // }
-    // else {
-      // toast({
-      //   title: "Error !",
-      //   description: isAdded?.error,
-      //   variant: "destructive",
-      //   duration: 5000
-      // })
-
-    // }
   }
 
   const addTag = () => {
@@ -81,10 +64,6 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
     const newTags = form.getValues('tags').filter((_, i) => i !== index)
     form.setValue('tags', newTags)
   }
-
-
-
-
 
   return (
 
@@ -104,15 +83,21 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
             <MyField
               form={form}
               name="fileLink"
-              input={(field) => <FileUpload onChange={field.onChange} value={initialValue?.fileLink + ""} />}
+              input={(field) => <FileUpload onChange={field.onChange} value={field?.value + ""} />}
             />
 
             <MyField
               form={form}
-              name="name"
-              label="Product Name"
-              placeholder="Enter Product Name"
-              description="Add a name for your product" />
+              name="title"
+              label="Product Title"
+              placeholder="Enter Product title"
+              fields={{
+                onChange: (value: any) => {
+                  form.setValue("title", value.target.value);
+                  form.setValue("slug", generateSlug(value.target.value))
+                }
+              }}
+              description="Add a Title for your product" />
 
             <MyField
               form={form}

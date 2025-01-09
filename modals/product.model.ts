@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 export interface IProduct{
     _id?: string;
-    slug?: string;
+    slug: string;
     title: string;
     price: number;
     description: string;
@@ -14,6 +14,8 @@ export interface IProduct{
 export const ProductSchema = new Schema<IProduct>({
     slug: {
         type: String, 
+        required: true,
+        unique: true
         // default: getId()
     },
     title: {

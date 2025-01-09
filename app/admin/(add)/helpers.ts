@@ -30,3 +30,11 @@ export const getBlogDefaults = (initial: Partial<IBlog> = {}) => {
           slug: initial?.slug || ""
         }
   }
+
+  export function generateSlug(title: string = "") {
+    return title
+      .toLowerCase() // Convert to lowercase
+      .trim() // Remove leading and trailing spaces
+      .replace(/[^a-z0-9\s-]/g, "") // Remove special characters except spaces and hyphens
+      .replace(/\s+/g, "-"); // Replace spaces with hyphens
+  }

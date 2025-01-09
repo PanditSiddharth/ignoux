@@ -1,3 +1,4 @@
+"use server"
 import connectDB from "@/connectDB";
 import { BlogModel, IBlog } from "@/modals/blog.model";
 import { getSessionUser } from "./user";
@@ -18,7 +19,7 @@ export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBl
         );
 
         if (!product) return { error: "Something went wrong in processing the blog" };
-        return blogFilter(product.toObject());
+        return JSON.parse(JSON.stringify(blogFilter(product)));
     } catch (error) {
         console.error(error);
         return { error: (error as { message: string }).message };

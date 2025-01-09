@@ -5,6 +5,8 @@ import { IProduct, ProductModel } from "@/modals/product.model";
 import { getSessionUser, getUserByUsername } from "./user";
 import { IOrder, OrderModel } from "@/modals/order.model";
 import { ReviewModel } from "@/modals/review.model";
+import { productFilter } from "@/helpers";
+import mongoose from "mongoose";
 interface SkipPageDataProp {
     skip: number
     postsPerPage: number
@@ -37,9 +39,9 @@ export async function getProductsFromServer(skipPageData: SkipPageDataProp): Pro
         let count;
         if (skipPageData.boughtProducts) {
 
-             // Fetch orders and populate product data
+            // Fetch orders and populate product data
             products = await OrderModel.find(query).sort({ _id: -1 }).populate("product")
-            
+
             // Ensure unauthorized users cannot access the fileLink
             const buyer = products[0]?.buyer
             if (!user || user && user._id != buyer) {
@@ -49,13 +51,13 @@ export async function getProductsFromServer(skipPageData: SkipPageDataProp): Pro
                 })
             }
 
-             // Clean up invalid orders without transactionId
+            // Clean up invalid orders without transactionId
             products = await products.reduce(async (acc, order) => {
                 if (order.product !== null) {
                     if (!order.transactionId) {
                         await OrderModel.deleteOne({ orderId: order.orderId }).catch(console.error);
                     } else {
-                        const {product, ...others} = order;
+                        const { product, ...others } = order;
                         acc.push({ ...product._doc, ...others._doc });
                     }
                 }
@@ -67,7 +69,7 @@ export async function getProductsFromServer(skipPageData: SkipPageDataProp): Pro
 
             // Product-specific filters
             if (skipPageData.category) query.category = skipPageData.category;
-            
+
             // Fetch products with search and pagination
             products = await ProductModel.find({
                 ...query,
@@ -112,8 +114,8 @@ export async function getProductFromServer(productId: string): Promise<IProduct 
         const product = await ProductModel.findById(productId);
         if (!product) return false
         const user = await getSessionUser()
-  
-        if(user?.role != "admin" && product.seller != user?._id )
+
+        if (user?.role != "admin" && product.seller != user?._id)
             product.fileLink = null
 
         return JSON.parse(JSON.stringify(product));
@@ -123,30 +125,35 @@ export async function getProductFromServer(productId: string): Promise<IProduct 
     }
 }
 
-export async function addOrUpdateProduct(data: Partial<IProduct>) {
+export async function addOrUpdateProducts(data: Partial<IProduct> | Partial<IProduct>[]): Promise<IProduct[] | { error: string }> {
     try {
         await connectDB()
         const user = await getSessionUser()
         if (!user) return { error: "Please Login first" }
-        // eslint-disable-next-line
-        if (data?._id) {
-            const product = await ProductModel.updateOne({ _id: data._id }, data, { upsert: true });
+        const isProductArray = Array.isArray(data)
+        const arrData = isProductArray ? data : [data]
+        const options = { new: true, upsert: true, setDefaultsOnInsert: true };
+        const results = await Promise.all(arrData.map(async (productData) => {
+            const product = await ProductModel.findByIdAndUpdate(
+                {_id: productData._id || new mongoose.Types.ObjectId()}, 
+                productData, options);
             if (!product) return { error: "Something went wrong in updating product server side" }
-            return { success: true, productUpdated: true }
-        } else {
-            const product = await ProductModel.create(data);
-            if (!product) return { error: "Something went wrong in adding product server side" }
-            return { success: true, productAdded: true }
+            return productFilter(product)
+        }));
+
+        if (results.some(result => 'error' in result)) {
+            return { error: "Some products failed to update/add" }
         }
+
+        return JSON.parse(JSON.stringify(results)) as IProduct[]
 
     } catch (error) {
         console.error(error);
         return { error: (error as { message: string }).message }
     }
-
 }
 
-export async function deleteProduct(productId: string, options?: unknown) {
+export async function deleteProduct(productId: string) {
     if (productId === undefined)
         return { error: "ProductId is required" }
     const user = await getSessionUser()
@@ -173,11 +180,11 @@ export async function deleteProduct(productId: string, options?: unknown) {
 export async function getOrder(transactionId: string): Promise<Record<string, IOrder> | false> {
     await connectDB()
     try {
-        const order = await OrderModel.findOne({transactionId}).populate("product");
+        const order = await OrderModel.findOne({ transactionId }).populate("product");
         if (!order) return false
 
-        const {product, ...others} = order;
-        
+        const { product, ...others } = order;
+
         return JSON.parse(JSON.stringify({ ...product._doc, ...others._doc }));
     } catch (error) {
         console.error(error);

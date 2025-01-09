@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 
 import { useToast } from '@/hooks/use-toast';
 import { IProduct } from '@/modals/product.model';
-import { addOrUpdateProduct } from '@/server-functions/product';
+import { addOrUpdateProducts } from '@/server-functions/product';
 interface IProductForm {
   initialValue?: IProduct
 }
@@ -55,25 +55,14 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
       return form.setError("slug", { message: "Only letters, - and numbers are allowed" });
     }
 
-    const isAdded = await addOrUpdateProduct(data)
-
-    if (isAdded?.success) {
-      toast({
-        title: isAdded?.productAdded ? "Product Added" : "Product Updated",
-        description: `Product has been ${isAdded?.productAdded ? "added" : "updated"} successfully`,
-        duration: 5000
-      })
-
-    }
-    else {
-      toast({
+    const isAdded = await addOrUpdateProducts(data)
+    if ("error" in isAdded)
+      return toast({
         title: "Error !",
-        description: isAdded?.error,
+        description: isAdded.error,
         variant: "destructive",
-        duration: 5000
+        duration: 2000
       })
-
-    }
   }
 
   const addTag = () => {

@@ -10,25 +10,26 @@ import { Textarea } from '@/components/ui/textarea';
 import { ImageUpload } from '@/components/product/image-upload';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from "react-toastify"
 // import { addOrUpdateBlog } from '@/server-functions/blog';
 import { MyField } from '../myField';
 
 import MyEditor from '../editor';
-import { getBlogDefaults } from '../helpers';
+import { generateSlug, getBlogDefaults } from '../helpers';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { blogFilter } from '@/helpers';
 import { useAddProducts } from '@/store';
 import { useSession } from 'next-auth/react';
+import { addOrUpdateProducts } from '@/server-functions/product';
+import { addOrUpdateBlog } from '@/server-functions/blog';
 // import { useBlogIds } from '@/store';
 
 // when editing intial value requires
 const AddBlog = () => {
   const [tagInput, setTagInput] = useState('')
   // const { blogIds, setBlogIds } = useBlogIds()
-  const { toast } = useToast()
-const { productAdds} = useAddProducts()
-const { data: session } = useSession()
+  const { productAdds, setProductAdds } = useAddProducts()
+  const { data: session } = useSession()
   const form = useForm<z.infer<typeof ZodBlogSchema>>({
     resolver: zodResolver(ZodBlogSchema),
     defaultValues: getBlogDefaults({})
@@ -36,12 +37,7 @@ const { data: session } = useSession()
 
   useEffect(() => {
     if (Object.keys(form.formState.errors).length != 0) {
-      toast({
-        title: "Error !",
-        description: Object.values(form.formState.errors).map((err) => err.message).join(", "),
-        variant: "destructive",
-        duration: 2000
-      })
+      toast.error("Error in any field data")
     }
     // eslint-disable-next-line
   }, [form.formState.errors])
@@ -51,22 +47,19 @@ const { data: session } = useSession()
     if (!data.slug || !/^(?!-)(?!.*--)[a-z0-9-]+(?<!-)$/.test(data.slug)) {
       return form.setError("slug", { message: "Only letters, - and numbers are allowed" });
     }
-   console.log(blogFilter({...data, products: productAdds, auther: session?.user?._id}))
-    // const isAdded = await addOrUpdateBlog(data)
-    // if ("error" in isAdded)
-    //   return toast({
-    //     title: "Error !",
-    //     description: isAdded.error,
-    //     variant: "destructive",
-    //     duration: 5000
-    //   })
-   
-      toast({
-        title: "Blog Updated",
-        description: `Blog has been updated successfully`,
-        duration: 5000
-      })
 
+    const pd = await addOrUpdateProducts(JSON.parse(JSON.stringify(productAdds)));
+
+    if ("error" in pd)
+      return toast.error(pd.error)
+    console.log(session)
+    const k = blogFilter({ ...data, products: pd.map(e => e._id), author: session?.user?._id })
+    console.log(k)
+    const bg = await addOrUpdateBlog(k)
+    if ("error" in bg)
+      return toast.error(bg.error)
+    setProductAdds([])
+    toast.success("Blog Added Successfully")
   }
 
   const addTag = () => {
@@ -101,26 +94,31 @@ const { data: session } = useSession()
               name="title"
               label="Blog Title"
               placeholder="Enter Blog Title"
+              fields={{
+                onChange: (value: { target: { value: string } }) => {
+                  form.setValue("title", value.target.value);
+                  form.setValue("slug", generateSlug(value.target.value))
+                }
+              }}
               description="Add a Title for your blog" />
 
             <MyField
               form={form}
               name="status"
               label="Blog Status"
-              placeholder="Select Blog Status"
               description="Select your blog status"
               input={
                 (field) => <Select defaultValue={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Publish.." />
-                </SelectTrigger>
-                <SelectContent >
-                  <SelectItem value="private">Private</SelectItem>
-                  <SelectItem value="free">Free</SelectItem>
-                  <SelectItem value="paid">Paid</SelectItem>
-                </SelectContent>
-              </Select>
-              
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Publish.." />
+                  </SelectTrigger>
+                  <SelectContent >
+                    <SelectItem value="private">Private</SelectItem>
+                    <SelectItem value="free">Free</SelectItem>
+                    <SelectItem value="paid">Paid</SelectItem>
+                  </SelectContent>
+                </Select>
+
               }
             />
 
@@ -135,7 +133,6 @@ const { data: session } = useSession()
               form={form}
               name="tags"
               label="Blog Tags"
-              placeholder="Enter Blog Tags"
               description="Press Enter or click Add to add a tag"
               input={(field) => <div className="flex flex-wrap gap-2">
                 {field.value.map((tag: string, index: number) => (
@@ -162,14 +159,13 @@ const { data: session } = useSession()
               form={form}
               name="description"
               label="Blog Description"
-              placeholder="Enter Blog Description"
               description="Describe your blog"
               input={(field) => <Textarea rows={4} className='resize-none' placeholder='Enter Blog Description' {...field} />}
             />
 
             <MyField
               form={form}
-              className='col-span-2 h-full flex'
+              className='md:col-span-2 h-full flex'
               name="content"
               input={(field) => <MyEditor onChange={field.onChange} value={field?.value} />}
             />
