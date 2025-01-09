@@ -39,15 +39,7 @@ const useProductsStore = create<ProductsStore>((set) => ({
                 category: o.category, search: o.search
             }));
             const res = await getProductsFromServer(skipPageData);
-            if (res) {
-                const { productsRes, totalProducts } = res;
-                set(() => ({ totalProducts }));
-                if (!isInfiniteScroll)
-                    set({ products: productsRes });
-                else
-                    set((state) => ({ products: [...state.products, ...productsRes] }));
-            }
-            else set({ products: [] });
+
 
         } catch (error) {
             console.error(error);

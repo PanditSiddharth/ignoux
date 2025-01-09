@@ -3,12 +3,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IProduct } from "@/modals/product.model";
 import Image from "next/image";
-import { deleteProduct } from "@/server-functions/product";
-
+import { deleteProducts } from "@/server-functions/product";
 
     const handleDelete = async (product: Partial<IProduct>) => {
         try {
-            const res = await deleteProduct(product.slug + "");
+            const res = await deleteProducts(product._id + "");
             if(res.error){
                return toast.error("Failed to delete the product", {
                     className: "bg-red-500 text-white font-semibold p-4 rounded-lg shadow-md",
