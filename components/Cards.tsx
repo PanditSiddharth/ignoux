@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 // import Link from 'next/link'
 import React from 'react'
 
@@ -13,7 +14,7 @@ interface IBlogCard {
 export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) => {
     return (
         <div
-            className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+            className="shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
         >
         <div className="relative" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
             <Image
@@ -25,16 +26,16 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
         </div>
 
             <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
-                <p className="text-gray-600 mt-2">{description}</p>
+                <h2 className="text-xl font-bold">{title}</h2>
+                <p className="mt-2">{description}</p>
                 <div className="flex justify-between items-center mt-4">
-                    <span className="text-sm text-gray-500">{date}</span>
-                    <a
+                    <span className="text-sm">{date}</span>
+                    <Link
                         href={"/blog/" + slug}
-                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                        className="px-4 py-2 rounded transition-colors"
                     >
                         Read More
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

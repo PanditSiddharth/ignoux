@@ -77,21 +77,6 @@ const AddProductForm = ({ initialValue }: IProductForm) => {
     form.setValue('tags', newTags)
   }
 
-  // Watch the name field
-  // const nameValue = form.watch("name");
-
-  // Update the slug field whenever the name field changes
-  // useEffect(() => {
-  //   const generateSlug = (value: string) => value.trim().toLowerCase().replace(/\s+/g, "-");
-  //   form.resetField("slug")
-  //   form.setValue("slug", generateSlug(nameValue));
-  // }, [nameValue]);
-
-
-
-
-
-
   return (
 
     <Form {...form}>

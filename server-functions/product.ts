@@ -1,7 +1,7 @@
 "use server"
 import connectDB from "@/connectDB";
 import { IProduct, ProductModel } from "@/modals/product.model";
-import { getSessionUser, getUserByUsername } from "./user";
+import { getSessionUser } from "./user";
 import { IOrder, OrderModel } from "@/modals/order.model";
 import { err, productFilter } from "@/helpers";
 import mongoose from "mongoose";
@@ -25,7 +25,7 @@ export async function getProductsFromServer(options: GetProductOptions): Promise
     try {
         options.postsPerPage = options.postsPerPage || 20
         const or = [
-            { name: { $regex: options.search || "", $options: "i" } },
+            { title: { $regex: options.search || "", $options: "i" } },
             { description: { $regex: options.search || "", $options: "i" } },
             { tags: { $regex: options.search || "", $options: "i" } },
         ]

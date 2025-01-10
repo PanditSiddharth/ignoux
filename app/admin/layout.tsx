@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Sidebar from "@/components/sidebar/sidebar";
 import { ReactNode } from "react";
 import { LineChart, Package, Plus, Settings, PanelTopIcon } from "lucide-react";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { ModeToggle } from "@/components/mode-toggle";
 
 export default function ProfileLayout({ children }: { children: ReactNode }) {
@@ -41,19 +40,11 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
         },
     ];
 
-    const themeOptions = {
-        // attribute: "class",
-        defaultTheme: "dark",
-        enableSystem: true,
-        disableTransitionOnChange: true,
-    };
-
     if (!isMounted) {
         return null; // Prevent rendering until hydration is complete
     }
 
     return (
-        <ThemeProvider {...themeOptions} attribute={"class"}>
             <div>
                 <div className="w-72 z-40 fixed hidden lg:bg-primary/5 lg:block top-0 left-0 pt-4 h-screen">
                     <div className="flex flex-col justify-between h-full">
@@ -69,6 +60,5 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
                 </div>
 
             </div>
-        </ThemeProvider>
     );
 }

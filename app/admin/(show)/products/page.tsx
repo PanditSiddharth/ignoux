@@ -1,25 +1,33 @@
 "use client"
 import Scroll from '@/components/infinite-scroll'
+import ProductCard from '@/components/product/product-card'
 import { IProduct } from '@/modals/product.model'
 import { getProductsFromServer } from '@/server-functions/product'
-import React, { useState } from 'react'
+import { useDataStore } from '@/store'
 
 const Products = () => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const pd = useDataStore<IProduct[]>("products", [])()
+  
   const next = async ()=> {
     console.log("fetching...")
-    const p = await getProductsFromServer({skip: products.length})
+    console.log(pd.data.length)
+    const p = await getProductsFromServer({skip: pd?.data.length, postsPerPage: 10})
     console.log(p)
+  
     if("error" in p) return console.error(p.error)
-    setProducts(p.products)
+      pd.setTotalLength(p.totalProducts || 0)
+    pd.setData([...pd.data, ...p.products])
   }
 
   return (
     <Scroll 
-    data={products || []}
+    data={pd.data || []}
     next={next}
-    totalLength={1}
-    element={(data, index) => (<div key={index}>{data.title}</div>)}
+    className2='grid-cols-4'
+    totalLength={pd.totalLength}
+    element={(data, index) => (
+      <ProductCard key={index} product={data}/>
+  )}
     />
   )
 }

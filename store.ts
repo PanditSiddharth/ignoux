@@ -1,5 +1,5 @@
 "use client"
-import { create } from 'zustand'
+import { create, StoreApi, UseBoundStore } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { IProduct } from './modals/product.model'
 
@@ -19,3 +19,27 @@ export const useAddProducts = create<ProductId>()(
     },
     )
 )
+
+const storeInstances = new Map<string, any>();
+interface IDataOptions<T> {
+    data: T,
+    setData: (data: T) => void,
+    totalLength: number,
+    setTotalLength: (totalLength: number) => void,
+}
+export const useDataStore = <T,>(key: string, defaultData: T) => {
+    if (!storeInstances.has(key)) {
+      // Store the new store
+      const useNewStore = create<IDataOptions<T>>(
+          (set: (arg0: (state: IDataOptions<T>) => { data: T }) => void) => ({
+              data: defaultData,
+              setData: (data: T) => set(() => ({ data: data })),
+              totalLength: 0,
+              setTotalLength: (totalLength: number) => set((state) => ({ totalLength: totalLength, data: state.data })),
+          })
+      );
+      storeInstances.set(key, useNewStore);
+    }
+    // Return the existing store for the given key
+    return storeInstances.get(key) as UseBoundStore<StoreApi<IDataOptions<T>>>;
+  };

@@ -23,3 +23,56 @@ export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBl
         return err(error, "f", { ret: error.message });
     }
 };
+
+export async function getBlog(slug: string): Promise<Partial<IBlog> | {error: string}> {
+    await connectDB()
+    try {
+        const blog = await BlogModel.findOne({slug}) as IBlog;
+        if (!blog) return {error: "No blog found"}
+
+        return blogFilter(blog);
+    } catch (error: any) {
+        return err(error, "f", {ret: error.message});
+    }
+}
+
+interface GetBlogOptions {
+    skip: number
+    postsPerPage?: number
+    search?: string
+    searchBy?: string
+}
+
+interface ResProps {
+    blogs: IBlog[];
+    totalBlogs: number;
+}
+
+export async function getBlogs(options: GetBlogOptions): Promise<ResProps | {error: string}> {
+    await connectDB()
+    const user = await getSessionUser()
+
+    try {
+        options.postsPerPage = options.postsPerPage || 20
+        const or = [
+            { title: { $regex: options.search || "", $options: "i" } },
+            { description: { $regex: options.search || "", $options: "i" } },
+            { tags: { $regex: options.search || "", $options: "i" } },
+        ]
+            // Fetch blogs with search and pagination
+           const blogs = await BlogModel.find({
+                $or: or,
+            })
+                .sort({ _id: -1 })
+                .skip(options.skip)
+                .limit(options.postsPerPage);
+
+            const totalBlogs = await BlogModel.countDocuments({
+                $or: or,
+            });
+        
+        return JSON.parse(JSON.stringify({ blogs, totalBlogs }));
+    } catch (error: any) {
+       return err(error, "f", {ret: error.message})
+    }
+}
