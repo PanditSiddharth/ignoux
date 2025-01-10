@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Moon, Sun } from "lucide-react"
+import { Moon, MoonIcon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
@@ -11,6 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Switch } from "./ui/switch"
+import { Label } from "./ui/label"
 
 export function ModeToggle() {
   const { setTheme } = useTheme()
@@ -36,5 +38,37 @@ export function ModeToggle() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+
+export function ModeToggleMobile() {
+  const { theme, setTheme } = useTheme()
+
+  const toggleTheme = () => {
+      setTheme(theme === "dark" ? "light" : "dark")
+  }
+
+  return (
+      <Button
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start"
+          onClick={toggleTheme}
+      >
+          <div className="flex items-center justify-between w-full">
+              <div className="flex items-center space-x-2">
+                  <MoonIcon className="h-4 w-4" />
+                  <Label htmlFor="dark-mode" className="text-sm font-medium">
+                      Dark Mode
+                  </Label>
+              </div>
+              <Switch
+                  id="dark-mode"
+                  checked={theme === "dark"}
+                  onCheckedChange={toggleTheme}
+              />
+          </div>
+      </Button>
   )
 }

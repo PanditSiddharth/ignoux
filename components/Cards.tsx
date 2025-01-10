@@ -14,7 +14,7 @@ interface IBlogCard {
 export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) => {
     return (
         <div
-            className="shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+            className="shadow-lg max-w-auto rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
         >
         <div className="relative" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
             <Image

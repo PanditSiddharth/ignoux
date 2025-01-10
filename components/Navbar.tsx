@@ -1,26 +1,19 @@
-import Link from 'next/link'
-import React from 'react'
-import { ModeToggle } from './mode-toggle'
+"use client"
+import { NavbarDropdown } from '@/components/navbar-dropdown';
+import { ModeToggle } from '@/components/mode-toggle';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+    const router = useRouter()
+
     return (
-        <div>
-            {/* Navbar */}
-            <nav className="shadow sticky top-0 z-50">
-                <div className="container mx-auto px-4 flex items-center justify-between py-4">
-                    <Link href={"/"}>
-                    <h1 className="text-xl font-bold text-blue-600">IGNOUX</h1>
-                    </Link>
-                    <ul className="flex space-x-6">
-                        <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-                        <li><Link href="/courses" className="hover:text-blue-600">Courses</Link></li>
-                        <li><Link href="/blogs" className="hover:text-blue-600">Blogs</Link></li>
-                        <li><Link href="/contact" className="hover:text-blue-600">Contact</Link></li>
-                        <ModeToggle />
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <header className="body-font shadow-md bg-background sticky z-50 top-0 h-14 items-center justify-between px-2 md:px-7 flex w-full antialiased">
+            <h1 onClick={() => { router.push("/") }} className={"text-2xl font-semibold cursor-pointer"}>IGNOUX.in</h1>
+            <div className="flex items-center gap-2">
+                <NavbarDropdown />
+                <ModeToggle />
+            </div>
+        </header>
     )
 }
 

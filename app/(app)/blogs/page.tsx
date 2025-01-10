@@ -34,7 +34,7 @@ const Blogs = () => {
       <Scroll
         data={pd.data || []}
         next={next}
-        className2='grid-cols-4'
+        className2='grid-cols-1 md:grid-cols-3 lg:grid-cols-4 max-w-screen'
         totalLength={pd.totalLength}
         element={(blog, index) => (
           <BlogCard title={blog.title} slug={blog.slug}
