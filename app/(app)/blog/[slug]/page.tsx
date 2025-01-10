@@ -44,7 +44,7 @@ export default function Blog(props: any) {
   return (
     <div className='flex flex-col items-center' data-color-mode={theme || "dark"} >
       <MarkdownPreview
-        className='max-w-4xl min-w-xl'
+        className='max-w-4xl'
         source={bg?.data?.content}
         style={{ padding: 16 }}
         rehypeRewrite={(node, index, parent) => {
