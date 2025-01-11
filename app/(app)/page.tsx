@@ -3,7 +3,7 @@ import { FaYoutube, FaLinkedin, FaTelegram, FaGithub } from "react-icons/fa";
 
 export default function HomePage() {
   return (
-    <div className="bg-gray-50">
+    <div className="">
       {/* Hero Section */}
       <section className="bg-blue-600 text-white py-20">
         <div className="container mx-auto text-center">
