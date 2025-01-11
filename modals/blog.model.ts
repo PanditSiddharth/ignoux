@@ -9,6 +9,7 @@ export interface IBlog {
     description: string;
     thumbnail: string;
     content: string;
+    category: string[];
     tags: string[];
     products?: string[];
     author?: string;
@@ -23,6 +24,7 @@ export const BlogSchema = new Schema<IBlog>({
     status: { type: String, enum: ["private", "free", "paid"], default: "free" },
     description: { type: String },
     thumbnail: { type: String },
+    category: [{type: String}],
     content: { type: String },
     tags: [{ type: String }],
     products: [{ type: Schema.Types.ObjectId, ref: ProductModel }],

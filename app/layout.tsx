@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   const themeOptions = {
     // attribute: "class",
-    defaultTheme: "dark",
+    defaultTheme: "blue",
     enableSystem: true,
   };
   return (

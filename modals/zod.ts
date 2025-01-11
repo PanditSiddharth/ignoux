@@ -65,6 +65,7 @@ export const ZodBlogSchema = z.object({
   thumbnail: z.string().url(),
   content: z.string(),
   tags: z.array(z.string()).min(1, "At least one tag is required"),
+  category: z.array(z.string()).min(1, "At least one category is required"),
   products: z.array(z.string()),
   author: z.any(),
   publishedAt: z.any().optional(),

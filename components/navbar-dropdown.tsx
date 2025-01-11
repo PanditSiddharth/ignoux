@@ -5,7 +5,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ModeToggleMobile } from "@/components/mode-toggle";
 import { useSession } from "next-auth/react";
 
 export const NavbarDropdown = () => {
@@ -65,16 +64,6 @@ export const NavbarDropdown = () => {
                         </DropdownMenuGroup>
                     </>
                 )}
-                <div className="lg:hidden w-full">
-                    <DropdownMenuSeparator />
-                    <DropdownMenuLabel>Settings</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <ModeToggleMobile />
-                        </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                </div>
             </DropdownMenuContent>
         </DropdownMenu>
     );

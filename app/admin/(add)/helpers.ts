@@ -10,6 +10,7 @@ export const getBlogDefaults = (initial: Partial<IBlog> = {}) => {
       thumbnail: initial?.thumbnail || "https://res.cloudinary.com/panditsiddharth/image/upload/v1736330395/u780a5e8wjgb3sqep7do.png",
       content: initial?.content || "# IGNOUX.in",
       tags: initial?.tags || [],
+      category: initial?.category || [],
       products: initial?.products || [],
       author: initial?.author || "",
       publishedAt: initial?.publishedAt || new Date(),

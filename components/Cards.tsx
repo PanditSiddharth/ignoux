@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 // import Link from 'next/link'
 import React from 'react'
+import { Card } from './ui/card'
+import { Button } from './ui/button'
 
 interface IBlogCard {
     title: string,
@@ -13,8 +15,8 @@ interface IBlogCard {
 
 export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) => {
     return (
-        <div
-            className="shadow-lg max-w-auto rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+        <Card
+            className=""
         >
         <div className="relative" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
             <Image
@@ -31,13 +33,14 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
                 <div className="flex justify-between items-center mt-4">
                     <span className="text-sm">{date}</span>
                     <Link
-                        href={"/blog/" + slug}
+                        href={"/t/" + slug}
                         className="px-4 py-2 rounded transition-colors"
-                    >
+                    ><Button variant={"secondary"}>
                         Read More
+                    </Button>
                     </Link>
                 </div>
             </div>
-        </div>
+        </Card>
     )
 }

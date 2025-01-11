@@ -10,8 +10,8 @@ export const userFilter = (user: any = {}): Partial<IUser> => {
 }
 
 export const blogFilter = (blog: any = {}): Partial<IBlog> => {
-    const { _id, slug, title, status, description, thumbnail, content, tags, products, author, publishedAt, updatedAt }: Partial<IBlog> = blog;
-    const filteredBlog: Partial<IBlog> = { _id: _id ? String(_id) : undefined, slug, title, status, description, thumbnail, content, tags, products, author, publishedAt, updatedAt };
+    const { _id, slug, title, status, description, thumbnail, content, tags, category, products, author, publishedAt, updatedAt }: Partial<IBlog> = blog;
+    const filteredBlog: Partial<IBlog> = { _id: _id ? String(_id) : undefined, slug, title, status, description, thumbnail, content, tags, category, products, author, publishedAt, updatedAt };
 
     return JSON.parse(JSON.stringify(filteredBlog));
 }

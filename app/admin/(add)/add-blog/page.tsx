@@ -27,6 +27,7 @@ import { addOrUpdateBlog } from '@/server-functions/blog';
 // when editing intial value requires
 const AddBlog = () => {
   const [tagInput, setTagInput] = useState('')
+  const [categoryI, setCategory] = useState('')
   // const { blogIds, setBlogIds } = useBlogIds()
   const { productAdds, setProductAdds } = useAddProducts()
   const { data: session } = useSession()
@@ -74,6 +75,17 @@ const AddBlog = () => {
     form.setValue('tags', newTags)
   }
 
+  const addCategory = () => {
+    if (categoryI.trim()) {
+      form.setValue('category', [...form.getValues('category'), categoryI.trim()])
+      setCategory('')
+    }
+  }
+
+  const removeCategory = (index: number) => {
+    const newCategory = form.getValues('category').filter((_: any, i: any) => i !== index)
+    form.setValue('category', newCategory)
+  }
   return (
 
     <Form {...form}>
@@ -151,6 +163,31 @@ const AddBlog = () => {
                     onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                   />
                   <Button type="button" onClick={addTag}>Add</Button>
+                </div>
+              </div>}
+            />
+            <MyField
+              form={form}
+              name="category"
+              label="Blog Category"
+              description="Press Enter or click Add to add a Category"
+              input={(field) => <div className="flex flex-wrap gap-2">
+                {field.value.map((category: string, index: number) => (
+                  <div key={index} className="bg-primary/10 text-primary px-2 py-1 rounded-md flex items-center">
+                    {category}
+                    <button type="button" onClick={() => removeCategory(index)} className="ml-2 text-primary/50 hover:text-primary">
+                      &times;
+                    </button>
+                  </div>
+                ))}
+                <div className="flex gap-2">
+                  <Input
+                    value={categoryI}
+                    onChange={(e) => setCategory(e.target.value)}
+                    placeholder="Add a Category"
+                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addCategory())}
+                  />
+                  <Button type="button" onClick={addCategory}>Add</Button>
                 </div>
               </div>}
             />

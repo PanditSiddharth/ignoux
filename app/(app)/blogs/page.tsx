@@ -37,7 +37,7 @@ const Blogs = () => {
         className2='grid-cols-1 md:grid-cols-3 lg:grid-cols-4 max-w-screen'
         totalLength={pd.totalLength}
         element={(blog, index) => (
-          <BlogCard title={blog.title} slug={blog.slug}
+          <BlogCard title={blog.title} slug={blog.category + "/" + blog.slug}
             description={blog.description}
             image={blog.thumbnail}
             date={new Date(blog.publishedAt as any).toLocaleDateString()}

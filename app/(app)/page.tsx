@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FaYoutube, FaLinkedin, FaTelegram, FaGithub } from "react-icons/fa";
 
@@ -5,15 +6,15 @@ export default function HomePage() {
   return (
     <div className="">
       {/* Hero Section */}
-      <section className="bg-blue-600 text-white py-20">
+      <section className="bg-primary-forground py-20">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold">Learn Programming & Development</h2>
           <p className="mt-4 text-lg">
             Join thousands of learners and start your coding journey with free tutorials and resources.
           </p>
-          <Link href={'/courses'} ><button className="mt-6 px-6 py-2 bg-white text-blue-600 font-semibold rounded shadow hover:bg-gray-100">
+          <Link href={'/courses'} ><Button className="mt-6">
             Join Courses
-            </button>
+            </Button>
           </Link>
         </div>
       </section>
