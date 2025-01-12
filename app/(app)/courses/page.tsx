@@ -1,78 +1,50 @@
-import React from "react";
+"use client"
+import { BlogCard } from '@/components/Cards'
+import Scroll from '@/components/infinite-scroll'
+import { ICourse } from '@/modals/course.model'
+import { getCourses } from '@/server-functions/course'
+import { useDataStore } from '@/store'
 
-const courses = [
-  {
-    id: 1,
-    title: "BCA Programming Basics",
-    description: "Learn the fundamentals of programming with a focus on BCA syllabus topics.",
-    price: "FREE",
-    image: "https://static.vecteezy.com/system/resources/thumbnails/004/272/479/small/programming-code-coding-or-hacker-background-programming-code-icon-made-with-binary-code-digital-binary-data-and-streaming-digital-code-matrix-background-with-digits-1-0-illustration-vector.jpg",
-    link: "/courses/bca-programming-basics",
-  },
-  {
-    id: 2,
-    title: "Advanced Java for BCA",
-    description: "Deep dive into Java programming, including object-oriented principles and project examples.",
-    price: "FREE",
-    image: "https://static.vecteezy.com/system/resources/thumbnails/004/272/479/small/programming-code-coding-or-hacker-background-programming-code-icon-made-with-binary-code-digital-binary-data-and-streaming-digital-code-matrix-background-with-digits-1-0-illustration-vector.jpg",
-    link: "/courses/advanced-java",
-  },
-  {
-    id: 3,
-    title: "Data Structures for Beginners",
-    description: "Master data structures like arrays, linked lists, stacks, and queues with practical examples.",
-    price: "₹10",
-    image: "https://static.vecteezy.com/system/resources/thumbnails/004/272/479/small/programming-code-coding-or-hacker-background-programming-code-icon-made-with-binary-code-digital-binary-data-and-streaming-digital-code-matrix-background-with-digits-1-0-illustration-vector.jpg",
-    link: "/courses/data-structures",
-  },
-];
+const Courses = () => {
+  const pd = useDataStore<ICourse[]>("courses", [])()
 
-export default function Courses() {
+  const next = async () => {
+    console.log("fetching...")
+    console.log(pd.data.length)
+    const p = await getCourses({ skip: pd?.data.length, postsPerPage: 10 })
+    console.log(p)
+
+    if ("error" in p) return console.error(p.error)
+    pd.setTotalLength(p.totalCourses || 0)
+    pd.setData([...pd.data, ...p.courses])
+  }
+
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen">
+
       {/* Hero Section */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="py-16">
         <div className="container mx-auto text-center px-4">
           <h1 className="text-4xl font-bold">Our Courses</h1>
           <p className="mt-4 text-lg">
-            Explore our curated courses designed to help BCA students and coding enthusiasts excel.
+            Discover insights, tips, and guides on coding, BCA, and more to help you excel in your learning journey.
           </p>
         </div>
       </section>
-
-      {/* Courses Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map((course) => (
-              <div
-                key={course.id}
-                className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
-              >
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h2 className="text-2xl font-bold text-gray-800">{course.title}</h2>
-                  <p className="text-gray-600 mt-2">{course.description}</p>
-                  <div className="flex justify-between items-center mt-4">
-                    <span className="text-xl font-bold text-blue-600">{course.price}</span>
-                    <a
-                      href={course.link}
-                      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                    >
-                      View Course
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <Scroll
+        data={pd.data || []}
+        next={next}
+        className2='grid-cols-1 md:grid-cols-3 lg:grid-cols-4 max-w-screen'
+        totalLength={pd.totalLength}
+        element={(course, index) => (
+          <BlogCard title={course.title} slug={course.slug}
+            description={course.description}
+            image={course.thumbnail}
+            date={new Date(course.publishedAt as any).toLocaleDateString()}
+            key={index}
+          />
+        )}
+      />
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto text-center">
@@ -81,6 +53,9 @@ export default function Courses() {
           </p>
         </div>
       </footer>
+
     </div>
-  );
+  )
 }
+
+export default Courses;

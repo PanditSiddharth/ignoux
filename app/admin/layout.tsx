@@ -4,6 +4,7 @@ import Sidebar from "@/components/sidebar/sidebar";
 import { ReactNode } from "react";
 import { LineChart, Package, Plus, Settings, PanelTopIcon } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
+import { NavbarDropdown } from "@/components/navbar/navbar-dropdown";
 
 export default function ProfileLayout({ children }: { children: ReactNode }) {
     const [isMounted, setIsMounted] = useState(false);
@@ -58,6 +59,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
                 <div className="fixed bottom-1 lg:left-74">
                     <ModeToggle />
                 </div>
+                <div className="fixed bottom-1 right-1"><NavbarDropdown /></div>
 
             </div>
     );

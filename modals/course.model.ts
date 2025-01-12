@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { UserModel } from "./user.model";
 import { BlogModel } from "./blog.model";
 
-export interface ICourse{
+export interface ICourse {
     _id?: string;
     slug: string;
     title: string;
@@ -10,9 +10,10 @@ export interface ICourse{
     price: number;
     description: string;
     thumbnail: string;
-    content: Schema.Types.ObjectId[] //  BlogModel
+    content: string[]; //  BlogModel
+    tags: string[]; //  BlogModel
     landingPage?: string
-    author?: Schema.Types.ObjectId | string; // UserModel
+    author?: string; // UserModel
     publishedAt?: Date;
 }
 const CourseSchema = new Schema<ICourse>({
@@ -23,9 +24,10 @@ const CourseSchema = new Schema<ICourse>({
     description: { type: String, required: true },
     thumbnail: { type: String, required: true },
     content: [{ type: Schema.Types.ObjectId, ref: BlogModel }],
+    tags: [{ type: String }],
     landingPage: { type: String },
     author: { type: Schema.Types.ObjectId, ref: UserModel },
     publishedAt: { type: Date }
 });
 
-export const CourseModel = mongoose.models?.Blog || mongoose.model("Blog", CourseSchema);
+export const CourseModel = mongoose.models?.Course || mongoose.model("Course", CourseSchema);

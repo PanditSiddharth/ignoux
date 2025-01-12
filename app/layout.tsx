@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { NavbarDropdown } from "@/components/navbar/navbar-dropdown";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +37,6 @@ export default function RootLayout({
         <SessionProvider >
           <ThemeProvider {...themeOptions} attribute={"class"}>
             {children}
-            <div className="fixed bottom-1 right-1"><NavbarDropdown /></div>
           </ThemeProvider>
         </SessionProvider>
       </body>

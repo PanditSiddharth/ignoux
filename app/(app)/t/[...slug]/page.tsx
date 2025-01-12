@@ -6,14 +6,8 @@ import { useDataStore } from '@/store';
 import { IBlog } from '@/modals/blog.model';
 import { getBlog } from '@/server-functions/blog';
 import { toast } from 'react-toastify';
-import Loader from '@/components/others/loader';
+import Loader from '@/components/loader';
 
-const abc = async (params: any, bg: any) => {
-    const blog = await getBlog(params?.slug[1])
-      if("error" in blog)
-        return toast.error(blog.error)
-      bg.setData(blog)
-}
 export default function Blog(props: any) {
   const { theme, systemTheme } = useTheme();
   const bg = useDataStore<Partial<IBlog> | undefined>("blog", undefined)()
@@ -35,9 +29,8 @@ export default function Blog(props: any) {
       fetchBlog();
   }, [params?.slug, bg, loading]);
 
-  if (loading) return <div className='fixed inset-0 flex items-center justify-center'>
-    <Loader />
-    </div>
+  if (loading) return <Loader />
+
   if(!bg || !bg.data) return <div className='fixed inset-0 flex items-center justify-center'>
     Not Found</div>
   return (

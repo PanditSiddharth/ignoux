@@ -72,3 +72,17 @@ export const ZodBlogSchema = z.object({
   updatedAt: z.any().optional(),
   _id: z.any().optional(),
 })
+
+export const ZodCourseSchema = z.object({
+  slug: z.string().nonempty("Slug is required"),
+  title: z.string().nonempty("Title is required"),
+  status: z.enum(['private', 'published']),
+  price: z.number().nonnegative("Price must be a non-negative number"),
+  description: z.string().nonempty("Description is required"),
+  thumbnail: z.string().nonempty("Thumbnail is required"),
+  content: z.array(z.string().nonempty("Content must be a valid ObjectId")),
+  tags: z.array(z.string().nonempty("Add atleast one tag")).min(1,"Add atleast one tag"),
+  author: z.string().optional(),
+  publishedAt: z.date().optional(),
+  _id: z.any().optional()
+});

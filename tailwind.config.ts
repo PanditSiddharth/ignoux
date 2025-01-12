@@ -57,6 +57,18 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		keyframes: {
+			inputs: {
+				'0%, 100%': { width: '0' },
+				'10%, 90%': { width: '58px' },
+				'30%, 70%': { width: '215px', maxWidth: 'max-content' },
+			  },
+			  cursor: {
+				'50%': { borderRightColor: 'transparent' },
+			  },
+			  blinking: {
+				'20%, 80%': { transform: 'scaleY(1)' },
+				'50%': { transform: 'scaleY(0)' },
+			  },
   			'accordion-down': {
   				from: {
   					height: '0'
@@ -76,8 +88,10 @@ export default {
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+			"inputs": 'inputs 8s steps(22) infinite',
+			"cursor": 'cursor 0.5s step-end infinite alternate, blinking 0.5s infinite',
+		}
   	}
   },
   // eslint-disable-next-line

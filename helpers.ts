@@ -17,8 +17,8 @@ export const blogFilter = (blog: any = {}): Partial<IBlog> => {
 }
 
 export const courseFilter = (course: any = {}): Partial<ICourse> => {
-    const { _id, slug, title, status, price, description, thumbnail, content, landingPage, author, publishedAt }: Partial<ICourse> = course;
-    const filteredCourse: Partial<ICourse> = { _id: _id ? String(_id) : undefined, slug, title, status, price, description, thumbnail, content, landingPage, author, publishedAt };
+    const { _id, slug, title, status, price, description, thumbnail, content, author, publishedAt }: Partial<ICourse> = course;
+    const filteredCourse: Partial<ICourse> = { _id: _id ? String(_id) : undefined, slug, title, status, price, description, thumbnail, content, author, publishedAt };
     return JSON.parse(JSON.stringify(filteredCourse));
 }
 
