@@ -1,5 +1,5 @@
 "use client"
-import { NavbarDropdown } from '@/components/navbar-dropdown';
+import { NavbarDropdown } from './navbar-dropdown';
 import { ModeToggle } from '@/components/mode-toggle';
 import { useRouter } from 'next/navigation';
 

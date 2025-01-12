@@ -24,14 +24,18 @@ export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBl
     }
 };
 
-export async function getBlog(slug: string): Promise<Partial<IBlog> | {error: string}> {
+export async function getBlog(slug: string, category?: string): Promise<Partial<IBlog> | {error: string}> {
     if(!slug)
         return {error: "Invalid Url"}
     await connectDB()
     try {
         const blog = await BlogModel.findOne({slug}) as IBlog;
         if (!blog) return {error: "No blog found"}
-
+        if(category && Array.isArray(blog.category)){
+            if(!blog.category.includes(category.trim()?.toLowerCase()))
+                return {error: "No blog found"}
+        }
+        
         return blogFilter(blog);
     } catch (error: any) {
         return err(error, "f", {ret: error.message});

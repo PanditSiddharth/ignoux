@@ -1,7 +1,6 @@
 
 import mongoose, { Schema } from "mongoose";
 // eslint-disable-next-line 
-import { AnalyticsModel, IAnalytics } from "./analytics.model"
 
 export function getId() {
     let userid = new Date().getTime() - 1707805802621 + Math.floor(Math.random() * 100)
