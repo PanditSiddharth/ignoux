@@ -11,18 +11,20 @@ import { useEffect } from "react";
 
 export default function HomePage() {
   const cs = useDataStore<ICourse[]>("courses", [])()
-  const bg = useDataStore<IBlog[]>("courses", [])()
+  const bg = useDataStore<IBlog[]>("blogs", [])()
 
   useEffect(() => {
     try {
       const fetchData = async () => {
         const courses = await getCourses({ skip: 0, postsPerPage: 3 })
         const blogs = await getBlogs({ skip: 0, postsPerPage: 3 })
-        if(Array.isArray(courses)){
-          cs.setData(courses)
+
+        console.log(courses, blogs)
+        if(typeof courses === "object" && "courses" in courses){
+          cs.setData(courses.courses)
         }
-        if(Array.isArray(blogs)){
-          bg.setData(blogs)
+        if(typeof blogs === "object" && "blogs" in blogs){
+          bg.setData(blogs.blogs)
         }
       }
       fetchData()
