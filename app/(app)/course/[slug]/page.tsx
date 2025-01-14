@@ -69,7 +69,7 @@ export default Course
 
 const BlurredImageCard = ({ title, slug, description, image, price }: any) => {
   return (
-    <div className="relative w-full h-96">
+    <div className="fixed w-full h-screen pt-12" >
       <div className="absolute inset-0 bg-cover bg-center filter blur-lg opacity-50" style={{ backgroundImage: `url(${image})` }}></div>
       <div className="relative z-10 p-6 bg-white bg-opacity-75 shadow-lg rounded-lg">
         <CourseCard

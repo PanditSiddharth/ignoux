@@ -18,7 +18,7 @@ export default function Blog(props: any) {
   useEffect(() => {
       const fetchBlog = async () => {
         console.log(params)
-          const blog = await getBlog(params?.blog, params?.slug);
+          const blog = await getBlog(params?.blog);
           if ("error" in blog) {
               toast.error(blog.error);
           } else {

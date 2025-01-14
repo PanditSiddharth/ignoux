@@ -27,6 +27,7 @@ export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBl
 export async function getBlog(slug: string, category?: string): Promise<Partial<IBlog> | {error: string}> {
     if(!slug)
         return {error: "Invalid Url"}
+    console.log(slug, category)
     await connectDB()
     try {
         const blog = await BlogModel.findOne({slug}) as IBlog;
