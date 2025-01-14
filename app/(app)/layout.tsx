@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "IGNOUX.in",
@@ -13,9 +14,10 @@ export default function RootLayout({
 }>) {
 
   return (
-    <div>
+    <div >
       <Navbar />
       {children}
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Moon, MoonIcon, Sun } from "lucide-react"
+import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
@@ -34,8 +34,8 @@ export function ModeToggle() {
         <DropdownMenuItem onClick={() => setTheme("blue")}>
           Blue
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("purple")}>
-          Purple
+        <DropdownMenuItem onClick={() => setTheme("aqua")}>
+          Aqua
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System

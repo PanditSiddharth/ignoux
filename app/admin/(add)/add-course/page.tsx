@@ -64,9 +64,7 @@ const AddCourse = () => {
     form.setValue('tags', newTags)
   }
 
-
   return (
-
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='w-full p-4 max-w-4xl mx-auto'>
         <Card>

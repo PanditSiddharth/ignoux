@@ -1,6 +1,7 @@
 "use server"
 import connectDB from "@/connectDB";
 import { CourseModel, ICourse } from "@/modals/course.model";
+import { BlogModel } from "@/modals/blog.model";
 import { getSessionUser } from "./user";
 import mongoose from "mongoose";
 import { courseFilter, err } from "@/helpers";
@@ -25,25 +26,30 @@ export const addOrUpdateCourse = async (course: Partial<ICourse>): Promise<Parti
     }
 };
 
-// export async function getCourse(slug: string, category?: string): Promise<Partial<ICourse> | {error: string}> {
-//     if(!slug)
-//         return {error: "Invalid Url"}
-//     await connectDB()
-//     try {
-//         const course = await CourseModel.findOne({slug}) as ICourse;
-//         if (!course) return {error: "No course found"}
-//         if(category && Array.isArray(course.category)){
-//             if(!course.category.includes(category.trim()?.toLowerCase()))
-//                 return {error: "No course found"}
-//         }
-        
-//         return courseFilter(course);
-//     } catch (error: any) {
-//         return err(error, "f", {ret: error.message});
-//     }
-// }
+interface GetCourseOptions{
+    blogs?: boolean;
+}
 
-interface GetCourseOptions {
+export async function getCourse(slug: string, options: GetCourseOptions): Promise<Partial<ICourse> | {error: string}> {
+    if(!slug)
+        return {error: "Invalid Url"}
+    await connectDB()
+    try {
+        let course: any;
+        if(options?.blogs)
+        course = await CourseModel.findOne({slug}).populate("content", 
+            "title description thumbnail slug") as ICourse;
+        else 
+        course = await CourseModel.findOne({slug})
+
+        if (!course) return {error: "No course found"}
+        return courseFilter(course);
+    } catch (error: any) {
+        return err(error, "f", {ret: error.message});
+    }
+}
+
+interface GetCoursesOptions {
     skip: number
     postsPerPage?: number
     search?: string
@@ -55,7 +61,7 @@ interface ResProps {
     totalCourses: number;
 }
 
-export async function getCourses(options: GetCourseOptions): Promise<ResProps | {error: string}> {
+export async function getCourses(options: GetCoursesOptions): Promise<ResProps | {error: string}> {
     await connectDB()
     const user = await getSessionUser()
 

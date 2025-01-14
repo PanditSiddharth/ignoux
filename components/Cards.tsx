@@ -9,7 +9,8 @@ interface IBlogCard {
     title: string,
     image: string,
     slug: string,
-    date: string,
+    date?: string,
+    price?: number,
     description: string,
 }
 
@@ -45,7 +46,7 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
     )
 }
 
-export const CourseCard = ({ title, image, slug, date, description }: IBlogCard) => {
+export const CourseCard = ({ title, image, slug, price, description }: IBlogCard) => {
     return (
         <Card
             className=""
@@ -60,12 +61,16 @@ export const CourseCard = ({ title, image, slug, date, description }: IBlogCard)
         </div>
 
             <div className="p-6">
-                <h2 className="text-xl font-bold">{title}</h2>
-                <p className="mt-2">{description}</p>
+                <h2 className="text-lg font-bold">{title}</h2>
+                <p className="mt-2 text-sm">{description}</p>
                 <div className="flex justify-between items-center mt-4">
-                    <span className="text-sm">{date}</span>
+                    <span className="">{price == 0 ? 
+                        <div className='text-green-600'>
+                        FREE
+                    </div> : 
+                    <div className=''>₹{price}</div>}</span>
                     <Link
-                        href={"/course/" + slug}
+                        href={slug}
                         className="px-4 py-2 rounded transition-colors"
                     ><Button variant={"secondary"}>
                         Enroll Now

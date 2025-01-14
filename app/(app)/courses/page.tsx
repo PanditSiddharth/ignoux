@@ -1,5 +1,5 @@
 "use client"
-import { BlogCard } from '@/components/Cards'
+import { CourseCard } from '@/components/Cards'
 import Scroll from '@/components/infinite-scroll'
 import { ICourse } from '@/modals/course.model'
 import { getCourses } from '@/server-functions/course'
@@ -37,16 +37,16 @@ const Courses = () => {
         className2='grid-cols-1 md:grid-cols-3 lg:grid-cols-4 max-w-screen'
         totalLength={pd.totalLength}
         element={(course, index) => (
-          <BlogCard title={course.title} slug={course.slug}
+          <CourseCard title={course.title} slug={"/course/" + course.slug}
             description={course.description}
             image={course.thumbnail}
-            date={new Date(course.publishedAt as any).toLocaleDateString()}
+            price={course.price}
             key={index}
           />
         )}
       />
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
+      <footer className="py-8">
         <div className="container mx-auto text-center">
           <p className="text-gray-400">
             © {new Date().getFullYear()} ignoux.in. All rights reserved.

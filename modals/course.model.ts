@@ -23,7 +23,7 @@ const CourseSchema = new Schema<ICourse>({
     price: { type: Number, required: true },
     description: { type: String, required: true },
     thumbnail: { type: String, required: true },
-    content: [{ type: Schema.Types.ObjectId, ref: BlogModel }],
+    content: [{ type: Schema.Types.ObjectId, ref: BlogModel}],
     tags: [{ type: String }],
     landingPage: { type: String },
     author: { type: Schema.Types.ObjectId, ref: UserModel },
