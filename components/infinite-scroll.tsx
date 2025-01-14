@@ -52,7 +52,7 @@ console.log(data)
                 {...scrollerOptions}
                 >
                 <div className={cn(
-                    'grid gap-4 w-full p-2 md:p-4 grid-cols-3', className2 )}>
+                    'grid gap-4 w-full grid-cols-3', className2 )}>
                     {
                         data.map((data, index) => (element(data, index)))
                     }

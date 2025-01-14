@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { FaYoutube, FaLinkedin, FaTelegram, FaGithub } from "react-icons/fa";
 
 export default function HomePage() {
   return (

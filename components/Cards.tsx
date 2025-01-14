@@ -49,18 +49,19 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
 export const CourseCard = ({ title, image, slug, price, description }: IBlogCard) => {
     return (
         <Card
-            className=""
+            className="px-0 mx-0 border rounded-sm"
         >
-        <div className="relative" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
+        <div className="relative rounded-t-full border" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
             <Image
                 src={image}
                 alt={title}
+                className='rounded-t-sm'
                 layout="fill"
                 objectFit="cover"
             />
         </div>
 
-            <div className="p-6">
+            <div className="p-6 ">
                 <h2 className="text-lg font-bold">{title}</h2>
                 <p className="mt-2 text-sm">{description}</p>
                 <div className="flex justify-between items-center mt-4">
