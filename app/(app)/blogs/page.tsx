@@ -20,7 +20,7 @@ const Blogs = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="max-w-6xl mx-auto px-2">
 
       {/* Hero Section */}
       <section className="py-16">
@@ -34,7 +34,7 @@ const Blogs = () => {
       <Scroll
         data={pd.data || []}
         next={next}
-        className2='grid-cols-1 md:grid-cols-3 lg:grid-cols-4 max-w-screen'
+        className2='grid-cols-1 md:grid-cols-3 lg:grid-cols-3'
         totalLength={pd.totalLength}
         element={(blog, index) => (
           <BlogCard title={blog.title} slug={blog.category[0] + "/" + blog.slug}
@@ -45,14 +45,6 @@ const Blogs = () => {
           />
         )}
       />
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
-        <div className="container mx-auto text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} ignoux.in. All rights reserved.
-          </p>
-        </div>
-      </footer>
 
     </div>
   )

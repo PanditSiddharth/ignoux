@@ -75,9 +75,11 @@ interface EditorOptions {
 }
 
 function MyEditor({className, onChange, value}: EditorOptions) {
-  const { theme } = useTheme()
+  const { theme, systemTheme } = useTheme()
+
   return (
-    <div className={cn("w-full min-h-screen relative", className)} data-color-mode={theme}>
+    <div className={cn("w-full min-h-screen relative", className)} 
+    data-color-mode={["dark", "blue"].includes((theme == "system" ? systemTheme : theme) as string) ? "dark" : "light"}>
       <MDEditor
         className="h-screen w-full relative"
         visibleDragbar={true}

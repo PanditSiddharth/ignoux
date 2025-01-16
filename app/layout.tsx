@@ -34,6 +34,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2233066744078073"
+     crossOrigin="anonymous"></script>
         <SessionProvider >
           <ThemeProvider {...themeOptions} attribute={"class"}>
           <div className="w-[220px] h-[100px] bg-primary opacity-30 rounded-full fixed -z-10 top-0 left-0 blur-[100px]"></div>

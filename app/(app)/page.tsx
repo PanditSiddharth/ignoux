@@ -54,13 +54,12 @@ export default function HomePage() {
 
       {/* Courses Section */}
       <section
-        className="relative bg-[#fff]/10 border w-4xl
-       backdrop-blur-[50px] mx-auto py-10 mt-2 md:mt-4
-       bg-gradient-to-t from-background to-transparent
+        >
+        <div className="mx-auto">
+          <h2 className="text-3xl font-extrabold px-2 py-4 font-mono text-center">Popular Courses</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-2 relative bg-[#fff]/10 border w-4xl
+       backdrop-blur-[50px] mx-auto py-2 bg-gradient-to-t from-background to-transparent
        ">
-        <div className="container mx-auto">
-          <h2 className="text-2xl font-bold text-center">Popular Courses</h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {cs.data.map((course) => (
             <CourseCard title={course.title} description={course.description} slug={course.slug} image={course.thumbnail} key={course.slug} price={course.price} />
             ))}
@@ -70,13 +69,11 @@ export default function HomePage() {
 
       {/* Courses Section */}
       <section
-        className="relative bg-[#fff]/10 border w-4xl
-       backdrop-blur-[50px] mx-auto py-10 mt-2 md:mt-4
-       bg-gradient-to-t from-transparent to-background
-       ">
-        <div className="container mx-auto">
-          <h2 className="text-2xl font-bold text-center">Popular blogs</h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        >
+        <div className="mx-auto">
+          <h2 className="text-3xl font-extrabold px-2 py-4 font-mono text-center">Popular Blogs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 px-2 relative bg-[#fff]/10 border w-4xl
+       backdrop-blur-[50px] mx-auto py-2 bg-gradient-to-b from-background to-transparent">
           {bg.data.map((blog) => (
              <BlogCard title={blog.title} description={blog.description} slug={blog.slug} image={blog.thumbnail} key={blog.slug} date={blog.publishedAt + ""} />
             ))}

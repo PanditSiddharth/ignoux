@@ -32,7 +32,7 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
                 <h2 className="text-xl font-bold">{title}</h2>
                 <p className="mt-2">{description}</p>
                 <div className="flex justify-between items-center mt-4">
-                    <span className="text-sm">{new Date(date).toLocaleString("en")}</span>
+                    <span className="text-sm">{new Date(date as string).toLocaleString("en")}</span>
                     <Link
                         href={"/t/" + slug}
                         className="px-4 py-2 rounded transition-colors"

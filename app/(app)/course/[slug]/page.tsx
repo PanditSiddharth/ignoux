@@ -20,7 +20,7 @@ const Course = ({ params }: { params: Promise<any> }) => {
         console.log(course, "course")
         setLoading(false)
         if (typeof course == "object" && "error" in course) return
-        pd.setData(course as ICourse)
+        pd.setData(course as ICourse) 
       })
     }
   }, [prs])
