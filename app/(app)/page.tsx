@@ -61,7 +61,7 @@ export default function HomePage() {
        backdrop-blur-[50px] mx-auto py-2 bg-gradient-to-t from-background to-transparent
        ">
           {cs.data.map((course) => (
-            <CourseCard title={course.title} description={course.description} slug={course.slug} image={course.thumbnail} key={course.slug} price={course.price} />
+            <CourseCard title={course.title} description={course.description} slug={`/course/${course.slug}`} image={course.thumbnail} key={course.slug} price={course.price} />
             ))}
           </div>
         </div>
@@ -75,7 +75,8 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 px-2 relative bg-[#fff]/10 border w-4xl
        backdrop-blur-[50px] mx-auto py-2 bg-gradient-to-b from-background to-transparent">
           {bg.data.map((blog) => (
-             <BlogCard title={blog.title} description={blog.description} slug={blog.slug} image={blog.thumbnail} key={blog.slug} date={blog.publishedAt + ""} />
+             <BlogCard title={blog.title} description={blog.description} 
+             slug={`/t/${blog.category[0]}/${blog.slug}`} image={blog.thumbnail} key={blog.slug} date={blog.publishedAt + ""} />
             ))}
           </div>
         </div>
