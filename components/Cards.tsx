@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 // import Link from 'next/link'
-import React from 'react'
+import React, { JSX } from 'react'
 import { Card } from './ui/card'
 import { Button } from './ui/button'
 
@@ -11,10 +11,11 @@ interface IBlogCard {
     slug: string,
     date?: string,
     price?: number,
-    description: string,
+    description?: string,
+    component?: JSX.Element,
 }
 
-export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) => {
+export const BlogCard = ({ title, image, slug, date, description, component }: IBlogCard) => {
     return (
         <Card
             className=""
@@ -30,8 +31,9 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
 
             <div className="p-6">
                 <h2 className="text-xl font-bold">{title}</h2>
-                <p className="mt-2">{description}</p>
-                <div className="flex justify-between items-center mt-4">
+                {description && <p className="mt-2">{description}</p>}
+                { component ? component 
+                 : <div className="flex justify-between items-center mt-4">
                     <span className="text-sm">{new Date(date as string).toLocaleString("en")}</span>
                     <Link
                         href={slug}
@@ -40,7 +42,7 @@ export const BlogCard = ({ title, image, slug, date, description }: IBlogCard) =
                         Read More
                     </Button>
                     </Link>
-                </div>
+                </div> }
             </div>
         </Card>
     )

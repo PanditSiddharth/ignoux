@@ -24,27 +24,28 @@ export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBl
     }
 };
 
-export async function getBlog(slug: string, category?: string): Promise<Partial<IBlog> | {error: string}> {
-    if(!slug)
-        return {error: "Invalid Url"}
+export async function getBlog(slug: string, category?: string): Promise<Partial<IBlog> | { error: string }> {
+    if (!slug)
+        return { error: "Invalid Url" }
     console.log(slug, category)
     await connectDB()
     try {
-        const blog = await BlogModel.findOne({slug}) as IBlog;
-        if (!blog) return {error: "No blog found"}
-        if(category && Array.isArray(blog.category)){
-            if(!blog.category.includes(category.trim()?.toLowerCase()))
-                return {error: "No blog found"}
+        const blog = await BlogModel.findOne({ slug }) as IBlog;
+        if (!blog) return { error: "No blog found" }
+        if (category && Array.isArray(blog.category)) {
+            if (!blog.category.includes(category.trim()?.toLowerCase()))
+                return { error: "No blog found" }
         }
-        
+
         return blogFilter(blog);
     } catch (error: any) {
-        return err(error, "f", {ret: error.message});
+        return err(error, "f", { ret: error.message });
     }
 }
 
 interface GetBlogOptions {
-    skip: number
+    ids?: any[];
+    skip?: number;
     postsPerPage?: number
     search?: string
     searchBy?: string
@@ -55,31 +56,40 @@ interface ResProps {
     totalBlogs: number;
 }
 
-export async function getBlogs(options: GetBlogOptions): Promise<ResProps | {error: string}> {
+export async function getBlogs(options: GetBlogOptions): Promise<ResProps | { error: string }> {
     await connectDB()
     const user = await getSessionUser()
 
     try {
-        options.postsPerPage = options.postsPerPage || 20
-        const or = [
-            { title: { $regex: options.search || "", $options: "i" } },
-            { description: { $regex: options.search || "", $options: "i" } },
-            { tags: { $regex: options.search || "", $options: "i" } },
-        ]
+        if (!options?.ids) {
+            options.postsPerPage = options.postsPerPage || 20
+            const or = [
+                { title: { $regex: options.search || "", $options: "i" } },
+                { description: { $regex: options.search || "", $options: "i" } },
+                { tags: { $regex: options.search || "", $options: "i" } },
+            ]
             // Fetch blogs with search and pagination
-           const blogs = await BlogModel.find({
+            const blogs = await BlogModel.find({
                 $or: or,
             })
                 .sort({ _id: -1 })
-                .skip(options.skip)
+                .skip(options.skip || 0)
                 .limit(options.postsPerPage);
 
             const totalBlogs = await BlogModel.countDocuments({
                 $or: or,
             });
-        
-        return JSON.parse(JSON.stringify({ blogs, totalBlogs }));
+
+            return JSON.parse(JSON.stringify({ blogs, totalBlogs }));
+        } else {
+            return {
+                blogs: JSON.parse(JSON.stringify(
+                    await BlogModel.find({ _id: { $in: options.ids } }),
+                )),
+                totalBlogs: options.ids?.length
+            }
+        }
     } catch (error: any) {
-       return err(error, "f", {ret: error.message})
+        return err(error, "f", { ret: error.message })
     }
 }

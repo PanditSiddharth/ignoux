@@ -22,11 +22,13 @@ import { useSession } from 'next-auth/react';
 import { addOrUpdateProducts } from '@/server-functions/product';
 import { addOrUpdateCourse } from '@/server-functions/course';
 import { courseFilter } from '@/helpers';
+import AddBlogs from './blogs-update';
 
 // when editing intial value requires
 const AddCourse = () => {
   const [tagInput, setTagInput] = useState('')
   const { data: session } = useSession()
+  const [showBlogs, setShowBlogs] = useState(false)
   const form = useForm<z.infer<typeof ZodCourseSchema>>({
     resolver: zodResolver(ZodCourseSchema),
     defaultValues: getCourseDefault({})
@@ -152,6 +154,26 @@ const AddCourse = () => {
               </div>}
             />
 
+            <MyField
+              form={form}
+              name="content"
+              label="Add blogs"
+              description="Add your blogs"
+              input={(field) => 
+              <div className='flex'>
+                <Button type='button' onClick={() => setShowBlogs(!showBlogs)}>
+                  {showBlogs? 'Hide Blogs' : 'Add Blogs'} {field.value?.length}
+                </Button>
+                <AddBlogs 
+                  placeholder='Add blogs' 
+                  onChange={field.onChange} 
+                  value={field?.value} 
+                  showBlogs={showBlogs}
+                  setShowBlogs={setShowBlogs}
+                  />
+              </div>
+              }
+            />
             <MyField
               form={form}
               name="description"
