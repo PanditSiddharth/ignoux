@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React, { JSX } from 'react'
 import { Card } from './ui/card'
 import { Button } from './ui/button'
+import { cn } from '@/modals/utils'
 
 interface IBlogCard {
     title: string,
@@ -13,12 +14,14 @@ interface IBlogCard {
     price?: number,
     description?: string,
     component?: JSX.Element,
+    className?: string,
+    className2?: string,
 }
 
-export const BlogCard = ({ title, image, slug, date, description, component }: IBlogCard) => {
+export const BlogCard = ({ title, image, slug, date, description, component, className, className2 }: IBlogCard) => {
     return (
         <Card
-            className=""
+            className={className}
         >
         <div className="relative" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
             <Image
@@ -29,7 +32,7 @@ export const BlogCard = ({ title, image, slug, date, description, component }: I
             />
         </div>
 
-            <div className="p-6">
+            <div className={cn("p-6", className2)}>
                 <h2 className="text-xl font-bold">{title}</h2>
                 {description && <p className="mt-2">{description}</p>}
                 { component ? component 

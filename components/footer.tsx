@@ -1,10 +1,13 @@
+"use client"
+import { useDataStore } from '@/store'
 import Link from 'next/link'
 import React from 'react'
 import { FaGithub, FaLinkedin, FaTelegram, FaYoutube } from 'react-icons/fa'
 
 const Footer = () => {
+const ft = useDataStore<boolean>("footer", true)()
   return (
-    <div className='max-w-6xl mx-auto px-2'>
+    ft.data && <div className='max-w-6xl mx-auto px-2'>
               {/* Footer */}
       <footer className="py-8">
         <div className="container mx-auto text-center">
