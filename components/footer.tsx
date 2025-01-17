@@ -1,13 +1,21 @@
 "use client"
 import { useDataStore } from '@/store'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaGithub, FaLinkedin, FaTelegram, FaYoutube } from 'react-icons/fa'
 
 const Footer = () => {
-const ft = useDataStore<boolean>("footer", true)()
-  return (
-    ft.data && <div className='max-w-6xl mx-auto px-2'>
+const [isMounted, setIsMounted] = useState(false);
+const ft = useDataStore<boolean>("footer", true)();
+
+useEffect(() => {
+  setIsMounted(true);
+}, []);
+
+if (!isMounted) return null;
+
+return (
+  ft?.data && <div className='max-w-6xl mx-auto px-2'>
               {/* Footer */}
       <footer className="py-8">
         <div className="container mx-auto text-center">
@@ -29,7 +37,7 @@ const ft = useDataStore<boolean>("footer", true)()
           <p className="mt-4 text-gray-400">© 2024 IGNOUX.in. All rights reserved.</p>
         </div>
       </footer>
-    </div>
+    </div> 
   )
 }
 

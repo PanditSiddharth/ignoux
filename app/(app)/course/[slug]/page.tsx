@@ -24,13 +24,12 @@ const Course = ({ params }: { params: Promise<any> }) => {
         console.log(course, "course")
         setLoading(false)
         if (typeof course == "object" && "error" in course) return
-        pd.setData(course as ICourse)
-        // pd.setData({
-        //   ...course,
-        //   content: [...course.content!, ...course.content!, ...course.content!, 
-        //     ...course.content!, ...course.content!
-        //   ]
-        // } as ICourse)
+        // pd.setData(course as ICourse)
+        const n: any = [];
+        for (let i = 0; i < 20; i++) {
+          course.content?.forEach((blog: any) => n.push({ ...blog, _id: Math.random() }))
+        }
+        pd.setData({ ...course, content: n } as ICourse)
       })
     }
   }, [prs])
@@ -41,10 +40,11 @@ const Course = ({ params }: { params: Promise<any> }) => {
     Not Found</div>
 
   return (
-    <div className='w-full h-[calc(100vh-5rem)] flex flex-col md:flex-row space-y-3'>
+    <div className='w-full space-y-3 md:pl-[8%] lg:pl-2'>
 
 
-      <div className="hidden md:w-[8%] place-content-start space-y-10 px-4 md:flex flex-col items-center">
+      <div className="hidden fixed top-0 left-0 h-screen pt-[4rem] md:flex 
+      md:w-[8%] place-content-start space-y-10 px-4 flex-col items-center">
         <Link href={"/"} className='flex flex-col items-center'>
           <Home />
           <div className='text-xs'>Home</div>
@@ -59,39 +59,44 @@ const Course = ({ params }: { params: Promise<any> }) => {
         </Link>
       </div>
 
-      <div className={`md:w-[20rem] relative pt-10 bg-cover rounded-lg overflow-hidden bg-center`} style={{ backgroundImage: `url(${pd.data.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        {/* this is image */}
-        <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  backdrop-blur-xl z-10' />
-        <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  from-transparent  to-background z-20' />
-        <BlogCard
-          title={pd.data.title}
-          slug={pd.data.slug}
-          image={pd.data.thumbnail}
-          description={pd.data.description}
-          component={<div></div>}
-          className='mx-6 relative z-30 bg-gradient-to-b from-forground to-transparent border-none shadow-none'
-          className2='bg-transparent'
-        />
-      </div>
+        <div className={`w-full lg:w-[30%] lg:fixed lg:top-0 lg:left-[8%] pt-[4rem] lg:h-screen 
+        relative
+          bg-cover rounded-lg bg-center`} style={{ backgroundImage: `url(${pd.data.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          {/* this is image */}
+          <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  backdrop-blur-xl z-10' />
+          <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  from-background/70 via-transparent to-background z-20' />
+          <BlogCard
+            title={pd.data.title}
+            slug={pd.data.slug}
+            image={pd.data.thumbnail}
+            description={<p className='text-sm line-clamp-3 pt-2'>{pd.data.description}</p>}
+            component={<div></div>}
+            className='mx-6 relative z-30 bg-black/10  border-none shadow-none'
+            className2='bg-transparent px-1 pt-4'
+            imageClass='rounded-lg'
+          />
+        </div>
 
-      <div className='relative w-full px-4 space-y-2 pt-6 md:w-[62%] bg-gradient-to-b from-forground to-transparent md:overflow-y-auto'>
-        {pd.data?.content?.map((blog: any) => (
-          <Link href={"/course/" + pd.data?.slug + "/" + blog.slug} key={blog._id} className={"flex flex-row"}>
-            <div className="relative px-6 w-36 h-20 rounded-lg overflow-hidden" >
-              <Image
-                src={blog.thumbnail}
-                alt={blog.title}
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
-            <div className='px-2 overflow-ellipsis'>
-              <div className='text-lg'>{blog.title}</div>
-              <div className="text-sm overflow-ellipsis">{blog.description}</div>
-            </div>
-          </Link>))}
-      </div>
+        <div className='relative w-full px-4 space-y-2 lg:pl-[38%] bg-gradient-to-b from-forground to-transparent'>
+          {pd.data?.content?.map((blog: any) => (
+            <Link href={"/course/" + pd.data?.slug + "/" + blog.slug} key={blog._id} className={"flex flex-row"}>
+              <div className="relative px-6 w-36 h-20 rounded-lg" >
+                <Image
+                  src={blog.thumbnail}
+                  alt={blog.title}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+   
+              <div className='px-2 overflow-ellipsis'>
+                <div className='text-lg line-clamp-2'>{blog.title}</div>
+                <div className="text-sm line-clamp-1">{blog.description}</div>
+              </div>
+            </Link>))}
+        </div>
     </div>
+
   )
 }
 
