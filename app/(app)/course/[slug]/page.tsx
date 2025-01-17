@@ -24,12 +24,12 @@ const Course = ({ params }: { params: Promise<any> }) => {
         console.log(course, "course")
         setLoading(false)
         if (typeof course == "object" && "error" in course) return
-        // pd.setData(course as ICourse)
-        const n: any = [];
-        for (let i = 0; i < 20; i++) {
-          course.content?.forEach((blog: any) => n.push({ ...blog, _id: Math.random() }))
-        }
-        pd.setData({ ...course, content: n } as ICourse)
+        pd.setData(course as ICourse)
+        // const n: any = [];
+        // for (let i = 0; i < 20; i++) {
+        //   course.content?.forEach((blog: any) => n.push({ ...blog, _id: Math.random() }))
+        // }
+        // pd.setData({ ...course, content: n } as ICourse)
       })
     }
   }, [prs])
