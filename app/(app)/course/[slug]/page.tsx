@@ -15,7 +15,7 @@ const Course = ({ params }: { params: Promise<any> }) => {
   const ft = useDataStore<boolean>("footer", false)()
   const prs = React.use(params)
   const [loading, setLoading] = useState(true)
-useEffect(() =>{ft.setData(false)}, [])
+  useEffect(() => { ft.setData(false) }, [])
 
   useEffect(() => {
     if (prs && prs.slug) {
@@ -41,7 +41,9 @@ useEffect(() =>{ft.setData(false)}, [])
     Not Found</div>
 
   return (
-    <div className='fixed z-10 overflow-y-scroll md:overflow-y-clip w-screen top-0 left-0 h-screen flex flex-col md:flex-row pt-16 space-y-3'>
+    <div className='w-full h-[calc(100vh-5rem)] flex flex-col md:flex-row space-y-3'>
+
+
       <div className="hidden md:w-[8%] place-content-start space-y-10 px-4 md:flex flex-col items-center">
         <Link href={"/"} className='flex flex-col items-center'>
           <Home />
@@ -57,32 +59,25 @@ useEffect(() =>{ft.setData(false)}, [])
         </Link>
       </div>
 
-      <div className='md:w-[30%] relative 
-      bg-gradient-to-t from-background to-transparent'>
+      <div className={`md:w-[20rem] relative pt-10 bg-cover rounded-lg overflow-hidden bg-center`} style={{ backgroundImage: `url(${pd.data.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         {/* this is image */}
-          <div className="absolute blur-md z-50" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
-            <Image
-              src={pd.data.thumbnail}
-              alt={pd.data.title}
-              layout="fill"
-              objectFit="cover"
-            />
-        </div>
-
-          <BlogCard
-            title={pd.data.title}
-            slug={pd.data.slug}
-            image={pd.data.thumbnail}
-            description={pd.data.description}
-            component={<div></div>}
-            className='mx-6 relative z-10 bg-gradient-to-b from-forground to-transparent border-none shadow-none'
-            className2='bg-transparent'
-          />
+        <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  backdrop-blur-xl z-10' />
+        <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  from-transparent  to-background z-20' />
+        <BlogCard
+          title={pd.data.title}
+          slug={pd.data.slug}
+          image={pd.data.thumbnail}
+          description={pd.data.description}
+          component={<div></div>}
+          className='mx-6 relative z-30 bg-gradient-to-b from-forground to-transparent border-none shadow-none'
+          className2='bg-transparent'
+        />
       </div>
-      <div className='relative w-full px-4 space-y-2 pb-6 md:w-[62%] bg-gradient-to-b from-forground to-transparent md:overflow-y-scroll'>
+
+      <div className='relative w-full px-4 space-y-2 pt-6 md:w-[62%] bg-gradient-to-b from-forground to-transparent md:overflow-y-auto'>
         {pd.data?.content?.map((blog: any) => (
           <Link href={"/course/" + pd.data?.slug + "/" + blog.slug} key={blog._id} className={"flex flex-row"}>
-            <div className="relative px-6 w-36 h-20" >
+            <div className="relative px-6 w-36 h-20 rounded-lg overflow-hidden" >
               <Image
                 src={blog.thumbnail}
                 alt={blog.title}
