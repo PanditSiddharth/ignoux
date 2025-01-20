@@ -39,7 +39,7 @@ export const BlogCard = ({ title, image, slug, date,
 
             <div className={cn("p-6", className2)}>
                 <h2 className="text-xl font-bold">{title}</h2>
-                {description && typeof description == "string" ? <p className="mt-2">{description}</p> : description}
+                {description && typeof description == "string" ? <p className="mt-2 text-sm h-14 line-clamp-3">{description}</p> : description}
                 {component ? component
                     : <div className="flex justify-between items-center mt-4">
                         <span className="text-sm">{new Date(date as string).toLocaleString("en")}</span>
@@ -72,8 +72,8 @@ export const CourseCard = ({ title, image, slug, price, description }: IBlogCard
             </div>
 
             <div className="p-6 ">
-                <h2 className="text-lg font-bold">{title}</h2>
-                <p className="mt-2 text-sm">{description}</p>
+                <h2 className="text-lg font-bold line-clamp-2">{title}</h2>
+                <p className="mt-2 text-sm line-clamp-3 min-h-14">{description}</p>
                 <div className="flex justify-between items-center mt-4">
                     <span className="">{price == 0 ?
                         <div className='text-green-600'>

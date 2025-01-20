@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { IProduct } from "./product.model";
 
 // Define Zod schema for validation
 export const userSettingsSchema = z.object({
@@ -66,7 +67,7 @@ export const ZodBlogSchema = z.object({
   content: z.string(),
   tags: z.array(z.string()).min(1, "At least one tag is required"),
   category: z.array(z.string()).min(1, "At least one category is required"),
-  products: z.array(z.string()),
+  products: z.array(z.any()), 
   author: z.any(),
   publishedAt: z.any().optional(),
   updatedAt: z.any().optional(),
@@ -80,7 +81,7 @@ export const ZodCourseSchema = z.object({
   price: z.number().nonnegative("Price must be a non-negative number"),
   description: z.string().nonempty("Description is required"),
   thumbnail: z.string().nonempty("Thumbnail is required"),
-  content: z.array(z.string().nonempty("Content must be a valid ObjectId")),
+  content: z.array(z.any()),
   tags: z.array(z.string().nonempty("Add atleast one tag")).min(1,"Add atleast one tag"),
   author: z.string().optional(),
   publishedAt: z.date().optional(),

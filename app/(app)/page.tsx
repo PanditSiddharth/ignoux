@@ -41,10 +41,10 @@ export default function HomePage() {
        bg-gradient-to-t from-transparent to-background
        ">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold font-sans">Learn Programming & Development</h2>
-          <p className="mt-4 text-lg font-sans">
-            Join thousands of learners and start your coding journey with free tutorials and resources.
-          </p>
+            <h2 className="text-4xl font-bold font-sans">Explore Our Courses With Notes</h2>
+            <p className="mt-4 text-lg font-sans">
+            Join thousands of learners and enhance your skills with our comprehensive courses.
+            </p>
           <Link href={'/courses'} ><Button className="mt-6">
             Join Courses
           </Button>

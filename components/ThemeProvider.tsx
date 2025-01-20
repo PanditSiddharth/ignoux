@@ -12,6 +12,7 @@ export function ThemeProvider({
     dark: 'dark',
     purple: 'purple',
     blue: 'blue',
+    aqua: "aqua"
   }}
    {...props}>{children}</NextThemesProvider>
 }

@@ -4,10 +4,12 @@ import { IProduct } from "@/modals/product.model"
 
 interface ICommon { _id?: string; 
   slug?: string; 
-  title?: string 
+  title?: string;
+  description?: string;
   thumbnail?: string;
   tags?: string[];
   publishedAt?: Date;
+
 }
 
 export const common = <T extends ICommon>(initial: Partial<T> = {}) => {
@@ -15,9 +17,10 @@ export const common = <T extends ICommon>(initial: Partial<T> = {}) => {
     _id: initial?._id || "",
     slug: initial?.slug || "",
     title: initial?.title || "",
+    description: initial.description || "",
     thumbnail: initial?.thumbnail || "https://res.cloudinary.com/panditsiddharth/image/upload/v1736330395/u780a5e8wjgb3sqep7do.png",
     tags: initial?.tags || [],
-    publishedAt: initial?.publishedAt || new Date(),
+    publishedAt: initial?.publishedAt ? new Date(initial.publishedAt) : new Date(),
   };
 };
 export const getCourseDefault = (initial: Partial<ICourse> = {}) => {

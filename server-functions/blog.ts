@@ -4,6 +4,7 @@ import { BlogModel, IBlog } from "@/modals/blog.model";
 import { getSessionUser } from "./user";
 import mongoose from "mongoose";
 import { blogFilter, err } from "@/helpers";
+import { MdOutlineQueryBuilder } from "react-icons/md";
 
 export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBlog> | { error: string }> => {
     try {
@@ -24,16 +25,34 @@ export const addOrUpdateBlog = async (blog: Partial<IBlog>): Promise<Partial<IBl
     }
 };
 
-export async function getBlog(slug: string, category?: string): Promise<Partial<IBlog> | { error: string }> {
-    if (!slug)
+interface GetBlogOptions {
+    products?: boolean;
+    slug?: string;
+    _id?: string;
+    category?: string;
+}
+export async function getBlog(opt: GetBlogOptions = {}): Promise<Partial<IBlog> | { error: string }> {
+    if (!opt?.slug)
         return { error: "Invalid Url" }
-    console.log(slug, category)
+
     await connectDB()
     try {
-        const blog = await BlogModel.findOne({ slug }) as IBlog;
+        let query: any = {}
+        if (opt?.slug)
+            query = { slug: opt?.slug }
+        else if (opt?._id)
+            query = { _id: opt?._id }
+        else return { error: "Slug or _id is required" }
+        let blog: any;
+        if (opt.products)
+            blog = await BlogModel.findOne(query).populate("products") as IBlog;
+        else
+            blog = await BlogModel.findOne(query) as IBlog;
+        console.log(blog);
+
         if (!blog) return { error: "No blog found" }
-        if (category && Array.isArray(blog.category)) {
-            if (!blog.category.includes(category.trim()?.toLowerCase()))
+        if (opt?.category && Array.isArray(blog.category)) {
+            if (!blog.category.includes(opt?.category.trim()?.toLowerCase()))
                 return { error: "No blog found" }
         }
 

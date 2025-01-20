@@ -11,24 +11,10 @@ import { CircleX, CrossIcon } from 'lucide-react'
 import { useEffect } from 'react'
 
 const AddBlogs = ({ onChange, value, showBlogs, setShowBlogs }: any) => {
-  value = value || []
-
-  
-  const slct = useDataStore<IBlog[]>("selected", [])()
+  const slct = useDataStore<IBlog[]>("sblogs", [])()
   const pd = useDataStore<IBlog[]>("blogs", [])()
   const selectedItemsSet = new Set(slct.data.map(item => item._id));
-  useEffect(()=> {
-    const ids: string[] = []
-    async function getBlogsFromServer() {
-      const p = await getBlogs({ ids })
-     if(typeof p  == "object" && "blogs" in p && Array.isArray(p)){
-       slct.setData(p.blogs)
-     }
-    }
-   if(Array.isArray(value) && value.length > 0 || typeof value[0] == "string"){
-     getBlogsFromServer()
-   }
-  }, [])
+
   const handleSelectItem = (item: any) => {
     if (!selectedItemsSet.has(item._id)) {
       slct.setData([...slct.data, item]);
@@ -53,7 +39,7 @@ const AddBlogs = ({ onChange, value, showBlogs, setShowBlogs }: any) => {
     showBlogs && <div className="w-screen h-screen bg-background fixed z-50 top-0 left-0 mx-auto px-2">
       <Button type='button' className='py-3 my-4 ' onClick={e => {
         setShowBlogs(!showBlogs)
-        onChange(slct.data.map((value: any) => value._id))
+        onChange(slct.data.map((val: any) => val._id))
       }} >
         Close</Button>
 
@@ -63,9 +49,9 @@ const AddBlogs = ({ onChange, value, showBlogs, setShowBlogs }: any) => {
             <Card className='flex h-full'>
               <div className='px-3'>
                 <div>   {index + 1}   </div>
-                <CircleX onClick={e=>handleRemoveItem(blog)} className='text-sm size-4' />
+                <CircleX onClick={e => handleRemoveItem(blog)} className='text-xs size-3' />
               </div>
-              <div className='text-sm'>{blog.title}</div>
+              <div className='text-sm line-clamp-2'>{blog.title}</div>
             </Card>
           </div>
         ))}

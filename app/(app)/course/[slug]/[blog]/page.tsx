@@ -36,7 +36,7 @@ export default function Blog(props: any) {
     Not Found</div>
   return (
     <div className='p-4'
-     data-color-mode={["dark", "blue"].includes((theme == "system" ? systemTheme : theme) as string) ? "dark" : "light"} >
+     data-color-mode={["dark", "blue", "aqua"].includes((theme == "system" ? systemTheme : theme) as string) ? "dark" : "light"} >
       <MarkdownPreview
         className='p-4 max-w-4xl mx-auto'
         source={bg?.data?.content}

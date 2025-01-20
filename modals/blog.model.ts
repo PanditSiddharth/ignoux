@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { UserModel } from "./user.model";
-import { ProductModel } from "./product.model";
+import { IProduct, ProductModel } from "./product.model";
 
 export interface IBlog {
     slug: string;
@@ -11,7 +11,7 @@ export interface IBlog {
     content: string;
     category: string[];
     tags: string[];
-    products?: string[];
+    products?: string[] | IProduct[];
     author?: string;
     publishedAt?: Date;
     updatedAt?: Date;

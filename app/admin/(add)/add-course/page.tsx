@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { ImageUpload } from '@/components/product/image-upload';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from "react-toastify"
 // import { addOrUpdateCourse } from '@/server-functions/course';
 import { MyField } from '../myField';
@@ -17,18 +17,22 @@ import { MyField } from '../myField';
 import MyEditor from '../editor';
 import { generateSlug, getCourseDefault } from '../helpers';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAddProducts } from '@/store';
+import { useAddProducts, useDataStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import { addOrUpdateProducts } from '@/server-functions/product';
-import { addOrUpdateCourse } from '@/server-functions/course';
+import { addOrUpdateCourse, getCourse } from '@/server-functions/course';
 import { courseFilter } from '@/helpers';
 import AddBlogs from './blogs-update';
+import { ICourse } from '@/modals/course.model';
+import { IBlog } from '@/modals/blog.model';
 
 // when editing intial value requires
-const AddCourse = () => {
+const AddCourse = (props: any) => {
   const [tagInput, setTagInput] = useState('')
   const { data: session } = useSession()
   const [showBlogs, setShowBlogs] = useState(false)
+  const slct = useDataStore<IBlog[]>("sblogs", [])()
+  const sp = React.use<{ _id: string, slug: string }>(props.searchParams)
   const form = useForm<z.infer<typeof ZodCourseSchema>>({
     resolver: zodResolver(ZodCourseSchema),
     defaultValues: getCourseDefault({})
@@ -39,16 +43,35 @@ const AddCourse = () => {
     if (Object.keys(form.formState.errors).length != 0) {
       toast.error("Error in any field data")
     }
+
     // eslint-disable-next-line
   }, [form.formState.errors])
+
+  useEffect(() => {
+    if (sp && sp._id || sp.slug) {
+      const { slug, _id } = sp
+      getCourse({ slug, _id, blogs: true })
+        .then((course) => {
+          if (typeof course == "object" && "content" in course) {
+            const c: any[] = course.content || [];
+            slct.setData(c || [])
+            course.content = c.map(cnt => cnt._id)
+            form.reset(getCourseDefault(course))
+          }
+        })
+    }
+  }, [])
 
   const onSubmit = async (data: z.infer<typeof ZodCourseSchema>) => {
 
     if (!data.slug || !/^(?!-)(?!.*--)[a-z0-9-]+(?<!-)$/.test(data.slug)) {
       return form.setError("slug", { message: "Only letters, - and numbers are allowed" });
     }
- console.log(data)
-    const bg = await addOrUpdateCourse(courseFilter({...data, author: session?.user?._id}))
+
+    if (!data.author)
+      data.author = session?.user?._id
+
+    const bg = await addOrUpdateCourse(courseFilter(data))
     if ("error" in bg)
       return toast.error(bg.error)
     toast.success("Course Added Successfully")
@@ -119,7 +142,7 @@ const AddCourse = () => {
               placeholder="Enter Course Slug"
               description="Slug will create course link" />
 
-           <MyField
+            <MyField
               form={form}
               name="price"
               label="Course Price"
@@ -159,19 +182,19 @@ const AddCourse = () => {
               name="content"
               label="Add blogs"
               description="Add your blogs"
-              input={(field) => 
-              <div className='flex'>
-                <Button type='button' onClick={() => setShowBlogs(!showBlogs)}>
-                  {showBlogs? 'Hide Blogs' : 'Add Blogs'} {field.value?.length}
-                </Button>
-                <AddBlogs 
-                  placeholder='Add blogs' 
-                  onChange={field.onChange} 
-                  value={field?.value} 
-                  showBlogs={showBlogs}
-                  setShowBlogs={setShowBlogs}
+              input={(field) =>
+                <div className='flex'>
+                  <Button type='button' onClick={() => setShowBlogs(!showBlogs)}>
+                    {showBlogs ? 'Hide Blogs' : 'Add Blogs'} {field.value?.length}
+                  </Button>
+                  <AddBlogs
+                    placeholder='Add blogs'
+                    onChange={field.onChange}
+                    value={field?.value}
+                    showBlogs={showBlogs}
+                    setShowBlogs={setShowBlogs}
                   />
-              </div>
+                </div>
               }
             />
             <MyField

@@ -56,7 +56,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
 
 
                 <div className="lg:pl-72 w-full">{children}</div>
-                <div className="fixed bottom-1 lg:left-74">
+                <div className="fixed z-50 bottom-1 lg:left-74">
                     <ModeToggle />
                 </div>
                 <div className="fixed bottom-1 right-1"><NavbarDropdown /></div>

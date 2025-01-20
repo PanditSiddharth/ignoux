@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { UserModel } from "./user.model";
-import { BlogModel } from "./blog.model";
+import { BlogModel, IBlog } from "./blog.model";
 
 export interface ICourse {
     _id?: string;
@@ -10,7 +10,7 @@ export interface ICourse {
     price: number;
     description: string;
     thumbnail: string;
-    content: string[]; //  BlogModel
+    content: string[] | IBlog[]; //  BlogModel
     tags: string[]; //  BlogModel
     landingPage?: string
     author?: string; // UserModel

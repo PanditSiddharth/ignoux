@@ -28,19 +28,27 @@ export const addOrUpdateCourse = async (course: Partial<ICourse>): Promise<Parti
 
 interface GetCourseOptions{
     blogs?: boolean;
+    slug?: string;
+    _id?: string;
 }
 
-export async function getCourse(slug: string, options: GetCourseOptions): Promise<Partial<ICourse> | {error: string}> {
-    if(!slug)
+export async function getCourse(options: GetCourseOptions): Promise<Partial<ICourse> | {error: string}> {
+    if(!options)
         return {error: "Invalid Url"}
     await connectDB()
     try {
         let course: any;
+        let query: any
+        if(options.slug)
+            query = { slug: options.slug }
+        else if(options?._id)
+            query = { _id: options._id }
+        else return {error: "Slug or _id is required"}
         if(options?.blogs)
-        course = await CourseModel.findOne({slug}).populate("content", 
+        course = await CourseModel.findOne(query).populate("content", 
             "title description thumbnail slug") as ICourse;
         else 
-        course = await CourseModel.findOne({slug})
+        course = await CourseModel.findOne(query)
 
         if (!course) return {error: "No course found"}
         return courseFilter(course);

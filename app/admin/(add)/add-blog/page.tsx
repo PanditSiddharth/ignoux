@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { ImageUpload } from '@/components/product/image-upload';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from "react-toastify"
 // import { addOrUpdateBlog } from '@/server-functions/blog';
 import { MyField } from '../myField';
@@ -18,24 +18,40 @@ import MyEditor from '../editor';
 import { generateSlug, getBlogDefaults } from '../helpers';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { blogFilter } from '@/helpers';
-import { useAddProducts } from '@/store';
+import { useAddProducts, useDataStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import { addOrUpdateProducts } from '@/server-functions/product';
-import { addOrUpdateBlog } from '@/server-functions/blog';
+import { addOrUpdateBlog, getBlog } from '@/server-functions/blog';
+import { IProduct } from '@/modals/product.model';
+import { IBlog } from '@/modals/blog.model';
 // import { useBlogIds } from '@/store';
 
 // when editing intial value requires
-const AddBlog = () => {
+const AddBlog = (props: any) => {
   const [tagInput, setTagInput] = useState('')
   const [categoryI, setCategory] = useState('')
   // const { blogIds, setBlogIds } = useBlogIds()
   const { productAdds, setProductAdds } = useAddProducts()
   const { data: session } = useSession()
+    const sp = React.use<{ _id: string, slug: string }>(props.searchParams)
   const form = useForm<z.infer<typeof ZodBlogSchema>>({
     resolver: zodResolver(ZodBlogSchema),
     defaultValues: getBlogDefaults({})
   });
 
+  useEffect(() => {
+    if (sp && sp._id || sp.slug) {
+      const { slug, _id } = sp
+      getBlog({ slug, _id })
+        .then((blog) => {
+          console.log(getBlogDefaults(blog as IBlog))
+          if (typeof blog == "object" && "_id" in blog) {
+            form.reset(getBlogDefaults(blog as IBlog))
+          }
+        })
+    }
+  }, [])
+  
   useEffect(() => {
     if (Object.keys(form.formState.errors).length != 0) {
       toast.error("Error in any field data")
@@ -49,12 +65,11 @@ const AddBlog = () => {
       return form.setError("slug", { message: "Only letters, - and numbers are allowed" });
     }
 
-    const pd = await addOrUpdateProducts(JSON.parse(JSON.stringify(productAdds)));
-
+    const pd = data?.products || await addOrUpdateProducts(JSON.parse(JSON.stringify(productAdds)));
     if ("error" in pd)
-      return toast.error(pd.error)
-    console.log(session)
-    const k = blogFilter({ ...data, products: pd.map(e => e._id), author: session?.user?._id })
+      return toast.error((pd as any)?.error)
+
+    const k = blogFilter({ ...data, products: typeof pd[0] == "string" ? pd : pd.map(e => e._id), author: session?.user?._id })
     console.log(k)
     const bg = await addOrUpdateBlog(k)
     if ("error" in bg)
@@ -119,11 +134,12 @@ const AddBlog = () => {
               label="Blog Status"
               description="Select your blog status"
               input={
-                (field) => <Select defaultValue={field.value} onValueChange={field.onChange}>
+                (field) => 
+                <Select defaultValue={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Publish.." />
                   </SelectTrigger>
-                  <SelectContent >
+                  <SelectContent defaultValue={field.value}>
                     <SelectItem value="private">Private</SelectItem>
                     <SelectItem value="free">Free</SelectItem>
                     <SelectItem value="paid">Paid</SelectItem>

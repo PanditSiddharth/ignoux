@@ -20,7 +20,7 @@ const Course = ({ params }: { params: Promise<any> }) => {
   useEffect(() => {
     if (prs && prs.slug) {
       console.log(prs)
-      getCourse(prs.slug, { blogs: true }).then(course => {
+      getCourse({ blogs: true, slug: prs.slug }).then(course => {
         console.log(course, "course")
         setLoading(false)
         if (typeof course == "object" && "error" in course) return
@@ -59,9 +59,8 @@ const Course = ({ params }: { params: Promise<any> }) => {
         </Link>
       </div>
 
-        <div className={`w-full lg:w-[30%] lg:fixed lg:top-0 lg:left-[8%] pt-[4rem] lg:h-screen 
-        relative
-          bg-cover rounded-lg bg-center`} style={{ backgroundImage: `url(${pd.data.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className={`w-full lg:w-[30%] lg:fixed lg:top-14 lg:pt-8 lg:left-[8%] lg:h-screen 
+        relative bg-cover rounded-sm bg-center`} style={{ backgroundImage: `url(${pd.data.thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {/* this is image */}
           <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  backdrop-blur-xl z-10' />
           <div className='h-full w-full left-0 top-0 absolute bg-gradient-to-b  from-background/70 via-transparent to-background z-20' />
@@ -71,7 +70,7 @@ const Course = ({ params }: { params: Promise<any> }) => {
             image={pd.data.thumbnail}
             description={<p className='text-sm line-clamp-3 pt-2'>{pd.data.description}</p>}
             component={<div></div>}
-            className='mx-6 relative z-30 bg-black/10  border-none shadow-none'
+            className='mx-6 relative z-30 bg-black/10 text-white border-none shadow-none'
             className2='bg-transparent px-1 pt-4'
             imageClass='rounded-lg'
           />
@@ -79,8 +78,9 @@ const Course = ({ params }: { params: Promise<any> }) => {
 
         <div className='relative w-full px-4 space-y-2 lg:pl-[38%] bg-gradient-to-b from-forground to-transparent'>
           {pd.data?.content?.map((blog: any) => (
-            <Link href={"/course/" + pd.data?.slug + "/" + blog.slug} key={blog._id} className={"flex flex-row"}>
-              <div className="relative px-6 w-36 h-20 rounded-lg" >
+            <Link href={"/course/" + pd.data?.slug + "/" + blog.slug} 
+            key={blog._id} className={"flex flex-row px-2 h-20 w-full"}>
+              <div className="relative w-36 rounded-lg min-w-36" >
                 <Image
                   src={blog.thumbnail}
                   alt={blog.title}
@@ -89,7 +89,7 @@ const Course = ({ params }: { params: Promise<any> }) => {
                 />
               </div>
    
-              <div className='px-2 overflow-ellipsis'>
+              <div className='px-2'>
                 <div className='text-lg line-clamp-2'>{blog.title}</div>
                 <div className="text-sm line-clamp-1">{blog.description}</div>
               </div>
