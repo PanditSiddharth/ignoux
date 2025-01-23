@@ -9,21 +9,44 @@ import { toast } from 'react-toastify';
 import Loader from '@/components/loader';
 import rehypeHighlight from "rehype-highlight";
 import { cn } from '@/modals/utils';
-import Github from '@/components/themes/Github';
-import GithubDark from '@/components/themes/GithubDark';
+import dynamic from 'next/dynamic';
+
+
 export default function Blog(props: any) {
 
-  const { theme, systemTheme } = useTheme();
+  const { theme } = useTheme();
   const bg = useDataStore<Partial<IBlog> | undefined>("blog", undefined)()
   const params = React.use<{ slug: string[] }>(props.params)
-  const ct = ["dark", "blue"].includes((theme == "system" ? systemTheme : theme) as string) ? "dark" : "light"
-  const [currentTheme, setCurrentTheme] = useState(ct)
-
   const [loading, setLoading] = useState(true);
+  const [currentTheme, setCurrentTheme] = useState<"dark" | "light">("light")
+
 
   useEffect(() => {
-    setCurrentTheme(ct)
+    if (theme && ["dark", "blue"].includes(theme)) {
+      setCurrentTheme("dark")
+    }
+    else
+      setCurrentTheme("light")
   }, [theme])
+
+  const ThemeComponent = React.useMemo(
+    () => {
+      if (currentTheme == "dark") {
+        return (
+          dynamic(() => import("@/components/themes/GithubDark"), {
+            ssr: false,
+          })
+        )
+      }
+      else
+        return (
+          dynamic(() => import("@/components/themes/Github"), {
+            ssr: false,
+          })
+        )
+    }, [currentTheme]
+  )
+
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -56,18 +79,15 @@ export default function Blog(props: any) {
     className={cn('p-4 max-w-4xl mx-auto')}
     source={bg?.data?.content}
   />
-console.log(currentTheme)
+  console.log(currentTheme)
   return (
 
     <div className='p-4'
-      data-color-mode={currentTheme} >
-     {currentTheme == "light" ? 
-     <Github >
+      data-color-mode={currentTheme}>
+      <ThemeComponent>
         {pv}
-      </Github> :
-      <GithubDark>
-        {pv}
-      </GithubDark>}
+      </ThemeComponent>
+
     </div>
 
   );

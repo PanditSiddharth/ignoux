@@ -1,6 +1,8 @@
 import "highlight.js/styles/github-dark.css"
 
-const GithubDark = ({children}: any) => {
+console.log("mai dark bol rha");
+const GithubDark = ({ children }: any) => {
+
   return children
 }
 
