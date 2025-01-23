@@ -8,7 +8,6 @@ import { Book, BookAIcon, Home } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { BiLogoShopify } from 'react-icons/bi'
 
 const Course = ({ params }: { params: Promise<any> }) => {
   const pd = useDataStore<ICourse | undefined>("course", undefined)()

@@ -18,7 +18,7 @@ export default function Blog(props: any) {
   useEffect(() => {
       const fetchBlog = async () => {
         console.log(params)
-          const blog = await getBlog(params?.blog);
+          const blog = await getBlog({slug: params?.blog});
           if ("error" in blog) {
               toast.error(blog.error);
           } else {
@@ -32,14 +32,28 @@ export default function Blog(props: any) {
 
   if (loading) return <Loader />
 
+  const source = `
+\`\`\`js {2}
+function () {
+  console.log('hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello')
+}
+\`\`\`
+\`\`\`js {2}
+function () {
+  console.log('hello ')
+}
+\`\`\`
+`;
+
   if(!bg || !bg.data) return <div className='fixed inset-0 flex items-center justify-center'>
     Not Found</div>
   return (
     <div className='p-4'
      data-color-mode={["dark", "blue", "aqua"].includes((theme == "system" ? systemTheme : theme) as string) ? "dark" : "light"} >
       <MarkdownPreview
+
         className='p-4 max-w-4xl mx-auto'
-        source={bg?.data?.content}
+        source={source || bg?.data?.content}
         rehypeRewrite={(node, index, parent) => {
           if ((node as any).tagName === "a" && parent && /^h(1|2|3|4|5|6)/.test((parent as any).tagName)) {
             parent.children = parent.children.slice(1)

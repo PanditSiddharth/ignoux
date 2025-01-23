@@ -62,7 +62,7 @@ export async function getBlog(opt: GetBlogOptions = {}): Promise<Partial<IBlog> 
     }
 }
 
-interface GetBlogOptions {
+interface GetBlogsOptions {
     ids?: any[];
     skip?: number;
     postsPerPage?: number
@@ -75,7 +75,7 @@ interface ResProps {
     totalBlogs: number;
 }
 
-export async function getBlogs(options: GetBlogOptions): Promise<ResProps | { error: string }> {
+export async function getBlogs(options: GetBlogsOptions): Promise<ResProps | { error: string }> {
     await connectDB()
     const user = await getSessionUser()
 
