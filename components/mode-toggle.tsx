@@ -13,8 +13,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function ModeToggle() {
-  const { setTheme } = useTheme()
-
+  const { setTheme, theme, systemTheme } = useTheme()
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme',
+      ["dark", "blue"].includes((theme == "system" ?
+        systemTheme : theme) as string) ? "dark" : "light"
+    )
+  }, [theme])
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="relative z-50">
