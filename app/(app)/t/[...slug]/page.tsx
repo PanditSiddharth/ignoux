@@ -8,7 +8,7 @@ import { getBlog } from '@/server-functions/blog';
 import { toast } from 'react-toastify';
 import Loader from '@/components/loader';
 import rehypeHighlight from "rehype-highlight";
-import "@/components/themes/codetheme.css"
+import "@/components/themes/code.scss"
 import { cn } from '@/modals/utils';
 export default function Blog(props: any) {
 
