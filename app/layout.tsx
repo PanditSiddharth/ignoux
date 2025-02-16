@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Navbar from "@/components/navbar/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,20 +33,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning >
       <head>
-      {process.env.NODE_ENV == "production" && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2233066744078073"
-     crossOrigin="anonymous"></script>}
+        {process.env.NODE_ENV == "production" && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2233066744078073"
+          crossOrigin="anonymous"></script>}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative w-full h-full `}
       >
 
         <SessionProvider >
           <ThemeProvider {...themeOptions} attribute={"class"}>
-          <div className="w-[220px] h-[100px] bg-primary opacity-30 rounded-full fixed -z-10 top-0 left-0 blur-[100px]"></div>
-            <div className="w-[320px] h-[50px] bg-primary opacity-30 rounded-full fixed -z-10 top-40 right-0 blur-[100px]"></div>
-            <div className="w-[520px] h-[300px] bg-primary opacity-20 rounded-full fixed -z-10 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] blur-[160px]"></div>
+            <Navbar />
+            <div className="w-72 h-72 rounded-full bg-purple-600/30 blur-[128px] absolute  left-5 top-0 z-[-1]" />
+            <div className="w-72 h-72 rounded-full bg-purple-600/20 blur-[128px] absolute  left-20 top-[50%] z-[-1]" />
+            <div className="w-72 h-72 rounded-full bg-purple-600/30 blur-[128px] absolute  right-0 top-[70%] z-[-1]" />
             {children}
-          
+
           </ThemeProvider>
         </SessionProvider>
       </body>
