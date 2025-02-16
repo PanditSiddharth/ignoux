@@ -48,11 +48,11 @@ export default function Blog(props: any) {
 
   const pv = <MarkdownPreview
     style={{
-      backgroundColor: currentTheme == "dark" ? "rgba(0, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.2)",
-      fontFamily: "sans-serif"
+      backgroundColor: currentTheme == "dark" ? "rgba(0, 0, 0,0.2)" : "rgba(255, 255, 255, 0.2)",
+      fontFamily: "sans-serif",
     }}
     rehypePlugins={[rehypeHighlight]}
-    className={cn('p-4 max-w-4xl mx-auto')}
+    className={cn('p-4 max-w-4xl mx-auto dark:text-white')}
     source={bg?.data?.content}
   />
 console.log(currentTheme)

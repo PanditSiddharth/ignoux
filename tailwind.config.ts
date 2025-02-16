@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 export default {
 	darkMode: ["class"],
@@ -87,6 +88,11 @@ export default {
 		}
 	},
 	// eslint-disable-next-line
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"),
+		plugin(function ({ addVariant }: any) {
+			addVariant("dark", "&.dark, &.blue"); // `.blue` is the dark theme
+			addVariant("blue", "&.dark, &.blue"); // `.blue` is the dark theme
+		  })
+	],
 } satisfies Config;
 
