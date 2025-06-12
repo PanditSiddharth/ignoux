@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "IGNOUX.in",
+  title: "IGNOUX",
   description: "Best plateform for ignou student and coders",
 };
 
