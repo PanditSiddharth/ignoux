@@ -74,8 +74,8 @@ export default function PrivacyPolicy() {
               <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
               <p>If you have any questions about this Privacy Policy, please contact us at:</p>
               <div className="mt-2">
-                <p>Email: support@ignoux.in</p>
-                <p>Website: www.ignoux.in</p>
+                <p>Email: i@sidsharma.in</p>
+                <p>Website: www.sidsharma.in</p>
               </div>
             </div>
           </div>
