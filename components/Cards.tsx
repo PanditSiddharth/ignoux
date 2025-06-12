@@ -1,94 +1,104 @@
-import Image from 'next/image'
-import Link from 'next/link'
-// import Link from 'next/link'
-import React, { JSX } from 'react'
-import { Card } from './ui/card'
-import { Button } from './ui/button'
-import { cn } from '@/modals/utils'
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { Card } from './ui/card';
+import { Button } from './ui/button';
+import { cn } from '@/modals/utils';
 
 interface IBlogCard {
-    title: string,
-    image: string,
-    slug: string,
-    date?: string,
-    price?: number,
-    description?: string | JSX.Element,
-    component?: JSX.Element,
-    imageClass?: string,
-    className?: string,
-    className2?: string,
+    title: string;
+    image: string;
+    slug: string;
+    date?: string;
+    price?: number;
+    description?: string | React.ReactNode;
+    component?: React.ReactNode;
+    imageClass?: string;
+    className?: string;
+    className2?: string;
 }
 
-export const BlogCard = ({ title, image, slug, date,
-    description, component,
-    className, className2, imageClass
-}: IBlogCard) => {
+export const BlogCard: React.FC<IBlogCard> = ({
+    title,
+    image,
+    slug,
+    date,
+    description,
+    component,
+    className,
+    className2,
+    imageClass,
+}) => {
     return (
-        <Card
-            className={className}
-        >
-            <div className="relative" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
+        <Card className={cn('overflow-hidden', className)}>
+            <div className="relative w-full h-0 pb-[56.25%]">
                 <Image
                     src={image}
                     alt={title}
-                    layout="fill"
-                    className={imageClass}
-                    objectFit="cover"
+                    fill
+                    className={cn('object-cover', imageClass)}
                 />
             </div>
-
-            <div className={cn("p-6", className2)}>
-                <h2 className="text-xl font-bold">{title}</h2>
-                {description && typeof description == "string" ? <p className="mt-2 text-sm h-14 line-clamp-3">{description}</p> : description}
-                {component ? component
-                    : <div className="flex justify-between items-center mt-4">
-                        <span className="text-sm">{new Date(date as string).toLocaleString("en")}</span>
-                        <Link
-                            href={slug}
-                            className="px-4 py-2 rounded transition-colors"
-                        ><Button variant={"secondary"}>
-                                Read More
-                            </Button>
+            <div className={cn('p-6', className2)}>
+                <h2 className="text-xl font-bold border-b">{title}</h2>
+                {description && typeof description === 'string' ? (
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-3">
+                        {description}
+                    </p>
+                ) : (
+                    description
+                )}
+                {component ? (
+                    component
+                ) : (
+                    <div className="flex justify-between items-center mt-4">
+                        {date && (
+                            <span className="text-sm text-gray-500">
+                                {new Date(date).toLocaleDateString()}
+                            </span>
+                        )}
+                        <Link href={slug}>
+                            <Button variant="secondary">Read More</Button>
                         </Link>
-                    </div>}
+                    </div>
+                )}
             </div>
         </Card>
-    )
-}
+    );
+};
 
-export const CourseCard = ({ title, image, slug, price, description }: IBlogCard) => {
+export const CourseCard: React.FC<IBlogCard> = ({
+    title,
+    image,
+    slug,
+    price,
+    description,
+}) => {
     return (
-        <Card
-            className="px-0 mx-0 border rounded-sm"
-        >
-            <div className="relative rounded-t-full border" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
-                <Image
-                    src={image}
-                    alt={title}
-                    className='rounded-t-sm'
-                    layout="fill"
-                    objectFit="cover"
-                />
+        <Card className="overflow-hidden  rounded-lg">
+            <div className="relative w-full h-0 pb-[56.25%]">
+                <Image src={image} alt={title} fill className="object-cover" />
             </div>
-
-            <div className="p-6 ">
+            <div className="p-6">
                 <h2 className="text-lg font-bold line-clamp-2">{title}</h2>
-                <p className="mt-2 text-sm line-clamp-3 min-h-14">{description}</p>
+                {description && (
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-3">
+                        {description}
+                    </p>
+                )}
                 <div className="flex justify-between items-center mt-4">
-                    <span className="">{price == 0 ?
-                        <div className='text-green-600'>
-                            FREE
-                        </div> :
-                        <div className=''>₹{price}</div>}</span>
-                    <Link
-                        href={slug}
-                        className="px-4 py-2 rounded transition-colors"
-                    ><Button variant={"secondary"}>
-                            Enroll Now
-                        </Button>
+                    <span className="text-sm font-medium">
+                        {price === 0 ? (
+                            <span className="text-green-600">FREE</span>
+                        ) : (
+                            <>₹{price}</>
+                        )}
+                    </span>
+                    <Link href={slug}>
+                        <Button variant="secondary">Enroll Now</Button>
                     </Link>
                 </div>
             </div>
         </Card>
-    )
-}
+    );
+};

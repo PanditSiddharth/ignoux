@@ -11,114 +11,137 @@ import { getBlogs } from "@/server-functions/blog"
 import { getCourses } from "@/server-functions/course"
 import { useDataStore } from "@/store"
 import { BookOpen, Mail, Search } from "lucide-react"
+import { cn } from "@/modals/utils"
+import { RxMagnifyingGlass } from "react-icons/rx"
 
 export default function HomePage() {
-  const cs = useDataStore<ICourse[]>("courses", [])()
-  const bg = useDataStore<IBlog[]>("blogs", [])()
+  const coursesStore = useDataStore<ICourse[]>("courses", [])()
+  const blogsStore = useDataStore<IBlog[]>("blogs", [])()
 
   useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const courses = await getCourses({ skip: 0, postsPerPage: 3 })
-        const blogs = await getBlogs({ skip: 0, postsPerPage: 3 })
+    const fetchInitialData = async () => {
+      try {
+        const [courses, blogs] = await Promise.all([
+          getCourses({ skip: 0, postsPerPage: 4 }),
+          getBlogs({ skip: 0, postsPerPage: 4 }),
+        ])
 
-        if (typeof courses === "object" && "courses" in courses) {
-          cs.setData(courses.courses)
-        }
-        if (typeof blogs === "object" && "blogs" in blogs) {
-          bg.setData(blogs.blogs)
-        }
+        if ("courses" in courses) coursesStore.setData(courses.courses)
+        if ("blogs" in blogs) blogsStore.setData(blogs.blogs)
+      } catch (error) {
+        console.error("Data fetching error:", error)
       }
-      fetchData()
-    } catch (error) {
-      console.log(error)
     }
-  }, [bg.setData]) // Added bg.setData to dependencies
+
+    fetchInitialData()
+  }, [coursesStore.setData, blogsStore.setData])
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
-        <section className="w-full py-16 md:py-16 lg:py-20 xl:py-24 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-       
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Explore Our Courses With Notes
-                </h1>
-                <p className="mx-auto max-w-[700px]">
-                  Join thousands of learners and enhance your skills with our comprehensive courses.
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
-                  <Input className="max-w-lg flex-1" placeholder="Search blogs and courses" type="search" />
-                  <Button type="submit" className="bg-black text-white blue:text-black hover:bg-black">
-                    <Search className="h-4 w-4" />
-                    <span className="sr-only">Search</span>
+        {/* Hero Section */}
+        <section className="w-full py-20 md:py-28  relative">
+          <div className="w-72 h-72 rounded-full bg-purple-600/30 blur-[128px] absolute  left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1]" />
+
+          <div className="px-4">
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent leading-tight">
+                Master Your Craft with Expert-Led Learning
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground md:px-12">
+                Join our community of passionate learners and transform your skills through immersive courses and practical resources.
+              </p>
+
+              <div className="max-w-xl mx-auto">
+                <form className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Input
+                      type="search"
+                      placeholder="Explore courses and articles..."
+                      className={cn("pl-10 pr-4 h-12 rounded-xl bg-secondary-foreground/5 focus-visible:ring-0")}
+                    />
+                  </div>
+                  <Button className="h-12 ">
+                    <RxMagnifyingGlass className="size-10 " />
+                    <p className="hidden sm:block">
+                      Search
+                    </p>
                   </Button>
                 </form>
               </div>
-              <Link href="/courses">
-                <Button className="mt-6 bg-black text-white hover:bg-black">Join Courses</Button>
-              </Link>
-        
-          </div>
-        </section>
-        <section className="w-full pt-12 bg-gradient-to-t from-background to-transparent">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-              Popular Courses
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-              {cs.data.map((course) => (
-                <CourseCard
-                  key={course.slug}
-                  title={course.title}
-                  description={course.description}
-                  slug={`/course/${course.slug}`}
-                  image={course.thumbnail}
-                  price={course.price}
-                />
-              ))}
+
+              <div className="pt-6">
+                <Link href="/courses">
+                  <Button variant="default" className="border-2 border-primary/20 h-11 px-8">
+                    Browse All Courses
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <Link href={"/courses"} className="w-full flex items-center justify-center pt-10">
-            <Button className="mx-auto"variant="secondary">More Courses</Button>
-            </Link>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-transparent">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-              Popular Blogs
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {bg.data.map((blog) => (
-                <BlogCard
-                  key={blog.slug}
-                  title={blog.title}
-                  description={blog.description}
-                  slug={`/t/${blog.category[0]}/${blog.slug}`}
-                  image={blog.thumbnail}
-                  date={blog.publishedAt + ""}
-                />
-              ))}
-            </div>
-            <Link href={"/blogs"} className="w-full flex items-center justify-center pt-10">
-            <Button className="mx-auto"variant="secondary">More Blogs</Button>
-            </Link>
           </div>
         </section>
 
-        <section className="py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
-            <p className="mb-8">Subscribe to our newsletter for the latest blog posts and course updates.</p>
-            <form className="flex max-w-md mx-auto">
-              <Input type="email" placeholder="Enter your email" className="rounded-r-none" />
-              <Button type="submit" className="rounded-l-none">
-                <Mail className="mr-2 h-4 w-4" /> Subscribe
-              </Button>
-            </form>
+        {/* Featured Courses */}
+        <Section title="Popular Courses" actionHref="/courses" actionText="View All Courses">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {coursesStore.data.map((course) => (
+              <CourseCard
+                key={course.slug}
+                title={course.title}
+                description={course.description}
+                slug={`/course/${course.slug}`}
+                image={course.thumbnail}
+                price={course.price}
+                className="group hover:border-primary/20 transition-all duration-300 hover:-translate-y-1.5"
+              />
+            ))}
+          </div>
+        </Section>
+
+        {/* Featured Blogs */}
+        <Section title="Latest Articles" actionHref="/blogs" actionText="Read All Articles">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {blogsStore.data.map((blog) => (
+              <BlogCard
+                key={blog.slug}
+                title={blog.title}
+                description={blog.description}
+                slug={`/t/${blog.category[0]}/${blog.slug}`}
+                image={blog.thumbnail}
+                date={blog.publishedAt + ""}
+                className="hover:border-primary/20 transition-all duration-300 hover:-translate-y-1.5"
+              />
+            ))}
+          </div>
+        </Section>
+
+        {/* Newsletter Section */}
+        <section className="w-full py-20 ">
+          <div>
+            <div className="max-w-md mx-auto text-center space-y-6">
+              <div className="space-y-2">
+                <Mail className="h-10 w-10 mx-auto text-primary" />
+                <h2 className="text-3xl font-bold">Stay Updated</h2>
+                <p className="text-muted-foreground">
+                  Get curated resources, course updates, and expert insights delivered weekly.
+                </p>
+              </div>
+
+              <form className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="h-12  focus-visible:ring-0 flex-1"
+                />
+                <Button
+                  type="submit"
+                  className="h-12"
+                >
+                  Subscribe
+                </Button>
+              </form>
+            </div>
           </div>
         </section>
       </main>
@@ -126,4 +149,34 @@ export default function HomePage() {
   )
 }
 
-
+// Reusable Section Component
+function Section({
+  title,
+  actionHref,
+  actionText,
+  className = "",
+  children,
+}: {
+  title: string
+  actionHref: string
+  actionText: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <section className={`w-full py-16 md:py-20 ${className}`}>
+      <div className="">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-4">
+          <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
+          <Link href={actionHref}>
+            <Button variant="outline" className="gap-2 text-muted-foreground hover:text-foreground">
+              {actionText}
+              <span className="text-primary">→</span>
+            </Button>
+          </Link>
+        </div>
+        {children}
+      </div>
+    </section>
+  )
+}
