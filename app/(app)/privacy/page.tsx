@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
       {/* Hero Section */}
       <section className="py-16 bg-gradient-to-t from-pink-500/5 via-background to-transparent backdrop-blur-xl">
         <div className="container mx-auto text-center px-4">
-          <h1 className="text-4xl font-bold">Privacy Policy</h1>
+          <h1 className="text-4xl font-bold">Privacy Policy Ashirwad Balaji by Sid sharma</h1>
           <p className="mt-4 text-lg">Last updated: {new Date().toLocaleDateString()}</p>
         </div>
       </section>

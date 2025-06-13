@@ -84,7 +84,7 @@ export default function Contact() {
             <div className="text-center">
               <div className="text-blue-600 text-4xl mb-4">📧</div>
               <h3 className="text-lg font-bold">Email</h3>
-              <p className="text-gray-600">support@ignoux.in</p>
+              <p className="text-gray-600">i@sidsharma.in</p>
             </div>
             <div className="text-center">
               <div className="text-blue-600 text-4xl mb-4">📞</div>
@@ -106,7 +106,7 @@ export default function Contact() {
       <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} ignoux.in. All rights reserved.
+            © {new Date().getFullYear()} sid.in. All rights reserved.
           </p>
         </div>
       </footer>

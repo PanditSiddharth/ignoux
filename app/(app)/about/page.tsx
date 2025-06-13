@@ -8,7 +8,7 @@ export default function About() {
                 <div className="container mx-auto text-center px-4">
                     <h1 className="text-4xl font-bold">About Me</h1>
                     <p className="mt-4 text-lg">
-                        Welcome to <span className="font-semibold">ignoux.in</span>, your destination for BCA, coding tutorials, and educational resources.
+                        Welcome to <span className="font-semibold">Ashirwad Balaji</span>, your destination for BCA, coding tutorials, and educational resources.
                     </p>
                 </div>
             </section>

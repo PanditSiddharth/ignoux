@@ -15,7 +15,7 @@ export default function Terms() {
       <section className="py-8 my-2 mx-auto max-w-6xl bg-gradient-to-b from-pink-500/5 via-background to-transparent">
       <div className="container mx-auto px-4 space-y-8">
         <div>
-        <h2 className="text-2xl font-bold">Welcome to ignoux.in</h2>
+        <h2 className="text-2xl font-bold">Welcome to Ashirwad Balaji</h2>
         <p className="mt-4">
           By accessing or using this website, you agree to the terms and conditions outlined below. Please read them carefully before using our services.
         </p>
@@ -35,7 +35,7 @@ export default function Terms() {
 
         <h3 className="mt-6 text-xl font-bold">3. Intellectual Property</h3>
         <p className="mt-2">
-          All content on ignoux.in is owned by Siddharth Sharma. Unauthorized use of the material may result in legal action.
+          All content on Ashirwad Balaji is owned by Siddharth Sharma. Unauthorized use of the material may result in legal action.
         </p>
 
         <h3 className="mt-6 text-xl font-bold">4. Disclaimer</h3>

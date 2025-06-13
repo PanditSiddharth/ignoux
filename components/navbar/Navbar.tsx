@@ -10,7 +10,7 @@ const Navbar = () => {
         <header className="sticky top-0 w-full p-4 backdrop-blur-md z-50">
             <div className='flex container mx-auto justify-between items-center max-w-7xl'>
 
-                <h1 onClick={() => { router.push("/") }} className={"text-2xl font-semibold cursor-pointer"}>IGNOUX.in</h1>
+                <h1 onClick={() => { router.push("/") }} className={"text-2xl font-semibold cursor-pointer"}>Ashirwad Balaj</h1>
                 <div className="flex items-center gap-2">
                     <NavbarDropdown />
                     <ModeToggle />
