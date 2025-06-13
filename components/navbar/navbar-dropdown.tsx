@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaUserLock } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { RiBloggerLine } from "react-icons/ri";
@@ -11,7 +11,7 @@ import { BiSolidContact } from "react-icons/bi";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { Accordion } from "@/components/ui/accordion"
 import { Acc } from "./Accordian";
-import { HomeIcon, Settings } from "lucide-react";
+import { HomeIcon, ReceiptText, Settings } from "lucide-react";
 import { FcAbout } from "react-icons/fc";
 import { IoBookOutline } from "react-icons/io5";
 import { MdOutlineAnalytics } from "react-icons/md";
@@ -25,6 +25,11 @@ export const NavbarDropdown = () => {
         { name: "Blogs", href: "/blogs", icon: RiBloggerLine },
         { name: "About", href: "/about", icon: FcAbout },
         { name: "Contact", href: "/contact", icon: BiSolidContact }
+    ];
+
+    const others = [
+        { name: "Terms & Conditions", href: "/tnc", icon: ReceiptText },
+        { name: "Privacy Policy", href: "/privacy", icon: FaUserLock }
     ];
 
     const adminPannel = [
@@ -102,6 +107,18 @@ export const NavbarDropdown = () => {
                             </DropdownMenuGroup>
                         </Acc>)}
 
+
+                    <Acc title={"Others"}>
+                        <DropdownMenuGroup>
+                            {others.map((navItem, index) => (
+                                <DropdownMenuItem key={index} className={`${pathname == navItem.href && 'bg-primary/5'}`}>
+                                    <Link href={navItem.href} className="w-full flex" onClick={handleLinkClick}>
+                                        {<navItem.icon className="h-4 w-4 mr-2 mt-0.5" />} {navItem.name}
+                                    </Link>
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuGroup>
+                    </Acc>
                 </Accordion>
             </DropdownMenuContent>
         </DropdownMenu>
