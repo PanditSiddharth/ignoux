@@ -34,7 +34,7 @@ return (
             <FaLinkedin className="text-2xl hover:text-blue-600 cursor-pointer" />
            </Link>
           </div>
-          <p className="mt-4 text-gray-400">© 2024 IGNOUX. All rights reserved.</p>
+          <p className="mt-4 text-gray-400">© 2024 Ashirwad Balaji All rights reserved.</p>
         </div>
       </footer>
     </div> 

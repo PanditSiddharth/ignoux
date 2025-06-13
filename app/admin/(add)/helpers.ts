@@ -37,7 +37,7 @@ export const getBlogDefaults = (initial: Partial<IBlog> = {}) => {
   return {  
     ...common(initial),
     status: initial?.status || "private",
-    content: initial?.content || "# IGNOUX",
+    content: initial?.content || "# Ashirwad Balaji",
     category: initial?.category || [],
     products: initial?.products || [],
     author: initial?.author || "",

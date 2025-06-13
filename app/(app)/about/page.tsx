@@ -37,7 +37,7 @@ export default function About() {
                     <div className="text-center">
                         <h3 className="text-xl font-bold">Vision</h3>
                         <p className="mt-4">
-                            My goal is to make education accessible and affordable for all, ensuring every student can excel in their academics and coding journey. Whether you are preparing for your BCA exams or learning new programming skills, <span className="font-semibold">ignoux.in</span> is here to guide you every step of the way.
+                            My goal is to make education accessible and affordable for all, ensuring every student can excel in their academics and coding journey. Whether you are preparing for your BCA exams or learning new programming skills, <span className="font-semibold">Ashirwad Balaji</span> is here to guide you every step of the way.
                         </p>
                     </div>
                 </div>

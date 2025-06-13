@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "IGNOUX",
-  description: "Best plateform for ignou student and coders",
+  title: "Ashirwad Balaji",
+  description: "Best plateform for student and coders",
 };
 
 export default function RootLayout({
