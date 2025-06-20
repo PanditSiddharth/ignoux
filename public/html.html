@@ -28,13 +28,13 @@
         }
 
         .slide {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
-            height: 85vh;
+            height: 100vh;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            padding: 40px;
+            padding: 40px 40px 100px 40px;
             display: none;
             overflow-y: auto;
             position: relative;
@@ -323,6 +323,29 @@
             cursor: pointer;
             font-weight: 900;
         }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 0;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            font-size: 0.8em;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -412,61 +435,273 @@
             <div class="slide-counter">3 / 16</div>
             <h1>Document Structure</h1>
 
+            <!-- DOCTYPE -->
             <div class="tag-item">
                 <div class="tag-name">&lt;!DOCTYPE html&gt;</div>
-                <div class="attributes">Declaration for HTML5 document type</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Declares the document is an HTML5 file<br>
+                    <strong>Attributes:</strong> None
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="doctype"></code></pre>
+                </details>
+                <script type="text/plain" data-target="doctype">
+<!DOCTYPE html> <!-- Declares this is an HTML5 document -->
+<html>
+<head>
+</head>
+<body>
+</body>
+</html>
+        </script>
             </div>
 
+            <!-- HTML Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;html&gt;</div>
-                <div class="attributes"><strong>Attributes:</strong> lang, dir, class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Root element that wraps the entire HTML document<br>
+                    <strong>Attributes:</strong> lang, dir, class, id
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="html-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="html-tag">
+<!-- 
+  lang="en"     : Language of the document (English)
+  dir="ltr"     : Text direction (left-to-right)
+  class="main"  : CSS class for styling
+  id="root"     : Unique identifier
+-->
+                <html lang="en" dir="ltr" class="main" id="root">
+                <!-- Head and Body will go here -->
+
+                </html>
+                </script>
             </div>
 
+            <!-- HEAD Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;head&gt;</div>
-                <div class="attributes"><strong>Attributes:</strong> class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Contains meta-information about the document like title, styles, scripts,
+                    etc.<br>
+                    <strong>Attributes:</strong> class, id
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="head-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="head-tag">
+<head class="meta-info" id="page-head">
+  <title>My Website</title>
+  <meta charset="UTF-8">
+</head>
+        </script>
             </div>
 
+            <!-- BODY Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;body&gt;</div>
-                <div class="attributes"><strong>Attributes:</strong> class, id, style, onload, onunload</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Contains all visible content of the webpage like headings, text, images,
+                    etc.<br>
+                    <strong>Attributes:</strong> class, id, style, onload, onunload
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="body-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="body-tag">
+<!-- 
+  style="margin:0;"        : Inline CSS to remove default margin
+  onload="init()"          : Function to run when page loads
+  onunload="cleanup()"     : Function to run when page unloads
+-->
+
+                <body class="dark" id="main-body" style="margin:0;" onload="init()" onunload="cleanup()">
+                    <h1>Welcome to My Website</h1>
+                </body>
+                </script>
             </div>
         </div>
+
 
         <!-- Slide 4: Metadata -->
         <div class="slide">
             <div class="slide-counter">4 / 16</div>
             <h1>Metadata Elements</h1>
 
+            <!-- TITLE -->
             <div class="tag-item">
                 <div class="tag-name">&lt;title&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Defines document title<br><strong>Attributes:</strong>
-                    class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Defines document title<br>
+                    <strong>Attributes:</strong> class, id
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="title-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="title-tag">
+<title>My Awesome Page</title>
+    </script>
             </div>
 
+            <!-- META -->
             <div class="tag-item">
                 <div class="tag-name">&lt;meta&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Document metadata<br><strong>Attributes:</strong>
-                    charset, name, content, http-equiv, property</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Document metadata<br>
+                    <strong>Attributes:</strong> charset, name, content, http-equiv, property
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="meta-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="meta-tag">
+<!-- 
+  charset="UTF-8"       : Defines character encoding. Recommended for all HTML docs.
+-->
+                <meta charset="UTF-8">
+
+                <!-- 
+  name="description"    : Tells search engines what the page is about
+  content="..."         : Description text
+-->
+                <meta name="description" content="Learn HTML and web development with examples.">
+
+                <!-- 
+  name="keywords"       : (Less used now) Keywords for SEO
+-->
+                <meta name="keywords" content="HTML, CSS, Web, Meta Tags">
+
+                <!-- 
+  name="author"         : Page creator's name
+-->
+                <meta name="author" content="Siddharth Sharma">
+
+                <!-- 
+  http-equiv="X-UA-Compatible" : Used for Internet Explorer compatibility
+-->
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+                <!-- 
+  http-equiv="refresh" : Refreshes the page after a given time (here, 30 seconds)
+-->
+                <meta http-equiv="refresh" content="30">
+
+                <!-- 
+  name="viewport"       : Essential for mobile responsiveness
+-->
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <!-- 
+  property="og:title"   : Open Graph protocol (for social media)
+-->
+                <meta property="og:title" content="HTML Guide for Beginners">
+                <meta property="og:image" content="https://example.com/thumb.png">
+                <meta property="og:description" content="Learn HTML the easy way!">
+
+                </script>
             </div>
 
+            <!-- LINK -->
             <div class="tag-item">
                 <div class="tag-name">&lt;link&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Links external
-                    resources<br><strong>Attributes:</strong> rel, href, type, media, sizes, hreflang, crossorigin,
-                    integrity</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Links external resources<br>
+                    <strong>Attributes:</strong> rel, href, type, media, sizes, hreflang, crossorigin, integrity
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="link-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="link-tag">
+<!-- 
+  rel="stylesheet"      : Links an external CSS file
+  href="..."            : Path to the CSS file
+-->
+                <link rel="stylesheet" href="style.css">
+
+                <!-- 
+  rel="icon"            : Favicon for the browser tab
+  sizes="32x32"         : Size of the icon
+-->
+                <link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+
+                <!-- 
+  rel="alternate"       : Alternate versions of the page (like language or format)
+  hreflang="en"         : Language of the alternate version
+-->
+                <link rel="alternate" hreflang="en" href="index-en.html">
+
+                <!-- 
+  rel="preload"         : Load important assets early
+  as="script"           : Type of content to preload
+-->
+                <link rel="preload" href="main.js" as="script">
+
+                <!-- 
+  rel="canonical"       : Preferred URL for the current page to avoid duplicate content
+-->
+                <link rel="canonical" href="https://example.com/html-guide">
+
+                <!-- 
+  crossorigin="anonymous" : CORS policy for fetching assets
+  integrity="..."          : Ensures file hasn’t been modified (SRI hash)
+-->
+                <link rel="stylesheet" href="https://cdn.example.com/styles.css" crossorigin="anonymous"
+                    integrity="sha384-abcd1234xyz567890==">
+                </script>
             </div>
 
+            <!-- STYLE -->
             <div class="tag-item">
                 <div class="tag-name">&lt;style&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> CSS styles<br><strong>Attributes:</strong> type,
-                    media, scoped</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> CSS styles<br>
+                    <strong>Attributes:</strong> type, media, scoped
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="style-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="style-tag">
+<!-- 
+  type="text/css" : MIME type for CSS
+  media="screen"  : Targeted media type
+  scoped          : Limits styles to parent element (non-standard)
+-->
+                <style type="text/css" media="screen" scoped>
+                    body {
+                        background-color: #121212;
+                        color: white;
+                    }
+                </style>
+                </script>
             </div>
 
+            <!-- BASE -->
             <div class="tag-item">
                 <div class="tag-name">&lt;base&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Base URL for relative
-                    URLs<br><strong>Attributes:</strong> href, target</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Base URL for relative URLs<br>
+                    <strong>Attributes:</strong> href, target
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="base-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="base-tag">
+<!-- 
+  href="https://example.com/" : Base URL for all relative links
+  target="_blank"             : Default target for all links (e.g., open in new tab)
+-->
+                <base href="https://example.com/" target="_blank">
+                </script>
             </div>
         </div>
 
@@ -475,262 +710,1039 @@
             <div class="slide-counter">5 / 16</div>
             <h1>HTML5 Sectioning Elements</h1>
 
+            <!-- MAIN Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;main&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Main content of
-                    document<br><strong>Attributes:</strong> class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Represents the dominant content of the
+
+                    <body><br>
+                        <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="main-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="main-tag">
+<!-- 
+  role="main"         : Helps screen readers identify the primary content
+  style="padding:20px": Adds spacing inside the element
+-->
+                <main class="container" id="main-content" style="padding:20px" role="main">
+                    <h1>Main Content Area</h1>
+                </main>
+                </script>
             </div>
 
+            <!-- ARTICLE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;article&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Independent, reusable
-                    content<br><strong>Attributes:</strong> class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Represents self-contained content like a blog post or news article<br>
+                    <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="article-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="article-tag">
+<!-- 
+  role="article"     : Indicates independent, self-contained content
+-->
+                <article class="blog-post" id="post-1" role="article">
+                    <h2>Blog Title</h2>
+                    <p>This is a blog article.</p>
+                </article>
+                </script>
             </div>
 
+            <!-- SECTION Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;section&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Generic section of
-                    content<br><strong>Attributes:</strong> class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Groups related content with a heading<br>
+                    <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="section-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="section-tag">
+<!-- 
+  role="region"      : Identifies a significant section for accessibility
+-->
+                <section class="features" id="section-features" role="region">
+                    <h2>Features</h2>
+                </section>
+                </script>
             </div>
 
+            <!-- ASIDE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;aside&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Sidebar or tangential
-                    content<br><strong>Attributes:</strong> class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Contains content tangentially related to the main content (e.g.,
+                    sidebar)<br>
+                    <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="aside-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="aside-tag">
+<!-- 
+  role="complementary": Used for related content like sidebars
+-->
+                <aside class="sidebar" id="right-sidebar" role="complementary">
+                    <p>Additional Info</p>
+                </aside>
+                </script>
             </div>
 
+            <!-- NAV Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;nav&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Navigation links<br><strong>Attributes:</strong>
-                    class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Represents a section of navigation links<br>
+                    <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="nav-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="nav-tag">
+<!-- 
+  role="navigation"  : Clearly marks navigation links for screen readers
+-->
+                <nav class="main-nav" id="site-navigation" role="navigation">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+                </script>
             </div>
 
+            <!-- HEADER Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;header&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Introductory content<br><strong>Attributes:</strong>
-                    class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Defines introductory content like logos, titles, or nav links<br>
+                    <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="header-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="header-tag">
+<!-- 
+  role="banner"       : Identifies site-wide header for accessibility
+-->
+                <header class="site-header" id="page-header" role="banner">
+                    <h1>Website Title</h1>
+                </header>
+                </script>
             </div>
 
+            <!-- FOOTER Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;footer&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Footer content<br><strong>Attributes:</strong> class,
-                    id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Represents footer content like copyright,
+                    links, or contact info<br>
+                    <strong>Attributes:</strong> class, id, style, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="footer-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="footer-tag">
+<!-- 
+  role="contentinfo"  : Marks this as a footer for the whole page or section
+-->
+                <footer class="site-footer" id="page-footer" role="contentinfo">
+                    <p>Copyright © 2025</p>
+                </footer>
+                </script>
             </div>
 
+            <!-- HGROUP Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;hgroup&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Heading group<br><strong>Attributes:</strong> class,
-                    id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Groups a set of heading elements (e.g., title + subtitle)<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="hgroup-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="hgroup-tag">
+<hgroup class="header-group" id="heading-block" style="text-align:center">
+  <h1>Main Heading</h1>
+  <h2>Subheading</h2>
+</hgroup>
+        </script>
             </div>
         </div>
+
 
         <!-- Slide 6: Text Content -->
         <div class="slide">
             <div class="slide-counter">6 / 16</div>
             <h1>Text Content Elements</h1>
 
+            <!-- HEADINGS Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;h1&gt; - &lt;h6&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Heading levels 1-6<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Headings to structure page content from highest (h1) to lowest (h6)<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="heading-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="heading-tag">
+<!-- 
+  style="color:red"    : Changes text color
+-->
+                <h1 class="title" id="main-title" style="color:red">Main Heading</h1>
+                <h2>Subheading</h2>
+                </script>
             </div>
 
+            <!-- PARAGRAPH Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;p&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Paragraph<br><strong>Attributes:</strong> class, id,
-                    style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Defines a paragraph of text<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="paragraph-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="paragraph-tag">
+<!-- 
+  style="font-size:16px" : Controls font size
+-->
+                <p class="intro" id="para1" style="font-size:16px">
+                    This is a paragraph.
+                </p>
+                </script>
             </div>
 
+            <!-- DIV Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;div&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Generic container<br><strong>Attributes:</strong>
-                    class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Generic block-level container<br>
+                    <strong>Attributes:</strong>
+                    title, hidden, contenteditable, draggable, data-*, tabindex, role
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="div-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="div-tag">
+<!-- 
+  title="Info"               : Shows tooltip on hover
+  hidden                     : Hides the element from view
+  contenteditable="true"     : Makes content editable by user
+  draggable="true"           : Enables drag and drop
+  data-section="about"       : Custom data attribute
+  tabindex="0"               : Allows keyboard focus
+  role="main"                : Defines accessibility role
+-->
+                <div title="Info" hidden contenteditable="true" draggable="true" data-section="about" tabindex="0"
+                    role="main">
+                    <h2>Editable Section</h2>
+                    <p>This block can be edited and dragged.</p>
+                </div>
+                </script>
             </div>
 
+            <!-- SPAN Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;span&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Generic inline
-                    container<br><strong>Attributes:</strong> class, id, style, role</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Generic inline container<br>
+                    <strong>Attributes:</strong>
+                    title, hidden, contenteditable, data-*, tabindex, lang, dir
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="span-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="span-tag">
+<!-- 
+  title="User ID"            : Tooltip when hovered
+  contenteditable="true"     : Make text editable
+  data-userid="1234"         : Custom attribute
+  lang="en"                  : Language of the content
+  dir="ltr"                  : Text direction left-to-right
+-->
+                <p>
+                    Welcome, <span title="User ID" contenteditable="true" data-userid="1234" lang="en"
+                        dir="ltr">John</span>!
+                </p>
+                </script>
             </div>
 
+
+
+            <!-- PRE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;pre&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Preformatted text<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Displays preformatted text with preserved whitespace and line breaks<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="pre-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="pre-tag">
+<!-- 
+  Preserves whitespace and line breaks exactly as typed
+-->
+                <pre class="code-block" style="background:#f0f0f0">
+function hello() {
+  console.log("Hello World");
+}
+</pre>
+                </script>
             </div>
 
+            <!-- BLOCKQUOTE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;blockquote&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Extended quotation<br><strong>Attributes:</strong>
-                    cite, class, id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Used for quoting blocks of text from other sources<br>
+                    <strong>Attributes:</strong> cite, class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="blockquote-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="blockquote-tag">
+<!-- 
+  cite="https://example.com" : Source of the quoted text
+-->
+                <blockquote cite="https://example.com" style="font-style:italic">
+                    This is a famous quote.
+                </blockquote>
+                </script>
             </div>
         </div>
 
-        <!-- Slide 7: Text Semantics Part 1 -->
+
+        <!-- Slide 7: Text Semantics -->
         <div class="slide">
             <div class="slide-counter">7 / 16</div>
-            <h1>Text Semantics - Part 1</h1>
+            <h1>Text Semantics</h1>
 
+            <!-- A Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;a&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Hyperlink<br><strong>Attributes:</strong> href,
-                    target, download, rel, hreflang, type</div>
+                <div class="attributes"><strong>Purpose:</strong> Hyperlink to another page, file, or
+                    resource<br><strong>Attributes:</strong> href, target, download, rel, hreflang, type</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="a-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="a-tag">
+<!-- 
+  href="https://example.com"     : The destination URL of the hyperlink
+  target="_blank"                : Opens the link in a new browser tab or window
+  download="file.pdf"            : Prompts the browser to download the linked file instead of navigating to it
+  rel="noopener noreferrer"      : Protects against security vulnerabilities when using target="_blank"
+  hreflang="en"                  : Specifies the language of the linked document (useful for SEO and accessibility)
+  type="application/pdf"         : Defines the MIME type of the linked resource for better content handling
+-->
+                <a href="https://example.com" target="_blank" rel="noopener noreferrer">Visit Site</a>
+                </script>
             </div>
 
+            <!-- EM Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;em&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Emphasized text
-                    (italic)<br><strong>Attributes:</strong> class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Emphasized text (usually displayed in
+                    italics)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="em-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="em-tag">
+<em class="important" style="color:red">This is important</em>
+                </script>
             </div>
 
+            <!-- STRONG Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;strong&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Strong importance
-                    (bold)<br><strong>Attributes:</strong> class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Indicates strong importance (typically shown in
+                    bold)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="strong-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="strong-tag">
+<strong class="alert" style="font-size:18px">Warning!</strong>
+                </script>
             </div>
 
+            <!-- CODE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;code&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Computer code<br><strong>Attributes:</strong> class,
-                    id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Denotes inline computer code or
+                    commands<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="code-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="code-tag">
+<code class="inline-code">console.log('Hello');</code>
+                </script>
             </div>
 
+            <!-- TIME Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;time&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Date/time value<br><strong>Attributes:</strong>
-                    datetime, class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Represents a specific date, time, or
+                    duration<br><strong>Attributes:</strong> datetime, class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="time-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="time-tag">
+<!-- datetime="2025-06-20T14:30" : Machine-readable timestamp -->
+                <time datetime="2025-06-20T14:30" class="event-time">2:30 PM, June 20, 2025</time>
+                </script>
             </div>
 
+            <!-- MARK Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;mark&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Highlighted text<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Highlights text for reference or
+                    relevance<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="mark-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="mark-tag">
+<mark class="highlight" style="background:yellow">Important Term</mark>
+                </script>
             </div>
+
+            <!-- I Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;i&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Used for text in an alternate voice or mood (typically
+                    displayed in italics)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="i-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="i-tag">
+<i class="italic-text">Scientific name: <i>Homo sapiens</i></i>
+        </script>
+            </div>
+
+            <!-- B Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;b&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Draws attention to text without conveying extra
+                    importance (usually bold)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="b-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="b-tag">
+<b class="bold-text">Note:</b> This step is optional.
+        </script>
+            </div>
+
+            <!-- U Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;u&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Represents non-textual annotation like misspelling or
+                    emphasis (shown with underline)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="u-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="u-tag">
+<u class="underline">This sentence is underlined.</u>
+        </script>
+            </div>
+
+            <!-- S Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;s&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Represents text that is no longer accurate or relevant
+                    (usually shown with a strikethrough)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="s-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="s-tag">
+<s class="strikethrough">₹999</s> ₹499 only!
+        </script>
+            </div>
+
+            <!-- ABBR Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;abbr&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Represents an abbreviation or
+                    acronym<br><strong>Attributes:</strong> title, class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="abbr-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="abbr-tag">
+<abbr title="HyperText Markup Language">HTML</abbr>
+                </script>
+            </div>
+
+            <!-- Q Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;q&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Denotes a short inline
+                    quotation<br><strong>Attributes:</strong> cite, class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="q-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="q-tag">
+<q cite="https://example.com">Be the change you wish to see.</q>
+                </script>
+            </div>
+
+            <!-- CITE Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;cite&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Refers to the title of a creative
+                    work<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="cite-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="cite-tag">
+<cite>The Great Gatsby</cite>
+                </script>
+            </div>
+
+            <!-- DFN Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;dfn&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Represents the defining instance of a
+                    term<br><strong>Attributes:</strong> title, class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="dfn-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="dfn-tag">
+<dfn title="Application Programming Interface">API</dfn>
+                </script>
+            </div>
+
+            <!-- SUB Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;sub&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Subscript text (used in formulas, chemical
+                    symbols)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="sub-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="sub-tag">
+H<sub>2</sub>O
+        </script>
+            </div>
+
+            <!-- SUP Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;sup&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Superscript text (used in math,
+                    footnotes)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="sup-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="sup-tag">
+2<sup>nd</sup> Place
+        </script>
+            </div>
+
+            <!-- SMALL Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;small&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Reduces the size of the text (often for
+                    disclaimers or fine print)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="small-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="small-tag">
+<small>*Terms and conditions apply.</small>
+        </script>
+            </div>
+
+            <!-- BIG Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;big&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Increases the size of
+                    text<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="big-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="big-tag">
+<big>IGNOU Study Center</big>
+        </script>
+            </div>
+
+            <!-- BR Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;br&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Line break<br><strong>Attributes:</strong> class,
+                    id, style (self-closing)</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="br-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="br-tag">
+Line one<br>Line two
+        </script>
+            </div>
+
+            <!-- WBR Tag -->
+            <div class="tag-item">
+                <div class="tag-name">&lt;wbr&gt;</div>
+                <div class="attributes"><strong>Purpose:</strong> Suggests a word break opportunity in long
+                    words<br><strong>Attributes:</strong> class, id, style (self-closing)</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="wbr-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="wbr-tag">
+supercalifragilistic<wbr>expialidocious
+        </script>
+            </div>
+
         </div>
 
-        <!-- Slide 8: Lists -->
+        <!-- Slide 8: List Elements -->
         <div class="slide">
             <div class="slide-counter">8 / 16</div>
             <h1>List Elements</h1>
 
+            <!-- UL Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;ul&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Unordered list<br><strong>Attributes:</strong> class,
-                    id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Unordered list
+                    (bulleted)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="ul-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="ul-tag">
+<ul class="bullet-list">
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+</ul>
+        </script>
             </div>
 
+            <!-- OL Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;ol&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Ordered list<br><strong>Attributes:</strong> start,
-                    reversed, type, class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Ordered list
+                    (numbered)<br><strong>Attributes:</strong> start, reversed, type, class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="ol-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="ol-tag">
+<ol start="3" type="A" class="numbered-list">
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ol>
+        </script>
             </div>
 
+            <!-- LI Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;li&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> List item<br><strong>Attributes:</strong> value (for
-                    ol), class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> List item inside ul or
+                    ol<br><strong>Attributes:</strong> value (for ol), class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="li-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="li-tag">
+<ol>
+  <li value="5">Custom Number</li>
+  <li>Normal Number</li>
+</ol>
+        </script>
             </div>
 
+            <!-- DL Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;dl&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Description list<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Description list (name–value
+                    pairs)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="dl-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="dl-tag">
+<dl>
+  <dt>HTML</dt>
+  <dd>Markup language for web pages</dd>
+  <dt>CSS</dt>
+  <dd>Stylesheet language for design</dd>
+</dl>
+        </script>
             </div>
 
+            <!-- DT Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;dt&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Description term<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Description term
+                    (title)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="dt-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="dt-tag">
+<dt>JavaScript</dt>
+        </script>
             </div>
 
+            <!-- DD Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;dd&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Description details<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes"><strong>Purpose:</strong> Description definition
+                    (details)<br><strong>Attributes:</strong> class, id, style</div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="dd-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="dd-tag">
+<dd>A programming language for web interactivity</dd>
+        </script>
             </div>
         </div>
+
 
         <!-- Slide 9: Tables -->
         <div class="slide">
             <div class="slide-counter">9 / 16</div>
             <h1>Table Elements</h1>
 
+            <!-- TABLE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;table&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Table container<br><strong>Attributes:</strong> class,
-                    id, style, border</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Container for table data<br>
+                    <strong>Attributes:</strong> class, id, style, border
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="table-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="table-tag">
+<!-- 
+  border="1"     : Adds a border around the table
+-->
+                <table class="data-table" id="student-table" style="width:100%;" border="1">
+                    <!-- Table rows will go here -->
+                </table>
+                </script>
             </div>
 
+            <!-- THEAD / TBODY / TFOOT Tags -->
             <div class="tag-item">
                 <div class="tag-name">&lt;thead&gt; / &lt;tbody&gt; / &lt;tfoot&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Table sections<br><strong>Attributes:</strong> class,
-                    id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Logical sections of a table (header, body, footer)<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="thead-tbody-tfoot-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="thead-tbody-tfoot-tag">
+<table>
+  <thead class="header-row">
+    <tr><th>Name</th><th>Marks</th></tr>
+  </thead>
+  <tbody class="body-rows">
+    <tr><td>Alice</td><td>85</td></tr>
+  </tbody>
+  <tfoot class="footer-row">
+    <tr><td colspan="2">End of Results</td></tr>
+  </tfoot>
+</table>
+        </script>
             </div>
 
+            <!-- TR Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;tr&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Table row<br><strong>Attributes:</strong> class, id,
-                    style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Defines a row in a table<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="tr-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="tr-tag">
+<tr class="highlight-row" id="row-1" style="background:#f2f2f2;">
+  <td>John</td>
+  <td>90</td>
+</tr>
+        </script>
             </div>
 
+            <!-- TH Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;th&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Table header cell<br><strong>Attributes:</strong>
-                    colspan, rowspan, scope, headers</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Table header cell (usually bold and centered)<br>
+                    <strong>Attributes:</strong> colspan, rowspan, scope, headers
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="th-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="th-tag">
+<!-- 
+  scope="col"   : Indicates this header is for the column
+  colspan="2"   : Span header across 2 columns
+-->
+                <tr>
+                    <th scope="col" colspan="2">Student Info</th>
+                </tr>
+                </script>
             </div>
 
+            <!-- TD Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;td&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Table data cell<br><strong>Attributes:</strong>
-                    colspan, rowspan, headers</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Standard data cell inside a table row<br>
+                    <strong>Attributes:</strong> colspan, rowspan, headers
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="td-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="td-tag">
+<!-- 
+  rowspan="2"   : Merge two rows vertically
+-->
+                <tr>
+                    <td rowspan="2">Math</td>
+                    <td>80</td>
+                </tr>
+                <tr>
+                    <td>85</td>
+                </tr>
+                </script>
             </div>
 
+            <!-- CAPTION Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;caption&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Table caption<br><strong>Attributes:</strong> class,
-                    id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provides a title or explanation for the table<br>
+                    <strong>Attributes:</strong> class, id, style
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="caption-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="caption-tag">
+<!-- 
+  style="caption-side:top;" : Show caption above the table
+-->
+                <table>
+                    <caption class="title" id="score-caption" style="caption-side:top;">
+                        Student Scores Table
+                    </caption>
+                    <tr>
+                        <th>Name</th>
+                        <th>Marks</th>
+                    </tr>
+                    <tr>
+                        <td>Bob</td>
+                        <td>75</td>
+                    </tr>
+                </table>
+                </script>
             </div>
         </div>
+
 
         <!-- Slide 10: Forms Part 1 -->
         <div class="slide">
             <div class="slide-counter">10 / 16</div>
             <h1>Form Elements - Part 1</h1>
 
+            <!-- FORM Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;form&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Form container<br><strong>Attributes:</strong> action,
-                    method, enctype, target, novalidate, autocomplete</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Container for input controls to collect user data<br>
+                    <strong>Attributes:</strong> action, method, enctype, target, novalidate, autocomplete
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="form-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="form-tag">
+<!-- 
+  action="/submit"           : Form data will be sent to /submit
+  method="post"              : Data will be sent in request body
+  enctype="multipart/form-data" : Allows file uploads
+  target="_self"             : Response will load in the same tab
+  autocomplete="on"          : Suggest previous input
+-->
+                <form action="/submit" method="post" enctype="multipart/form-data" target="_self" autocomplete="on">
+                    <!-- Text input -->
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <!-- Email input -->
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <!-- File input -->
+                    <label for="avatar">Upload Photo:</label>
+                    <input type="file" id="avatar" name="avatar">
+
+                    <!-- Submit button -->
+                    <button type="submit">Submit Form</button>
+                </form>
+                </script>
             </div>
 
+            <!-- INPUT Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;input&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Input control<br><strong>Key Attributes:</strong>
-                    type, name, value, placeholder, required, disabled, pattern, min, max</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Single-line input field for text, email, number, etc.<br>
+                    <strong>Key Attributes:</strong> type, name, value, placeholder, required, disabled, pattern, min,
+                    max
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="input-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="input-tag">
+<!-- 
+  type="text"          : Type of input (e.g., text, email)
+  placeholder="Name"   : Hint for the user
+  required             : Field must be filled before submission
+-->
+                <input type="text" name="username" placeholder="Enter your name" required>
+                </script>
             </div>
 
+            <!-- TEXTAREA Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;textarea&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Multi-line text input<br><strong>Attributes:</strong>
-                    name, rows, cols, placeholder, required, maxlength</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Multi-line text input<br>
+                    <strong>Attributes:</strong> name, rows, cols, placeholder, required, maxlength
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="textarea-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="textarea-tag">
+<!-- 
+  rows="4" cols="30"       : Size of textarea
+  maxlength="200"          : Max number of characters
+-->
+                <textarea name="message" rows="4" cols="30" placeholder="Write your message..."
+                    maxlength="200"></textarea>
+                </script>
             </div>
 
+            <!-- BUTTON Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;button&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Clickable button<br><strong>Attributes:</strong> type,
-                    name, value, disabled, form</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Clickable button (submit, reset, or custom)<br>
+                    <strong>Attributes:</strong> type, name, value, disabled, form
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="button-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="button-tag">
+<!-- 
+  type="submit"        : Submits the form
+  disabled             : Prevents clicking
+-->
+                <button type="submit" name="submitBtn" value="yes" disabled>Submit</button>
+                </script>
             </div>
 
+            <!-- SELECT Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;select&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Dropdown list<br><strong>Attributes:</strong> name,
-                    multiple, size, required, disabled</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Dropdown list to choose one or more options<br>
+                    <strong>Attributes:</strong> name, multiple, size, required, disabled
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="select-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="select-tag">
+<!-- 
+  multiple              : Allows selecting more than one option
+  required              : Field must be selected before submission
+-->
+                <select name="fruits" multiple required>
+                    <option value="apple">Apple</option>
+                    <option value="banana">Banana</option>
+                </select>
+                </script>
             </div>
 
+            <!-- OPTION Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;option&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Option in select<br><strong>Attributes:</strong>
-                    value, selected, disabled, label</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Defines an item in a dropdown list<br>
+                    <strong>Attributes:</strong> value, selected, disabled, label
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="option-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="option-tag">
+<!-- 
+  selected              : Pre-selects the option
+  disabled              : Makes the option unselectable
+-->
+                <select>
+                    <option value="none" disabled selected>Select an option</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                </select>
+                </script>
             </div>
         </div>
 
@@ -739,82 +1751,310 @@
             <div class="slide-counter">11 / 16</div>
             <h1>Form Elements - Part 2</h1>
 
+            <!-- LABEL Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;label&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Label for form control<br><strong>Attributes:</strong>
-                    for, form</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provides a caption for form input elements<br>
+                    <strong>Attributes:</strong> for, form
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="label-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="label-tag">
+<!-- 
+  for="email"           : Associates label with input having id="email"
+-->
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email">
+                </script>
             </div>
 
+            <!-- FIELDSET Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;fieldset&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Group form controls<br><strong>Attributes:</strong>
-                    disabled, form, name</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Groups related form controls together<br>
+                    <strong>Attributes:</strong> disabled, form, name
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="fieldset-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="fieldset-tag">
+<!-- 
+  disabled              : Disables all controls inside
+-->
+                <fieldset name="user-info">
+                    <legend>User Info</legend>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name">
+                </fieldset>
+                </script>
             </div>
 
+            <!-- LEGEND Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;legend&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Caption for fieldset<br><strong>Attributes:</strong>
-                    class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provides a caption for the <code>&lt;fieldset&gt;</code><br>
+                    <strong>Attributes:</strong> class, id
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="legend-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="legend-tag">
+<!-- 
+  class="legend-title"  : Styling the legend
+-->
+                <fieldset>
+                    <legend class="legend-title" id="form-title">Account Settings</legend>
+                    <input type="checkbox" id="notify"> Notify me
+                </fieldset>
+                </script>
             </div>
 
+            <!-- DATALIST Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;datalist&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Predefined options
-                    list<br><strong>Attributes:</strong> class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Specifies predefined input options<br>
+                    <strong>Attributes:</strong> class, id
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="datalist-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="datalist-tag">
+<!-- 
+  id="browsers"        : Linked with input's list attribute
+-->
+                <input list="browsers" name="browser" placeholder="Choose a browser">
+                <datalist id="browsers" class="browser-list">
+                    <option value="Chrome">
+                    <option value="Firefox">
+                    <option value="Edge">
+                </datalist>
+                </script>
             </div>
 
+            <!-- PROGRESS Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;progress&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Progress indicator<br><strong>Attributes:</strong>
-                    value, max</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Shows progress of a task<br>
+                    <strong>Attributes:</strong> value, max
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="progress-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="progress-tag">
+<!-- 
+  value="40" max="100" : Progress is 40%
+-->
+                <label for="task">Uploading...</label>
+                <progress id="task" value="40" max="100">40%</progress>
+                </script>
             </div>
 
+            <!-- METER Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;meter&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Scalar measurement<br><strong>Attributes:</strong>
-                    value, min, max, low, high, optimum</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Displays a scalar measurement (like disk usage)<br>
+                    <strong>Attributes:</strong> value, min, max, low, high, optimum
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="meter-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="meter-tag">
+<!-- 
+  value="0.6" min="0" max="1" low="0.3" high="0.8" optimum="0.7"
+-->
+                <label for="score">Satisfaction:</label>
+                <meter id="score" value="0.6" min="0" max="1" low="0.3" high="0.8" optimum="0.7"></meter>
+                </script>
             </div>
         </div>
 
         <!-- Slide 12: Media Elements -->
         <div class="slide">
             <div class="slide-counter">12 / 16</div>
-            <h1>Media Elements</h1>
+            <h1>Media Elements (Detailed Attributes)</h1>
 
+            <!-- IMG -->
             <div class="tag-item">
                 <div class="tag-name">&lt;img&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Image<br><strong>Attributes:</strong> src, alt, width,
-                    height, loading, sizes, srcset</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Embeds an image<br><br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>src</code>: URL/path to the image file.</li>
+                        <li><code>alt</code>: Descriptive text shown if image fails OR read by screen readers.</li>
+                        <li><code>loading</code>: <code>"lazy"</code> delays loading until it’s near viewport;
+                            <code>"eager"</code> loads immediately.
+                        </li>
+                        <li><code>decoding</code>: <code>"async"</code> lets browser decode image off-main-thread;
+                            <code>"sync"</code> waits.
+                        </li>
+                        <li><code>srcset</code> &amp; <code>sizes</code>: Provide responsive image versions based on
+                            viewport width.</li>
+                        <li><code>usemap</code>: Associates image with an <code>&lt;map&gt;</code> for clickable
+                            regions.</li>
+                        <li><code>crossorigin</code>: Controls fetching credentials; <code>"anonymous"</code> or
+                            <code>"use-credentials"</code>.
+                        </li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="img-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="img-tag">
+<!-- Example using key attributes -->
+                <img src="photo.jpg" alt="Scene at sunset" loading="lazy" decoding="async"
+                    srcset="photo-small.jpg 400w, photo-large.jpg 800w" sizes="(max-width:600px) 400px, 800px"
+                    usemap="#map1" crossorigin="anonymous">
+                </script>
             </div>
 
+            <!-- AUDIO -->
             <div class="tag-item">
                 <div class="tag-name">&lt;audio&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Audio content<br><strong>Attributes:</strong> src,
-                    controls, autoplay, loop, muted, preload</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Embeds audio (music, podcasts, narration)<br><br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>controls</code>: If present, shows browser's default play/pause UI.</li>
+                        <li><code>autoplay</code>: Starts playback immediately; often muted to prevent intrusive audio.
+                        </li>
+                        <li><code>loop</code>: Repeats the audio continuously after ending.</li>
+                        <li><code>muted</code>: Silences audio; useful when combining with autoplay.</li>
+                        <li><code>preload</code>: Controls preload behavior: <code>"none"</code>,
+                            <code>"metadata"</code>, or <code>"auto"</code>.
+                        </li>
+                        <li><code>crossorigin</code>: Controls credential behavior with cross-origin requests.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="audio-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="audio-tag">
+<audio src="song.mp3"
+       controls autoplay muted loop
+       preload="metadata"
+       crossorigin="use-credentials">
+  Your browser does not support the audio element.
+</audio>
+        </script>
             </div>
 
+            <!-- VIDEO -->
             <div class="tag-item">
                 <div class="tag-name">&lt;video&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Video content<br><strong>Attributes:</strong> src,
-                    controls, autoplay, loop, poster, width, height</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Embeds video content<br><br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>controls</code>, <code>autoplay</code>, <code>loop</code>, <code>muted</code> (same
+                            behavior as audio).</li>
+                        <li><code>preload</code>: Preload behavior—<code>"metadata"</code> recommended to avoid large
+                            downloads.</li>
+                        <li><code>poster</code>: URL to an image shown before playback starts.</li>
+                        <li><code>playsinline</code>: Prevents full-screen on mobile Safari; important for inline
+                            videos.</li>
+                        <li><code>crossorigin</code>: Credential mode for CORS video sources.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="video-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="video-tag">
+<video src="video.mp4" controls autoplay loop muted
+       preload="metadata" poster="preview.jpg"
+       playsinline crossorigin="anonymous">
+  Your browser does not support the video tag.
+</video>
+        </script>
             </div>
 
+            <!-- SOURCE -->
             <div class="tag-item">
                 <div class="tag-name">&lt;source&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Media resource<br><strong>Attributes:</strong> src,
-                    type, media, sizes, srcset</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provides multiple media variants (audio/video/image)<br><br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>src</code>: File source URL.</li>
+                        <li><code>type</code>: MIME type hint (e.g., <code>video/mp4</code>).</li>
+                        <li><code>media</code>: Media query, to select source based on screen condition.</li>
+                        <li><code>srcset</code> & <code>sizes</code>: For responsive `&lt;picture&gt;` images.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="source-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="source-tag">
+<video controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.webm" type="video/webm">
+</video>
+        </script>
             </div>
 
+            <!-- FIGURE / FIGCAPTION -->
             <div class="tag-item">
                 <div class="tag-name">&lt;figure&gt; / &lt;figcaption&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Self-contained content with
-                    caption<br><strong>Attributes:</strong> class, id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Group a media item and its caption<br><br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>figcaption</code> must be first or last child of `&lt;figure&gt;`.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="figure-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="figure-tag">
+<figure>
+  <img src="sunset.jpg" alt="Sunset at mountains" loading="lazy">
+  <figcaption>Sunset over the mountains</figcaption>
+</figure>
+        </script>
             </div>
 
+            <!-- PICTURE -->
             <div class="tag-item">
                 <div class="tag-name">&lt;picture&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Responsive images
-                    container<br><strong>Attributes:</strong> class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provide responsive image sources<br><br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li>`
+                            &lt;source&gt;` inside `&lt;picture&gt;` uses media/srcset.
+                        </li>
+                        <li>`&lt;img&gt;` fallback uses standard `src`/`alt` attributes.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="picture-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="picture-tag">
+<picture>
+  <source media="(min-width:800px)" srcset="image-large.jpg">
+  <source media="(max-width:799px)" srcset="image-small.jpg">
+  <img src="image-default.jpg" alt="Responsive example" loading="lazy">
+</picture>
+        </script>
             </div>
         </div>
 
@@ -824,41 +2064,150 @@
             <h1>Interactive & Embedded Elements</h1>
 
             <h2>Interactive Elements</h2>
+
+            <!-- DETAILS Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;details&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Disclosure widget<br><strong>Attributes:</strong> open
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provides a collapsible disclosure widget.<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>open</code>: If present, makes the content visible by default.</li>
+                    </ul>
                 </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="details-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="details-tag">
+<!-- 
+  open                  : Content is expanded by default
+-->
+                <details open>
+                    <summary>More info</summary>
+                    <p>This is additional details text.</p>
+                </details>
+                </script>
             </div>
 
+            <!-- SUMMARY Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;summary&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Summary for details<br><strong>Attributes:</strong>
-                    class, id, style</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Serves as the visible label for a `&lt;details&gt;` widget.<br>
+                    <strong>Important Attributes:</strong> None beyond default (class/id/style optional)
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="summary-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="summary-tag">
+<details>
+  <summary>Show more</summary>
+  <p>Extra content here.</p>
+</details>
+        </script>
             </div>
 
+            <!-- DIALOG Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;dialog&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Dialog box/modal<br><strong>Attributes:</strong> open
+                <div class="attributes">
+                    <strong>Purpose:</strong> Native dialog/modal window (alert, confirm, custom).<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>open</code>: If present, dialog is shown. Remove to hide.</li>
+                    </ul>
                 </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="dialog-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="dialog-tag">
+<!-- 
+  open                  : Dialog is displayed
+-->
+                <dialog open>
+                    <p>This is a dialog box.</p>
+                    <button onclick="this.parentElement.close()">Close</button>
+                </dialog>
+                </script>
             </div>
 
             <h2>Embedded Content</h2>
+
+            <!-- IFRAME Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;iframe&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Inline frame<br><strong>Attributes:</strong> src,
-                    width, height, sandbox, loading</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Embeds another HTML page within the current document.<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>src</code>: URL of the page to embed.</li>
+                        <li><code>width</code>, <code>height</code>: Size of frame in pixels.</li>
+                        <li><code>loading</code>: <code>"lazy"</code> or <code>"eager"</code> for deferred loading.</li>
+                        <li><code>sandbox</code>: Applies restrictions (e.g.,
+                            <code>"allow-scripts allow-same-origin"</code>).
+                        </li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="iframe-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="iframe-tag">
+<iframe src="https://example.com"
+        width="600" height="400"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin">
+</iframe>
+        </script>
             </div>
 
+            <!-- CANVAS Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;canvas&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Graphics container<br><strong>Attributes:</strong>
-                    width, height</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Draw graphics via scripting (2D/3D).<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>width</code>, <code>height</code>: Define drawing area size.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="canvas-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="canvas-tag">
+<canvas width="300" height="150"></canvas>
+<script>
+const ctx = document.querySelector('canvas').getContext('2d');
+ctx.fillStyle = 'lightblue';
+ctx.fillRect(0, 0, 300, 150);
+</script>
+                </script>
             </div>
 
+            <!-- SVG Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;svg&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> SVG graphics<br><strong>Attributes:</strong> width,
-                    height, viewBox</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Embed vector graphics.<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>width</code>, <code>height</code>: Display size.</li>
+                        <li><code>viewBox</code>: Defines internal coordinate system.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="svg-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="svg-tag">
+<svg width="100" height="100" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="40" stroke="green" fill="lightgreen"/>
+</svg>
+        </script>
             </div>
         </div>
 
@@ -868,31 +2217,135 @@
             <h1>Scripting & Web Components</h1>
 
             <h2>Scripting Elements</h2>
+
+            <!-- SCRIPT Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;script&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> JavaScript code<br><strong>Attributes:</strong> src,
-                    type, async, defer, crossorigin</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> To embed or reference JavaScript code.<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>src</code>: Specifies the URL of an external script.</li>
+                        <li><code>type</code>: MIME type of script (default is <code>text/javascript</code>, newer:
+                            <code>module</code> for ES modules).</li>
+                        <li><code>async</code>: Loads script asynchronously (doesn’t wait for DOM to finish parsing).
+                        </li>
+                        <li><code>defer</code>: Delays script execution until after DOM is fully parsed.</li>
+                        <li><code>crossorigin</code>: Controls CORS (e.g., <code>anonymous</code> or
+                            <code>use-credentials</code>).</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="script-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="script-tag">
+<!-- 
+  src="app.js"             : External JS file
+  type="module"            : ES6 module
+  defer                    : Load after HTML parsing
+  crossorigin="anonymous"  : CORS enabled without credentials
+-->
+                <script src="app.js" type="module" defer crossorigin="anonymous"></script>
+                </script>
             </div>
 
+            <!-- NOSCRIPT Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;noscript&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Fallback for no
-                    JavaScript<br><strong>Attributes:</strong> class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Provides fallback content when JavaScript is disabled.<br>
+                    <strong>Important Attributes:</strong> None beyond class/id/style.
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="noscript-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="noscript-tag">
+<noscript>
+  <p>Your browser does not support JavaScript or it is disabled.</p>
+</noscript>
+    </script>
             </div>
 
             <h2>Web Components</h2>
+
+            <!-- TEMPLATE Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;template&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Template element<br><strong>Attributes:</strong>
-                    class, id</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Defines reusable HTML fragments that are not rendered immediately.<br>
+                    <strong>Important Attributes:</strong> None beyond class/id.
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="template-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="template-tag">
+<template id="user-card">
+  <div class="card">
+    <h2></h2>
+    <p></p>
+  </div>
+</template>
+
+<script>
+  const template = document.getElementById("user-card");
+  const clone = template.content.cloneNode(true);
+  clone.querySelector("h2").textContent = "John Doe";
+  clone.querySelector("p").textContent = "Developer";
+  document.body.appendChild(clone);
+</script>
+                </script>
             </div>
 
+            <!-- SLOT Tag -->
             <div class="tag-item">
                 <div class="tag-name">&lt;slot&gt;</div>
-                <div class="attributes"><strong>Purpose:</strong> Web component slot<br><strong>Attributes:</strong>
-                    name</div>
+                <div class="attributes">
+                    <strong>Purpose:</strong> Placeholder inside Shadow DOM for user-supplied content.<br>
+                    <strong>Important Attributes:</strong><br>
+                    <ul>
+                        <li><code>name</code>: Named slot that allows insertion of content into specific slots.</li>
+                    </ul>
+                </div>
+                <details>
+                    <summary>Show Code</summary>
+                    <pre><code class="language-html" id="slot-tag"></code></pre>
+                </details>
+                <script type="text/plain" data-target="slot-tag">
+<!-- Shadow DOM definition -->
+                <template id="my-component">
+                    <style>
+                        p {
+                            color: red;
+                        }
+                    </style>
+                    <p>
+                        <slot name="custom-text">Default Text</slot>
+                    </p>
+                </template>
+
+                <script>
+  class MyComponent extends HTMLElement {
+    constructor() {
+      super();
+      const shadow = this.attachShadow({ mode: 'open' });
+      const tmpl = document.getElementById('my-component');
+      shadow.appendChild(tmpl.content.cloneNode(true));
+    }
+  }
+  customElements.define('my-component', MyComponent);
+</script>
+
+                <!-- Using the slot -->
+                <my-component>
+                    <span slot="custom-text">Hello from Light DOM</span>
+                </my-component>
+                </script>
             </div>
         </div>
+
 
         <!-- Slide 15: Global Attributes -->
         <div class="slide">
@@ -961,7 +2414,8 @@
                 </p>
                 <div
                     style="margin-top: 40px; padding: 20px; background: #374151; border-radius: 10px; border-left: 5px solid #667eea;">
-                    <strong>Pro Tip:</strong> Bookmark this presentation and use the navigation to quickly find the tags
+                    <strong>Pro Tip:</strong> Bookmark this presentation and use the navigation to quickly find the
+                    tags
                     you need!
                 </div>
             </div>
@@ -1012,6 +2466,41 @@
         // Initialize
         showSlide(0);
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('script[type="text/plain"]').forEach((el) => {
+                const code = el.textContent.trim();
+                const target = document.getElementById(el.dataset.target);
+                if (target) {
+                    target.textContent = code;
+                    Prism.highlightElement(target);
+
+                    // Add copy button
+                    const wrapper = target.closest("details");
+                    wrapper.style.position = "relative";
+                    if (wrapper && !wrapper.querySelector(".copy-btn")) {
+                        const btn = document.createElement("button");
+                        btn.className = "copy-btn";
+                        const clipboard = `  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M16 4V2H8v2H2v18h20V4h-6zm-6 0h4v2h-4V4zm10 16H4V6h4v2h8V6h4v14z"/>
+  </svg>`;
+                        btn.innerHTML = clipboard + " Copy";
+                        btn.onclick = () => {
+                            navigator.clipboard.writeText(code).then(() => {
+                                btn.textContent = "Copied!";
+                                setTimeout(() => (btn.textContent = "Copy"), 2000);
+                            });
+                        };
+                        wrapper.appendChild(btn);
+                    }
+                }
+            });
+        });
+    </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 </body>
 
 </html>
