@@ -8,7 +8,7 @@ export default function About() {
                 <div className="container mx-auto text-center px-4">
                     <h1 className="text-4xl font-bold">About Me</h1>
                     <p className="mt-4 text-lg">
-                        Welcome to <span className="font-semibold">Ashirwad Balaji</span>, your destination for BCA, coding tutorials, and educational resources.
+                        Welcome to <span className="font-semibold">Studic</span>, your destination for BCA, coding tutorials, and educational resources.
                     </p>
                 </div>
             </section>
@@ -37,7 +37,7 @@ export default function About() {
                     <div className="text-center">
                         <h3 className="text-xl font-bold">Vision</h3>
                         <p className="mt-4">
-                            My goal is to make education accessible and affordable for all, ensuring every student can excel in their academics and coding journey. Whether you are preparing for your BCA exams or learning new programming skills, <span className="font-semibold">Ashirwad Balaji</span> is here to guide you every step of the way.
+                            My goal is to make education accessible and affordable for all, ensuring every student can excel in their academics and coding journey. Whether you are preparing for your BCA exams or learning new programming skills, <span className="font-semibold">Studic</span> is here to guide you every step of the way.
                         </p>
                     </div>
                 </div>

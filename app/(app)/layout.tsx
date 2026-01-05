@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Ashirwad Balaji",
+  title: "Studic",
   description: "Best plateform for student and coders",
 };
 

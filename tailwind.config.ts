@@ -84,6 +84,9 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				"inputs": 'inputs 8s steps(22) infinite',
 				"cursor": 'cursor 0.5s step-end infinite alternate, blinking 0.5s infinite',
+			},
+			fontFamily: {
+				tdb: ["var(--tdb)"]
 			}
 		}
 	},

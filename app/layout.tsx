@@ -4,6 +4,13 @@ import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/navbar/Navbar";
+import localFont from "next/font/local";
+const tdb = localFont({
+  src: "../public/fonts/tdb.ttf",
+  variable: "--tdb",
+  weight: "400",
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +44,7 @@ export default function RootLayout({
           crossOrigin="anonymous"></script>}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative w-full h-full `}
+        className={`${geistSans.variable} ${geistMono.variable} ${tdb.variable} antialiased relative w-full h-full `}
       >
 
         <SessionProvider >

@@ -49,7 +49,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
             <div>
                 <div className="w-72 z-40 fixed hidden lg:bg-primary/5 lg:block top-0 left-0 pt-4 h-screen">
                     <div className="flex flex-col justify-between h-full">
-                        <div className="font-bold text-sky-700 pl-6 text-2xl pb-3">Ashirwad Balaji</div>
+                        <div className="font-bold text-sky-700 pl-6 text-2xl pb-3">Studic</div>
                         <Sidebar routes={routes} />
                     </div>
                 </div>

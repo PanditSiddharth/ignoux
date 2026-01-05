@@ -17,6 +17,7 @@ import { IoBookOutline } from "react-icons/io5";
 import { MdOutlineAnalytics } from "react-icons/md";
 
 export const NavbarDropdown = () => {
+
     const { data: session, status } = useSession();
     const pathname = usePathname();
     const navigations = [
